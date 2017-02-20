@@ -1,0 +1,73 @@
+  <!doctype html>
+  <html lang="en-US" class=" fonts-loaded ">
+  <head>
+    <title></title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.3/fabric.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <a href="">Annotator</a>
+      <nav>
+        <a href="index.html">demographic</a>
+        <a>regions</a>
+        <a href="landmark-annotation-region-1.html">landmarks</a>
+      </nav>
+    </header>
+
+    <canvas id="c" width="500" height="500"></canvas>
+
+    <script>
+    (function() {
+    var canvas = this.__canvas = new fabric.Canvas('c');
+    fabric.Object.prototype.transparentCorners = false;
+    fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
+
+
+    canvas.setBackgroundImage('../face.jpeg', canvas.renderAll.bind(canvas), {
+      // Needed to position backgroundImage at 0/0
+      originX: 'left',
+      originY: 'top'
+    });
+
+    var rect = new fabric.Rect({
+      left: 290,
+      top: 210,
+      width: 80,
+      height: 60,
+      fill: 0,
+      stroke: '#333',
+      hasRotatingPoint: 0
+    });
+    canvas.add(rect);
+
+    function capturePoints(){
+      var input = document.querySelectorAll('[name=point-1]');
+      input[0].value= rect.top + ", " +rect.left;
+    }
+
+    canvas.on({
+      'object:moving': capturePoints,
+      'object:scaling': capturePoints,
+      'object:resizing': capturePoints,
+      'object:rotating': capturePoints
+    });
+
+  })();
+</script>
+
+  <p>
+    Where is this person's right eye?
+  </p>
+  <form>
+    Bounding Box: <input name="point-1" type="text", placeholder="0"><br>
+    <input type="submit">
+  </form>
+
+  <footer>
+    <a class="undo" href=""><</a>
+    step 1 of 12
+    <a class="next" href="">></a>
+  </footer>
+</body>
+</html>

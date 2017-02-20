@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-US" class=" fonts-loaded ">
+<head>
+<title></title>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.3/fabric.min.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <header>
+    <a href="">Annotator</a>
+    <nav>
+      <a href="index.html">demographic</a>
+      <a href="region-annotation.html">regions</a>
+      <a>landmarks</a>
+    </nav>
+  </header>
+  <canvas id="c" width="500" height="500"></canvas>
+
+  <script>
+  (function() {
+
+    var canvas = foo = this.__canvas = new fabric.Canvas('c');
+
+    fabric.Object.prototype.transparentCorners = false;
+    fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
+
+    canvas.setBackgroundImage('../region-1.jpeg', canvas.renderAll.bind(canvas), {
+      originX: 'left',
+      originY: 'top'
+    });
+
+    function makeCircle(left, top, id, color) {
+      var c = new fabric.Circle({
+        left: left,
+        top: top,
+        strokeWidth: 1,
+        radius: 8,
+        fill: color || '#33a',
+        uniqId: id
+      });
+      c.hasControls = c.hasBorders = false;
+      return c;
+    }
+
+    canvas.add(
+      makeCircle(70, 200, 1),
+      makeCircle(150, 180, 2),
+      makeCircle(215, 185, 3),
+      makeCircle(220, 280, 4),
+      makeCircle(160, 280, 5),
+      makeCircle(310, 275, 6)
+    );
+
+
+    function capturePoints(landmark){
+      var input = document.querySelectorAll('[name=point-' + landmark.target.uniqId + ']');
+      if (input[0]){
+        input[0].value=landmark.target.left + ", " + landmark.target.top;
+      }
+    }
+
+    canvas.on({
+      'object:moving': capturePoints,
+      'object:scaling': capturePoints,
+      'object:resizing': capturePoints,
+      'object:rotating': capturePoints
+    });
+  })();
+</script>
+  <p>
+    Place the landmarks around the person's eye.
+  </p>
+  <form>
+    point 1: <input name="point-1" type="text", placeholder="0"><br>
+    point 2: <input name="point-2" type="text", placeholder="0"><br>
+    point 3: <input name="point-3" type="text", placeholder="0"><br>
+    point 4: <input name="point-4" type="text", placeholder="0"><br>
+    point 5: <input name="point-5" type="text", placeholder="0"><br>
+    point 6: <input name="point-6" type="text", placeholder="0"><br>
+    <input type="submit">
+  </form>
+
+  <footer>
+    <a class="undo" href=""><</a>
+    step 1 of 12
+    <a class="next" href="">></a>
+  </footer>
+</body>
+</html>

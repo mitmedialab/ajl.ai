@@ -1,0 +1,7 @@
+{
+  "name": "image-annotator",
+  "version": "0.0.1",
+  "description": "ui for annotating images",
+  "author": "boaz sender",
+  "license": "MIT"
+}

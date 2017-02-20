@@ -1,0 +1,170 @@
+  <!doctype html>
+  <html lang="en-US" class=" fonts-loaded ">
+  <head>
+    <title></title>
+    <style>
+     canvas {
+     }
+     svg {
+       background-image: url('../face.jpeg');
+       background-size: cover;
+       width: 400px;
+       height: 400px;
+     }
+     .region-selector {
+       width: 100px;
+       height: 100px;
+       background: #b4d455;
+     }
+     circle, rect {
+       cursor: pointer;
+       /*transition: all .5s;*/
+     }
+    </style>
+    <script src="http://snapsvg.io/assets/js/snap.svg-min.js?v=1"></script>
+    <script src="http://svg.dabbles.info/snaptut-freetransform.js"></script>
+
+  </head>
+  <body>
+
+    <svg></svg>
+    <script>
+      var s = Snap("svg");
+      // Landmark placer
+
+      function makeLandmark(x, y, r){
+        var _landmark = s.circle(x, y, r||3);
+        _landmark
+          .drag()
+          .animate()
+          .hover(function(){
+            this.attr({stroke: "pink", "stroke-width": "3"})
+          }, function(){
+            this.attr({stroke: "none"})
+          })
+          .drag(function(){},
+            function(){
+              this.attr({fill: "#eee"})
+            }, function(){
+              this.attr({fill: "#b4d455"})
+            });
+        return _landmark;
+      }
+
+      var landmarks = s.group(
+        makeLandmark(150, 150),
+        makeLandmark(160, 170),
+        makeLandmark(175, 175),
+        makeLandmark(170, 150),
+        makeLandmark(190, 170),
+        makeLandmark(190, 155)
+      ).attr({
+        fill: "#b4d455"
+      });
+
+
+
+
+
+
+
+
+
+
+      //sqaure maker
+      function makeCorner(x, y, r){
+        var _landmark = s.circle(x, y, r||3);
+        _landmark
+          .drag()
+          .animate()
+          .drag(
+            function(){
+            }, function(){
+
+            }, function(){
+              var bbox = regrionSelector.getBBox();
+              console.log(bbox )
+              this.attr({
+                "x": bbox.x,
+                "y": bbox.y
+              })
+            });
+        return _landmark;
+      }
+
+      var regrionSelector =  s.rect(230, 150, 60, 60)
+      .attr({
+          fill: "none",
+          stroke: "black",
+          "stroke-width": "3",
+          "stroke-dasharray": "8"
+        });
+
+      var corners = s.group(
+        makeCorner(230, 150, 6),
+        makeCorner(230, 210, 6),
+        makeCorner(290, 150, 6),
+        makeCorner(290, 210, 6)
+      );
+
+      corners.drag(function(){
+        bbox = this.getBBox();
+
+        regrionSelector.attr({
+          "x": bbox.x,
+          "y": bbox.y,
+          "height": bbox.width,
+          "width": bbox.height
+        })
+
+      }, function(){
+
+      },function(){});
+
+      // s.polygon([
+      //   230, 160,
+      //   290, 160,
+      //   290, 200,
+      //   230, 200
+      // ])
+
+
+      // var selector = document.querySelectorAll('.region-selector')[0]
+      // selector.addEventListener("click", function(){
+      //   console.log('foo')
+      // });
+      //
+      // selector.addEventListener('dragstart', function(e){
+      //   e.dataTransfer.setData('text', 'foo');
+      // });
+      //
+
+    </script>
+
+    <p>
+      What are this persons' demos?
+    </p>
+    <p>
+      age: (younger)<input type="range" min="14" max="105">(older)
+    </p>
+
+    <p>
+      percieved  gender: <!-- <input type="text"> -->
+      <select>
+        <option value="male">male</option>
+        <option  value="female">female</option>
+        <option value="genderqueer">genderqueer</option>
+      </select>
+    </p>
+
+    <p>
+    perceived ethnicity:
+    <select>
+      <option value="black">black</option>
+      <option value="latino">latino</option>
+      <option value="white">white</option>
+      <option value="asian">asian</option>
+      <option value="other">other</option>
+    </select>
+  </body>
+  </html>

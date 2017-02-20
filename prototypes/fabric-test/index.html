@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en-US" class=" fonts-loaded ">
+<head>
+<title></title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.3/fabric.min.js"></script>
+</head>
+<body>
+  <header>
+    <a href="">Annotator</a>
+    <nav>
+      <a>demographic</a>
+      <a href="region-annotation.html">regions</a>
+      <a href="landmark-annotation-region-1.html">landmarks</a>
+    </nav>
+  </header>
+  <canvas id="c" width="500" height="500"></canvas>
+
+<script>
+  (function() {
+    var canvas = this.__canvas = new fabric.Canvas('c');
+
+    fabric.Object.prototype.transparentCorners = false;
+    fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
+
+
+    canvas.setBackgroundImage('../face.jpeg', canvas.renderAll.bind(canvas), {
+      // Needed to position backgroundImage at 0/0
+      originX: 'left',
+      originY: 'top'
+    });
+
+  })();
+</script>
+  <section>
+    <p>
+      What are this persons' demographics?
+    </p>
+    <form>
+      <p>
+        age: (younger)<input type="range" min="14" max="105">(older)
+      </p>
+
+      <p>
+        percieved  gender: <!-- <input type="text"> -->
+        <select>
+          <option value="male">male</option>
+          <option  value="female">female</option>
+          <option value="genderqueer">genderqueer</option>
+        </select>
+      </p>
+
+      <p>
+      perceived ethnicity:
+      <select>
+        <option value="black">black</option>
+        <option value="latino">latino</option>
+        <option value="white">white</option>
+        <option value="asian">asian</option>
+        <option value="other">other</option>
+      </select>
+      <input type="submit">
+    </form>
+  </section>
+
+  <footer>
+    <a class="undo" href=""><</a>
+    step 1 of 12
+    <a class="next" href="">></a>
+  </footer>
+</body>
+</html>

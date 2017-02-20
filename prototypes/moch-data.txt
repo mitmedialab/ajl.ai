@@ -1,0 +1,48 @@
+Brad Banks	male	36	black - http://www.code4rights.com/lfw_subjects/Brad_Banks_0001.jpg
+Ashanti	female	33	black - http://www.code4rights.com/lfw_subjects/Ashanti_0001.jpg
+Brian Jordan	male	44	black - http://www.code4rights.com/lfw_subjects/Brian_Jordan_0001.jpg
+Adriana Lima	female	30	hispanic - http://www.code4rights.com/lfw_subjects/Adriana_Lima_0001.jpg
+Anthony Lee Johnson	male	44	asian - http://www.code4rights.com/lfw_subjects/Anthony_Lee_Johnson_0001.jpg
+Romeo Gigli	male	51	white - http://www.code4rights.com/lfw_subjects/Romeo_Gigli_0001.jpg
+Bob Eskridge	male	42	white - http://www.code4rights.com/lfw_subjects/Bob_Eskridge_0001.jpg
+Asif Ali Zardari	male	47	unlisted - http://www.code4rights.com/lfw_subjects/Asif_Ali_Zardari_0001.jpg
+Ahmad Jbarah	male	69	unlisted - http://www.code4rights.com/lfw_subjects/Ahmad_Jbarah_0001.jpg
+
+---
+
+
+Barry Bonds	male	51	black http://www.code4rights.com/lfw_subjects/Barry_Bonds_0001.jpg 104.250000 141.750000 131.250000 113.750000 145.250000 113.250000 110.750000 130.750000 156.250000 152.750000 1 2 2 3
+Agbani Darego	female	34	black http://www.code4rights.com/lfw_subjects/Agbani_Darego_0001.jpg 102.750000 149.750000 116.750000 108.250000 144.750000 112.250000 110.250000 134.250000 156.250000 155.750000 2 1 2 3
+
+Brad Banks	male	36	black - http://www.code4rights.com/lfw_subjects/Brad_Banks_0001.jpg
+Ashanti	female	33	black - http://www.code4rights.com/lfw_subjects/Ashanti_0001.jpg
+Brian Jordan	male	44	black - http://www.code4rights.com/lfw_subjects/Brian_Jordan_0001.jpg
+
+ HISPANIC
+Antonio Catania	male	44	hispanic - lfw_subjects/Antonio_Catania_0001.jpg 103.250000 146.750000 116.750000 102.250000 140.250000 108.750000 114.250000 139.250000 158.750000 163.250000 1 1 2 3
+Al Cardenas	male	59	hispanic lfw_subjects/Al_Cardenas_0001.jpg 103.750000 148.750000 131.250000 100.750000 140.250000 107.750000 116.250000 142.250000 161.250000 165.750000 1 2 2 4
+Alexa Vega	female	28	hispanic lfw_subjects/Alexa_Vega_0001.jpg 110.750000 149.750000 132.750000 108.750000 136.250000 110.250000 118.250000 136.750000 154.250000 158.750000 2 2 2 3
+Adriana Lima	female	30	hispanic - http://www.code4rights.com/lfw_subjects/Adriana_Lima_0001.jpg
+Andres Pastrana	male	65	hispanic lfw_subjects/Andres_Pastrana_0001.jpg 107.750000 147.250000 133.250000 111.250000 144.250000 116.250000 114.250000 142.250000 160.750000 161.750000 1 2 2 3
+
+ASIAN
+
+Annette Lu	female	58	asian lfw_subjects/Annette_Lu_0001.jpg 103.250000 143.250000 125.250000 108.750000 149.750000 113.750000 108.750000 133.250000 159.750000 154.250000 2 1 1 3
+Anthony Lee Johnson	male	44	asian
+Alan Tang Kwong-wing	male	45	asian lfw_subjects/Alan_Tang_Kwong-wing_0001.jpg 109.750000 148.750000 131.750000 108.250000 140.750000 110.750000 113.250000 135.750000 157.750000 159.250000 1 2 2 3
+Angel Maza	male	44	asian lfw_subjects/Angel_Maza_0001.jpg 106.250000 145.250000 128.750000 106.750000 145.250000 111.750000 112.750000 135.750000 149.750000 148.750000 1 1 2 3
+Brajesh Mishra	male	86	asian lfw_subjects/Brajesh_Mishra_0001.jpg 109.250000 152.250000 139.750000 112.250000 147.750000 112.250000 112.750000 133.250000 154.750000 157.250000 1 2 2 4
+
+WHITE
+Laura Linney	female	36	white lfw_subjects/Laura_Linney_0001.jpg 106.750000 148.750000 121.250000 103.750000 147.750000 112.750000 116.750000 134.250000 156.250000 159.250000 2 1 2 3
+Anthony Corso	male	41	white lfw_subjects/Anthony_Corso_0001.jpg 112.750000 146.750000 141.250000 107.250000 144.750000 112.750000 112.750000 132.250000 151.250000 150.250000 1 1 2 4
+Romeo Gigli	male	51	white
+Bob Eskridge	male	42	white
+Amanda Coetzer	female	28	white lfw_subjects/Amanda_Coetzer_0001.jpg 106.250000 143.250000 126.750000 102.750000 130.750000 108.250000 116.250000 136.250000 149.250000 156.250000 2 2 2 4
+
+UNLISTED
+Asif Ali Zardari	male	47	unlisted
+Ahmad Jbarah	male	69	unlisted
+Akbar Al Baker	male	45	unlisted
+Art Cooper	male	46	unlisted lfw_subjects/Art_Cooper_0001.jpg 110.250000 150.250000 136.250000 107.250000 145.250000 107.750000 113.250000 130.750000 150.750000 152.750000 1 1 2 4
+Ahmed Ibrahim Bilal	male	28	unlisted lfw_subjects/Ahmed_Ibrahim_Bilal_0001.jpg 100.250000 149.250000 125.250000 105.250000 142.750000 108.750000 111.250000 129.750000 154.750000 154.750000 1 2 2 3
