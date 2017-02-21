@@ -27,5 +27,6 @@ Navigate to the following prototypes in your browser:
 
 These commands are available after installation within the `image-annotator/` directory:
 
+- `npm test`: run unit tests with Jest
 - `npm run lint`: run ESLint to identify syntax & style issues in the code
 - `npm run build`: generate a static build into `image-annotator/dist`
