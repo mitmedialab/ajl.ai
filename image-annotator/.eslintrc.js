@@ -1,7 +1,8 @@
 module.exports = {
   extends: 'airbnb',
   env: {
-    browser: true
+    browser: true,
+    jest: true,
   },
   rules: {
     'comma-dangle': ['error', 'always-multiline'],

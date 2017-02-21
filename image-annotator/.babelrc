@@ -11,5 +11,12 @@
     "react-hot-loader/babel",
     // Enables usage of object rest spread in arguments
     "transform-object-rest-spread"
-  ]
+  ],
+  "env": {
+    "test": {
+      // unlike webpack, jest does not understand the native import syntax:
+      // transpile es2015 modules to commonjs syntax within the test runner
+      "plugins": ["transform-es2015-modules-commonjs"]
+    }
+  }
 }
