@@ -29,6 +29,7 @@ landmarks: {
 }
 
 */
+
 {
   data : [{
     name: "Barry Bonds",
@@ -47,28 +48,28 @@ landmarks: {
     landmarks: [102.750000, 149.750000, 116.750000, 108.250000, 144.750000, 112.250000, 110.250000, 134.250000, 156.250000, 155.750000, "2 1 2 3"]
   },
   {
-    name: "Brad Banks",
+    name: "Brandon Lloyd",
     perceivedGender: "male",
     age: 36,
     perceivedEthnicity: "black",
-    imgUri: "lfw_subjects/Brad_Banks_0001.jpg",
-    landmarks: []
+    imgUri: "lfw_subjects/Brandon_Lloyd_0001.jpg",
+    landmarks: [100.750000, 141.750000, 131.750000, 114.750000, 147.750000, 115.250000, 108.750000, 127.750000, 157.250000, 153.750000]
   },
   {
-    name: "Ashanti",
+    name: "Allyson Felix",
     perceivedGender: "female",
     age: 33,
     perceivedEthnicity: "black",
-    imgUri: "lfw_subjects/Ashanti_0001.jpg",
-    landmarks: []
+    imgUri: "lfw_subjects/Allyson_Felix_0001.jpg",
+    landmarks: [102.750000, 145.750000, 120.750000, 103.750000, 139.750000, 113.250000, 113.250000, 132.750000, 158.250000, 158.750000]
   },
   {
-    name: "Brian Jordan",
+    name: "Brandon Hammond",
     perceivedGender: "male",
     age: 44,
     perceivedEthnicity: "black",
-    imgUri: "lfw_subjects/Brian_Jordan_0001.jpg",
-    landmarks: []
+    imgUri: "lfw_subjects/Brandon_Hammond_0001.jpg",
+    landmarks: [106.250000, 146.750000, 127.750000, 111.750000, 143.250000, 117.750000, 117.250000, 134.250000, 164.250000, 163.250000]
   },
   {
     name: "Antonio Catania",
@@ -95,12 +96,12 @@ landmarks: {
     landmarks: [110.750000, 149.750000, 132.750000, 108.750000, 136.250000, 110.250000, 118.250000, 136.750000, 154.250000, 158.750000, "2 2 2 3"]
   },
   {
-    name: "Adriana Lima",
+    name: "Astrid Betancourt.jpg",
     perceivedGender: "female",
     age: 30,
     perceivedEthnicity: "hispanic",
-    imgUri: "lfw_subjects/Adriana_Lima_0001.jpg",
-    landmarks: []
+    imgUri: "lfw_subjects/Astrid_Betancourt_0001.jpg",
+    landmarks: [104.250000, 143.250000, 112.250000, 103.750000, 132.750000, 109.750000, 115.250000, 133.750000, 157.250000, 161.750000]
   },
   {
     name: "Andres Pastrana",
@@ -119,12 +120,12 @@ landmarks: {
     landmarks: [103.250000, 143.250000, 125.250000, 108.750000, 149.750000, 113.750000, 108.750000, 133.250000, 159.750000, 154.250000, "2 1 1 3"]
   },
   {
-    name: "Anthony Lee Johnson",
+    name: "Bill Kong",
     perceivedGender: "male",
     age: 44,
     perceivedEthnicity: "asian",
-    imgUri: "lfw_subjects/Anthony_Lee_Johnson_0001.jpg",
-    landmarks: []
+    imgUri: "lfw_subjects/Bill_Kong_0001.jpg",
+    landmarks: [105.250000, 145.250000, 123.250000, 112.750000, 147.250000, 115.750000, 111.750000, 137.750000, 158.250000, 153.250000]
   },
   {
     name: "Alan Tang Kwong-wing",
@@ -167,21 +168,20 @@ landmarks: {
     landmarks: [112.750000, 146.750000, 141.250000, 107.250000, 144.750000, 112.750000, 112.750000, 132.250000, 151.250000, 150.250000, "1 1 2 4"]
   },
   {
-    name: "Romeo Gigli",
+    name: "David Trimble",
     perceivedGender: "male",
     age: 51,
     perceivedEthnicity: "white",
-    imgUri: "lfw_subjects/Romeo_Gigli_0001.jpg",
-    landmarks: []
-
+    imgUri: "lfw_subjects/David_Trimble_0001.jpg",
+    landmarks: [102.750000, 145.750000, 128.250000, 107.750000, 143.250000, 111.250000, 111.250000, 139.250000, 161.750000, 161.250000]
   },
   {
-    name: "Bob Eskridge",
+    name: "Davey Johnson",
     perceivedGender: "male",
     age: 42,
     perceivedEthnicity: "white",
-    imgUri: "lfw_subjects/Bob_Eskridge_0001.jpg",
-    landmarks: []
+    imgUri: "lfw_subjects/Davey_Johnson_0001.jpg",
+    landmarks: [106.250000, 146.750000, 131.750000, 118.250000, 153.250000, 120.250000, 112.250000, 144.750000, 168.750000, 160.750000]
   },
   {
     name: "Amanda Coetzer",
@@ -192,29 +192,20 @@ landmarks: {
     landmarks: [106.250000, 143.250000, 126.750000, 102.750000, 130.750000, 108.250000, 116.250000, 136.250000, 149.250000, 156.250000, "2 2 2 4"]
   },
   {
-    name: "Asif Ali Zardari",
+    name: "Abdel Aziz Al-Hakim",
     perceivedGender: "male",
     age: 47,
     perceivedEthnicity: "unlisted",
-    imgUri: "lfw_subjects/Asif_Ali_Zardari_0001.jpg",
-    landmarks: []
+    imgUri: "lfw_subjects/Abdel_Aziz_Al-Hakim_0001.jpg",
+    landmarks: [111.750000, 149.250000, 137.750000, 112.750000, 142.750000, 111.250000, 114.750000, 134.250000, 153.250000, 155.250000]
   },
   {
-    name: "Ahmad Jbarah",
+    name: "Blas Ople",
     perceivedGender: "male",
     age: 69,
     perceivedEthnicity: "unlisted",
-    imgUri: "lfw_subjects/Ahmad_Jbarah_0001.jpg",
-    landmarks: []
-
-  },
-  {
-    name: "Akbar Al Baker",
-    perceivedGender: "male",
-    age: 45,
-    perceivedEthnicity: "unlisted",
-    imgUri: "lfw_subjects/Akbar_Al_Baker_0001.jpg",
-    landmarks: []
+    imgUri: "lfw_subjects/Blas_Ople_0001.jpg",
+    landmarks: [103.250000, 152.750000, 123.750000, 103.750000, 141.250000, 113.250000, 118.750000, 146.750000, 160.750000, 166.250000]
 
   },
   {
