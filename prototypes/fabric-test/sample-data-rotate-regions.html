@@ -66,38 +66,55 @@
 
       var rotateFaces = setInterval(function(){
         var faceObj = response.data[cnt];
-
+        while(faceObj && !faceObj.landmarks[0]) {
+          cnt++;
+          faceObj = response.data[cnt];
+        }
         if(!faceObj){
           clearInterval(rotateFaces);
+          return
         }
+        var landmarks = faceObj.landmarks;
+
+        var pts = {
+          leftEye: {x: landmarks[0], y: landmarks[1]},
+          rightEye: {x: landmarks[2], y: landmarks[3]},
+          nose: {x: landmarks[4], y: landmarks[5]},
+          leftMouth: {x: landmarks[6], y: landmarks[7]},
+          rightMouth: {x: landmarks[8], y: landmarks[9]},
+        };
+        console.log('eye y diff', Math.abs(pts.leftEye.y - pts.rightEye.y))
+        console.log('mouth y diff', Math.abs(pts.leftMouth.y - pts.rightMouth.y))
 
         var faceImg = 'http://www.code4rights.com/' + faceObj.imgUri;
+        canvas.clear()
+        canvas.setBackgroundImage(faceImg, canvas.renderAll.bind(canvas), {
+          originX: 'left',
+          originY: 'top',
+          left: 0,
+          top: 0,
+          width: 250,
+          height: 250,
+        });
 
-        if(faceObj.landmarks[0]){
-          canvas.setBackgroundImage(faceImg, canvas.renderAll.bind(canvas), {
-            originX: 'left',
-            originY: 'top',
-            left: -2 * faceObj.landmarks[0],
-            top: -2 * faceObj.landmarks[1],
-            width: canvas.width * 2,
-            height: canvas.height *  2
-          });
-
-          canvas.add(
-            makeCircle(faceObj.landmarks[0]*2, faceObj.landmarks[1], null, getRandomColor())
-          );
-        } else {
-          canvas.setBackgroundImage(faceImg, canvas.renderAll.bind(canvas), {
-            originX: 'left',
-            originY: 'top',
-            width: canvas.width * 2,
-            height: canvas.height *  2
-          });
-
-        }
+        canvas.add(
+          makeCircle(pts.leftEye.x, pts.leftEye.y, null, '#BADA55')
+        );
+        canvas.add(
+          makeCircle(pts.rightEye.x, pts.rightEye.y, null, '#BADA55')
+        );
+        canvas.add(
+          makeCircle(pts.nose.x, pts.nose.y, null, '#ABCDEF')
+        );
+        canvas.add(
+          makeCircle(pts.leftMouth.x, pts.leftMouth.y, null, '#ff9999')
+        );
+        canvas.add(
+          makeCircle(pts.rightMouth.x, pts.rightMouth.y, null, '#ff9999')
+        );
         cnt+=1;
 
-      }, 500)
+      }, 1500)
 
       function makeCircle(left, top, id, color) {
         var c = new fabric.Circle({
