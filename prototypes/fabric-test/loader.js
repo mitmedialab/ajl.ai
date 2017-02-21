@@ -31,8 +31,8 @@ function loader(URI, callback){
   function handleResponse(){
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
       if (httpRequest.status === 200) {
-        var faces = JSON.parse(httpRequest.responseText);
-        callback(faces);
+        var response = JSON.parse(httpRequest.responseText);
+        callback(response);
       } else {
         callback('There was a problem with the request.');
       }
