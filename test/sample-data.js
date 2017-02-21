@@ -17,6 +17,17 @@ nose-x  nose-y
 left-mouth-corner-x   left-mouth-corner-y
 right-mouth-corner-x right-mouth-corner-y
 
+// concept landmarks model
+landmarks: {
+  leftEye: {
+    center: 104.250000, 141.750000,
+    width: 50,
+    height
+  },
+  rightEye: {}, etc
+
+}
+
 */
 {
   data : [{
