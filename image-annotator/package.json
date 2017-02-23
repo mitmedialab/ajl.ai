@@ -31,13 +31,20 @@
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js|jsx)$"
   },
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "fabric": "^1.7.6",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-hot-loader": "^3.0.0-beta.6"
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.8.1",
+    "redux-saga": "^0.14.3"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.0",
     "babel-core": "^6.22.1",
+    "babel-jest": "^19.0.0",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
@@ -56,6 +63,7 @@
     "jest": "^19.0.0",
     "node-object-hash": "^1.1.5",
     "postcss-loader": "^1.2.2",
+    "redux-saga-test-plan": "^2.2.1",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.4.0",

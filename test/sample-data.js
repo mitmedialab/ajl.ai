@@ -30,7 +30,7 @@ landmarks: {
 
 */
 
-{
+module.exports = {
   data : [{
     name: "Barry Bonds",
     perceivedGender: "male",

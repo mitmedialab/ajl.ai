@@ -11,7 +11,7 @@ const hardSourceCacheDir = findCacheDir({
 });
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-source-map',
 
   context: resolve(__dirname, 'src'),
 
