@@ -6,6 +6,13 @@ module.exports = {
   },
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
+    'space-unary-ops': ['error', {
+      words: true,
+      nonwords: false,
+      overrides: {
+        '!': true
+      }
+    }],
     'space-before-function-paren': ['error', {
         anonymous: 'never',
         named: 'never',

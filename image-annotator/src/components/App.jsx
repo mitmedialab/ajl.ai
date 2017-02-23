@@ -1,13 +1,12 @@
 import React from 'react';
 
-import Logo from './Logo';
-import Hello from './Hello';
+import CanvasContainer from '../containers/CanvasContainer';
+import CarouselContainer from '../containers/CarouselContainer';
 
 const App = () => (
   <div>
-    <Logo text="Snaps!" />
-    <Hello addressee="World" />
-    <p>And some running body copy, <em>just in case</em>&trade;</p>
+    <CanvasContainer />
+    <CarouselContainer />
   </div>
 );
 
