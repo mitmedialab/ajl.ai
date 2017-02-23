@@ -1,4 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { testSaga } from 'redux-saga-test-plan'
 import { getAllFaces } from '../../services/face-api';
 import rootSaga, { requestFaces } from '../sagas';
 import * as actions from '../actions';
@@ -34,6 +35,23 @@ describe('sagas', () => {
       next = generator.next();
       expect(next.done).toBeTruthy();
     });
+
+    it('yields an API call to get faces (plan)', () => {
+      const saga = testSaga(requestFaces);
+
+      saga.next()
+        .call(getAllFaces)
+
+      const faces = [{ face: true }]
+      saga.next(faces)
+        .put(actions.receiveFaces(faces))
+
+      const error = new Error('Test Error')
+      saga.back()
+        .throw(error)
+        .put(actions.requestFacesFailed(error))
+        .next().isDone()
+    })
 
     it('handles errors', () => {
       // WIP: see example from sagas docs at
