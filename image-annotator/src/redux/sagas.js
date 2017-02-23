@@ -1,4 +1,4 @@
-import { call, fork, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { getAllFaces } from '../services/face-api';
 import { REQUEST_FACES, receiveFaces, requestFacesFailed } from './actions';
 

@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { testSaga } from 'redux-saga-test-plan'
+import { testSaga } from 'redux-saga-test-plan';
 import { getAllFaces } from '../../services/face-api';
 import rootSaga, { requestFaces } from '../sagas';
 import * as actions from '../actions';
@@ -9,14 +9,15 @@ describe('sagas', () => {
     it('has a takeLatest for REQUEST_FACES', () => {
       const generator = rootSaga();
 
-      let next = generator.next();
-      const matchingTake = next.value.find(({ CALL: { args, fn } = {} }) =>
+      const next = generator.next();
+      const matchingTake = next.value.find(({ CALL: { args, fn } = {} }) => (
         fn === takeLatest && args[0] === actions.REQUEST_FACES)
-      expect(matchingTake).toBeTruthy()
+      );
+      expect(matchingTake).toBeTruthy();
 
       expect(matchingTake.CALL.args[1]).toEqual(requestFaces);
-    })
-  })
+    });
+  });
 
   describe('requestFaces', () => {
     it('yields an API call to get faces', () => {
@@ -27,10 +28,10 @@ describe('sagas', () => {
       let next = generator.next();
       expect(next.value).toEqual(call(getAllFaces));
 
-      const faces = [{ face: true }]
+      const faces = [{ face: true }];
       next = generator.next(faces);
 
-      expect(next.value).toEqual(put(actions.receiveFaces(faces)))
+      expect(next.value).toEqual(put(actions.receiveFaces(faces)));
 
       next = generator.next();
       expect(next.done).toBeTruthy();
@@ -38,20 +39,18 @@ describe('sagas', () => {
 
     it('yields an API call to get faces (plan)', () => {
       const saga = testSaga(requestFaces);
-
+      const faces = [{ face: true }];
+      const error = new Error('Test Error');
       saga.next()
         .call(getAllFaces)
-
-      const faces = [{ face: true }]
-      saga.next(faces)
+        .next(faces)
         .put(actions.receiveFaces(faces))
-
-      const error = new Error('Test Error')
-      saga.back()
+        .back()
         .throw(error)
         .put(actions.requestFacesFailed(error))
-        .next().isDone()
-    })
+        .next()
+        .isDone();
+    });
 
     it('handles errors', () => {
       // WIP: see example from sagas docs at
@@ -61,10 +60,10 @@ describe('sagas', () => {
       let next = generator.next();
       expect(next.value).toEqual(call(getAllFaces));
 
-      const error = new Error('Test Error')
+      const error = new Error('Test Error');
       next = generator.throw(error);
 
-      expect(next.value).toEqual(put(actions.requestFacesFailed(error)))
+      expect(next.value).toEqual(put(actions.requestFacesFailed(error)));
 
       next = generator.next();
       expect(next.done).toBeTruthy();
