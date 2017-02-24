@@ -4,8 +4,11 @@ import { REQUEST_FACES, receiveFaces, requestFacesFailed } from './actions';
 
 // worker Saga: will be fired on REQUEST_FACES actions
 export function* requestFaces() {
+  console.log('foo');
   try {
+    console.log('hi');
     const faces = yield call(getAllFaces);
+    console.log(faces);
     yield put(receiveFaces(faces));
   } catch (e) {
     yield put(requestFacesFailed(e));
