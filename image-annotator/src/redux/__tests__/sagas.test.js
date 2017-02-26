@@ -4,10 +4,6 @@ import { getAllFaces } from '../../services/face-api';
 import rootSaga, { requestFaces } from '../sagas';
 import * as actions from '../actions';
 
-const match = (arr, fn, arg) => arr.find(({ CALL } = {}) => (
-  CALL.fn === fn && CALL.args[0] === arg
-));
-
 describe('sagas', () => {
 
   describe('rootSaga', () => {
@@ -15,9 +11,11 @@ describe('sagas', () => {
     it('has a takeLatest for REQUEST_FACES', () => {
       const generator = rootSaga();
       const next = generator.next();
-      const matchingTake = match(next.value, takeLatest, actions.REQUEST_FACES);
+      const matchingTake = next.value.find(({ FORK } = {}) => (
+        FORK.fn === takeLatest && FORK.args[0] === actions.REQUEST_FACES
+      ));
       expect(matchingTake).toBeTruthy();
-      expect(matchingTake.CALL.args[1]).toEqual(requestFaces);
+      expect(matchingTake.FORK.args).toEqual([actions.REQUEST_FACES, requestFaces]);
     });
 
   });
