@@ -1,18 +1,47 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import * as propShapes from '../prop-shapes';
+import {
+  previousFace,
+  nextFace,
+} from '../redux/actions';
 
-const Carousel = ({ faces }) => (
-  <p>{faces.length} faces</p>
+import {
+  selectedFaceIndex,
+  totalFaceCount,
+} from '../redux/selectors';
+
+import Carousel from '../components/Carousel';
+
+const CarouselContainer = props => (
+  <Carousel
+    current={props.current}
+    total={props.total}
+    onClickPrevious={props.onClickPrevious}
+    onClickNext={props.onClickNext}
+  />
 );
 
-Carousel.propTypes = {
-  faces: propShapes.faces.isRequired,
+CarouselContainer.propTypes = {
+  current: PropTypes.number,
+  total: PropTypes.number,
+  onClickPrevious: PropTypes.func.isRequired,
+  onClickNext: PropTypes.func.isRequired,
+};
+
+CarouselContainer.defaultProps = {
+  current: 0,
+  total: 0,
 };
 
 const mapStateToProps = state => ({
-  faces: state.faces.list,
+  current: selectedFaceIndex(state),
+  total: totalFaceCount(state),
 });
 
-export default connect(mapStateToProps)(Carousel);
+const mapDispatchToProps = dispatch => ({
+  onClickPrevious: () => dispatch(previousFace()),
+  onClickNext: () => dispatch(nextFace()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarouselContainer);

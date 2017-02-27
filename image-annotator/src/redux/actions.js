@@ -24,6 +24,13 @@ export const nextFace = () => ({
   type: NEXT_FACE,
 });
 
+/** @type {string} Action to select the previous available face */
+export const PREVIOUS_FACE = 'PREVIOUS_FACE';
+/** PREVIOUS_FACE action creator */
+export const previousFace = () => ({
+  type: PREVIOUS_FACE,
+});
+
 /** @type {string} Action to populate the faces within the store */
 export const SET_FACES = 'SET_FACES';
 /** SET_FACES action creator */

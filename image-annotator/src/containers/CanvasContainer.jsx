@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { selectedFace } from '../redux/selectors';
+
 import * as propShapes from '../prop-shapes';
 
 import Canvas from '../components/Canvas';
@@ -18,7 +20,7 @@ CanvasContainer.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  face: state.faces.selected,
+  face: selectedFace(state),
 });
 
 export default connect(mapStateToProps)(CanvasContainer);
