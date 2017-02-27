@@ -67,6 +67,18 @@
       var rotateFaces = setInterval(function(){
         var faceObj = response.data[cnt];
 
+        var leftEye = [faceObj.landmarks[0], faceObj.landmarks[1]];
+        var nose = [faceObj.landmarks[4], faceObj.landmarks[5]];
+        var eyeNoseDist = Math.sqrt(Math.pow(leftEye[0] - nose[0], 2) + Math.pow(leftEye[1] - nose[1], 2))
+        var shortestConstraint = Math.min(canvas.width, canvas.height);
+        var scale = shortestConstraint/eyeNoseDist;
+
+
+        var leftPos = (canvas.width/2) - (leftEye[0] * scale);
+        var topPos = (canvas.height/2) - (leftEye[1] * scale);
+
+        console.log(leftPos, topPos, canvas.width, canvas.height);
+
         if(!faceObj){
           clearInterval(rotateFaces);
         }
@@ -77,27 +89,26 @@
           canvas.setBackgroundImage(faceImg, canvas.renderAll.bind(canvas), {
             originX: 'left',
             originY: 'top',
-            left: -2 * faceObj.landmarks[0],
-            top: -2 * faceObj.landmarks[1],
-            width: canvas.width * 2,
-            height: canvas.height *  2
+            // scaleX: scale,
+            // scaleY: scale,
+            // left: leftPos,
+            // top: topPos,
+            // width: canvas.width * 2,
+            // height: canvas.height *  2
           });
 
           canvas.add(
-            makeCircle(faceObj.landmarks[0]*2, faceObj.landmarks[1], null, getRandomColor())
+            makeCircle(faceObj.landmarks[0], faceObj.landmarks[1], null, getRandomColor())
           );
         } else {
-          canvas.setBackgroundImage(faceImg, canvas.renderAll.bind(canvas), {
-            originX: 'left',
-            originY: 'top',
-            width: canvas.width * 2,
-            height: canvas.height *  2
-          });
 
         }
         cnt+=1;
 
       }, 500)
+      canvas.add(
+        makeCircle(canvas.width/2,canvas.height/2, null, '#f00')
+      );
 
       function makeCircle(left, top, id, color) {
         var c = new fabric.Circle({
