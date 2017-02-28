@@ -5,7 +5,7 @@ import { selectedFace } from '../redux/selectors';
 
 import * as propShapes from '../prop-shapes';
 
-import Canvas from '../components/Canvas';
+import Canvas from './Canvas';
 
 const CanvasContainer = ({ face }) => (
   <Canvas face={face} />

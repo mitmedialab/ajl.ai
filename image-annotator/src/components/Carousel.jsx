@@ -18,7 +18,7 @@ const Carousel = props => (
       type="button"
       rel="prev"
       onClick={props.onClickNext}
-    >Previous</button>
+    >Next</button>
   </div>
 );
 

@@ -11,7 +11,7 @@ import {
   totalFaceCount,
 } from '../redux/selectors';
 
-import Carousel from '../components/Carousel';
+import Carousel from './Carousel';
 
 const CarouselContainer = props => (
   <Carousel

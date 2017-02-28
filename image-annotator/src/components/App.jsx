@@ -1,10 +1,12 @@
 import React from 'react';
 
-import CanvasContainer from '../containers/CanvasContainer';
-import CarouselContainer from '../containers/CarouselContainer';
+import LoadingContainer from './LoadingContainer';
+import CanvasContainer from './CanvasContainer';
+import CarouselContainer from './CarouselContainer';
 
 const App = () => (
   <div>
+    <LoadingContainer />
     <CanvasContainer />
     <CarouselContainer />
   </div>
