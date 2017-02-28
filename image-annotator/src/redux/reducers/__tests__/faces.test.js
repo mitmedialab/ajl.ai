@@ -54,29 +54,15 @@ describe('faces reducer', () => {
         selected: 0,
         list: [{ id: 'a' }, { id: 'b' }, { id: 'c' }],
       }, {});
-      const nextState = facesReducer(initialState, {
+      const action = {
         type: RECEIVE_FACES,
         payload: [{ id: 'd' }, { id: 'e' }, { id: 'f' }],
       });
+      const nextState = facesReducer(initialState, action);
       expect(nextState).not.toBe(initialState);
       expect(nextState.list).toBeDefined();
       expect(nextState.list).not.toBe(initialState.list);
-      expect(nextState.list).toEqual([{ id: 'd' }, { id: 'e' }, { id: 'f' }]);
-    });
-
-    it('replaces the faces list on subsequent calls even if payload is the same', () => {
-      const initialState = facesReducer({
-        selected: 0,
-        list: [{ id: 'a' }, { id: 'b' }, { id: 'c' }],
-      }, {});
-      const nextState = facesReducer(initialState, {
-        type: RECEIVE_FACES,
-        payload: [{ id: 'a' }, { id: 'b' }, { id: 'c' }],
-      });
-      expect(nextState).not.toBe(initialState);
-      expect(nextState.list).toBeDefined();
-      expect(nextState.list).not.toBe(initialState.list);
-      expect(nextState.list).toEqual([{ id: 'a' }, { id: 'b' }, { id: 'c' }]);
+      expect(nextState.list).toEqual(action.payload);
     });
 
   });
