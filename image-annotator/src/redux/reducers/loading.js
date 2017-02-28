@@ -5,6 +5,7 @@ const defaultState = {
 };
 
 export default function loadingReducer(state = defaultState, action) {
+
   if (action.type === REQUEST_FACES) {
     return Object.assign({}, state, {
       faces: true,
