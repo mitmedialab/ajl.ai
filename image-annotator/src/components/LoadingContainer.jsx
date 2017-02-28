@@ -5,15 +5,15 @@ import { isLoading } from '../redux/selectors';
 
 import LoadingIndicator from './LoadingIndicator';
 
-const LoadingContainer = ({ isLoading }) => (
-  <LoadingIndicator isLoading={isLoading} />
+const LoadingContainer = props => (
+  <LoadingIndicator isLoading={props.isLoading} />
 );
 
 LoadingContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isLoading: isLoading(state),
 });
 
