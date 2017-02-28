@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import { getAllFaces } from '../services/face-api';
 import { REQUEST_FACES, receiveFaces, requestFacesFailed } from './actions';
 
@@ -15,6 +15,6 @@ export function* requestFaces() {
 // Export a single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield [
-    call(takeLatest, REQUEST_FACES, requestFaces),
+    fork(takeLatest, REQUEST_FACES, requestFaces),
   ];
 }

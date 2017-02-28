@@ -6,6 +6,7 @@ module.exports = {
   },
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
+    'padded-blocks': ['off'],
     'space-unary-ops': ['error', {
       words: true,
       nonwords: false,

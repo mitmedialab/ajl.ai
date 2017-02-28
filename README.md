@@ -23,6 +23,8 @@ Navigate to the following prototypes in your browser:
 
 `cd` into the `image-annotator` directory and run `npm install` to install front-end dependencies; then run `npm start` to launch the webpack dev server. The application will then be available at [localhost:8081](http://localhost:8081).
 
+The application currently expects [AJL-U/openfaces](https://github.com/AJL-U/openfaces) to be running in parallel, on port 8181: images are loaded from this repository.
+
 #### Other commands
 
 These commands are available after installation within the `image-annotator/` directory:

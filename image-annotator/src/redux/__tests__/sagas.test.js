@@ -1,72 +1,51 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import { getAllFaces } from '../../services/face-api';
 import rootSaga, { requestFaces } from '../sagas';
 import * as actions from '../actions';
 
 describe('sagas', () => {
+
   describe('rootSaga', () => {
+
     it('has a takeLatest for REQUEST_FACES', () => {
       const generator = rootSaga();
-
       const next = generator.next();
-      const matchingTake = next.value.find(({ CALL: { args, fn } = {} }) => (
-        fn === takeLatest && args[0] === actions.REQUEST_FACES)
-      );
+      const matchingTake = next.value.find(({ FORK } = {}) => (
+        FORK.fn === takeLatest && FORK.args[0] === actions.REQUEST_FACES
+      ));
       expect(matchingTake).toBeTruthy();
-
-      expect(matchingTake.CALL.args[1]).toEqual(requestFaces);
+      expect(matchingTake.FORK.args).toEqual([actions.REQUEST_FACES, requestFaces]);
     });
+
   });
 
   describe('requestFaces', () => {
+
     it('yields an API call to get faces', () => {
-      // WIP: see example from sagas docs at
-      // https://github.com/redux-saga/redux-saga/blob/master/examples/shopping-cart/test/sagas.js
-      const generator = requestFaces();
-
-      let next = generator.next();
-      expect(next.value).toEqual(call(getAllFaces));
-
-      const faces = [{ face: true }];
-      next = generator.next(faces);
-
-      expect(next.value).toEqual(put(actions.receiveFaces(faces)));
-
-      next = generator.next();
-      expect(next.done).toBeTruthy();
-    });
-
-    it('yields an API call to get faces (plan)', () => {
       const saga = testSaga(requestFaces);
       const faces = [{ face: true }];
+      saga.next()
+        // Assert that getAllFaces was called
+        .call(getAllFaces)
+        .next(faces)
+        // Assert that the returned faces are sent as a receiveFaces action
+        .put(actions.receiveFaces(faces))
+        .next()
+        .isDone();
+    });
+
+    it('handles errors', () => {
+      const saga = testSaga(requestFaces);
       const error = new Error('Test Error');
       saga.next()
         .call(getAllFaces)
-        .next(faces)
-        .put(actions.receiveFaces(faces))
-        .back()
         .throw(error)
         .put(actions.requestFacesFailed(error))
         .next()
         .isDone();
     });
 
-    it('handles errors', () => {
-      // WIP: see example from sagas docs at
-      // https://github.com/redux-saga/redux-saga/blob/master/examples/shopping-cart/test/sagas.js
-      const generator = requestFaces();
-
-      let next = generator.next();
-      expect(next.value).toEqual(call(getAllFaces));
-
-      const error = new Error('Test Error');
-      next = generator.throw(error);
-
-      expect(next.value).toEqual(put(actions.requestFacesFailed(error)));
-
-      next = generator.next();
-      expect(next.done).toBeTruthy();
-    });
   });
+
 });
