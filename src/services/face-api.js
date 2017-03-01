@@ -1,4 +1,4 @@
-import sampleData from '../../../test/sample-data';
+import sampleData from '../../test/sample-data';
 
 /**
  * Convert the face data object returned from the API into a form that is
@@ -38,7 +38,7 @@ export function transformFace(face) {
     perceivedAge: face.age,
     perceivedEthnicity: face.perceivedEthnicity,
     // TODO: Drive server URL from configuration
-    image: `http://localhost:8181/images/${face.imgUri}`,
+    image: `http://www.code4rights.com/${face.imgUri}`,
     landmarks: face.landmarks.reduce((pairs, coordinate) => {
       const lastCoordinatePair = pairs[pairs.length - 1];
       if (typeof coordinate === 'string') {
