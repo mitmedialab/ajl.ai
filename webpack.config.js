@@ -46,7 +46,12 @@ module.exports = {
     contentBase: resolve(__dirname, 'dist'),
 
     // match the output `publicPath`
-    publicPath: '/'
+    publicPath: '/',
+
+    // enable webpack dev server to work as a single page app
+    historyApiFallback: {
+      index: '/',
+    },
   },
 
   module: {

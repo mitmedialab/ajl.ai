@@ -13,18 +13,25 @@ class Canvas extends PureComponent {
     this.canvas = new fabric.Canvas(this.canvasNode);
     this.renderAll = this.canvas.renderAll.bind(this.canvas);
     window.c = this.canvas;
+    this.updateBackground();
   }
 
   componentDidUpdate() {
-    this.canvas.setBackgroundImage(
-      this.props.face.image,
-      this.canvas.renderAll.bind(this.canvas),
-      {
-        // Needed to position background image at 0/0
-        originX: 'left',
-        originY: 'top',
-      }
-    );
+    this.updateBackground();
+  }
+
+  updateBackground () {
+    if( this.props.face ) {
+      this.canvas.setBackgroundImage(
+        this.props.face.image,
+        this.canvas.renderAll.bind(this.canvas),
+        {
+          // Needed to position background image at 0/0
+          originX: 'left',
+          originY: 'top',
+        }
+      );
+    }
   }
 
   render() {
