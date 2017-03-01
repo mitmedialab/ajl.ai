@@ -7,11 +7,12 @@ const defaultState = {
 
 export default function facesReducer(state = defaultState, action) {
   if (action.type === RECEIVE_FACES) {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       list: action.payload,
       // Auto-select the first face
       selected: 0,
-    });
+    };
   }
 
   // TODO: This is a bit YAGNI; being able to select face by index OR by object
@@ -24,32 +25,36 @@ export default function facesReducer(state = defaultState, action) {
       action.payload >= 0 &&
       action.payload < state.list.length
     ) {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         selected: action.payload,
-      });
+      };
     }
     // Otherwise, figure out which face was passed in and set that
     const idx = state.list.indexOf(action.payload);
-    return Object.assign({}, state, {
+    return {
+      ...state,
       // If the object was not found, make no change
       selected: idx > -1 ? idx : state.selected,
-    });
+    };
   }
 
   if (action.type === NEXT_FACE) {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       selected: (state.selected + 1 < state.list.length) ?
         state.selected + 1 :
         0,
-    });
+    };
   }
 
   if (action.type === PREVIOUS_FACE) {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       selected: (state.selected > 0) ?
         state.selected - 1 :
         state.list.length - 1,
-    });
+    };
   }
 
   return state;

@@ -7,21 +7,24 @@ const defaultState = {
 export default function loadingReducer(state = defaultState, action) {
 
   if (action.type === REQUEST_FACES) {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       faces: true,
-    });
+    };
   }
 
   if (action.type === RECEIVE_FACES) {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       faces: false,
-    });
+    };
   }
 
   if (action.type === REQUEST_FACES_FAILED) {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       faces: false,
-    });
+    };
   }
 
   return state;

@@ -57,7 +57,7 @@ describe('faces reducer', () => {
       const action = {
         type: RECEIVE_FACES,
         payload: [{ id: 'd' }, { id: 'e' }, { id: 'f' }],
-      });
+      };
       const nextState = facesReducer(initialState, action);
       expect(nextState).not.toBe(initialState);
       expect(nextState.list).toBeDefined();
