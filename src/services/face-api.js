@@ -1,4 +1,4 @@
-import sampleData from '../../../test/sample-data';
+import sampleData from '../../test/sample-data';
 
 /**
  * Convert the face data object returned from the API into a form that is
