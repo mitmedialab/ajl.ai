@@ -32,3 +32,27 @@ These commands are available after installation within the `image-annotator/` di
 - `npm test`: run unit tests with Jest
 - `npm run lint`: run ESLint to identify syntax & style issues in the code
 - `npm run build`: generate a static build into `image-annotator/dist`
+
+
+### Instrcutions for Ubuntu 16 dev environment setup:
+$ sudo su postgres;
+$ CREATE DATABASE image-annotator;
+
+$ sudo service postgresql stop
+$ sudo vim /etc/postgresql/9.5/main/pg_hba.conf
+```
+  # "local" is for Unix domain socket connections only
+  local   all             all                                     trust
+  # IPv4 local connections:
+  host    all             all             127.0.0.1/32            trust
+  # IPv6 local connections:
+  host    all             all             ::1/128                 trust
+```
+$ sudo service postgresql start
+
+create a .env file in the project root and add the following to it:
+```
+PGUSER=postgres
+```
+
+npm run migrate:up
