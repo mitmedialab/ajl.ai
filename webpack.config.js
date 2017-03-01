@@ -13,7 +13,7 @@ const hardSourceCacheDir = findCacheDir({
 module.exports = {
   devtool: 'cheap-module-source-map',
 
-  context: resolve(__dirname, 'src'),
+  context: resolve(__dirname, 'frontend'),
 
   entry: [
     // activate HMR for React
@@ -46,7 +46,12 @@ module.exports = {
     contentBase: resolve(__dirname, 'dist'),
 
     // match the output `publicPath`
-    publicPath: '/'
+    publicPath: '/',
+
+    // enable webpack dev server to work as a single page app
+    historyApiFallback: {
+      index: '/',
+    },
   },
 
   module: {
@@ -102,7 +107,7 @@ module.exports = {
     // prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
 
-    // Inject generated scripts into the src/index.html template
+    // Inject generated scripts into the frontend/index.html template
     new HtmlWebpackPlugin({
       template: './index.html'
     }),
