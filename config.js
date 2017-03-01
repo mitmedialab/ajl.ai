@@ -19,6 +19,8 @@ module.exports = {
   HTTP_PORT: process.env.HTTP_PORT || 8000,
   DEBUG_SQL: process.env.DEBUG_SQL,
   SESSION_SECRET: process.env.SESSION_SECRET || 'we shall never surrender',
+  SHOW_ERRORS: process.env.SHOW_ERRORS || DEV,
+  HTTP_QUIET: process.env.HTTP_QUIET || PROD,
   db: {
     host: process.env.PGHOST,
     port: process.env.PGPORT,
