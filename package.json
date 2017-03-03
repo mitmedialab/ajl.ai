@@ -39,6 +39,7 @@
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js|jsx)$"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "babel-cli": "^6.23.0",
     "babel-polyfill": "^6.23.0",
     "bluebird": "^3.4.7",
@@ -68,6 +69,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.7.0",
+    "axios-mock-adapter": "^1.7.1",
     "babel-core": "^6.22.1",
     "babel-jest": "^19.0.0",
     "babel-loader": "^6.2.10",
