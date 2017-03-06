@@ -1,4 +1,4 @@
-import sampleData from '../../sample-data/sample-data';
+import axios from 'axios';
 
 /**
  * Convert the face data object returned from the API into a form that is
@@ -58,9 +58,7 @@ export function transformFace(face) {
 }
 
 export function getAllFaces() {
-  return new Promise((resolve) => {
-    // TODO: Write a real API
-    const data = sampleData.data.map(transformFace);
-    setTimeout(() => resolve(data), 100);
-  });
+  return axios.get('/sample-data.json')
+    // Axios exposes JSON response body as .data property
+    .then(result => result.data.map(transformFace));
 }
