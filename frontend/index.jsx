@@ -20,9 +20,6 @@ import App from './components/App';
 
 const store = makeStore();
 
-// Kick off initial data load
-store.dispatch(requestFaces());
-
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>

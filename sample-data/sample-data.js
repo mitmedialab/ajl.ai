@@ -30,7 +30,45 @@ landmarks: {
 
 */
 
+/*
+sample payload to server:
+var annotations = [
+  {
+    image_id: ''
+    demographics:[{
+      name: '',
+      option: ''
+    },{
+      name: '',
+      option: ''
+    }],
+    regions: [],
+    landmarks: [{}, {}, {}],
+  },
+  {...}
+];
+*/
+
+
+
 module.exports = {
+  annotations:{
+    demographics: [{
+        name: 'Perceived Age',
+        options: ['infant', 'child', 'young adult', 'adult', 'elderly']
+      },
+      {
+        name: 'Perceived Gender',
+        options: ['other', 'female', 'male'],
+      },
+      {
+        name: 'Perceived Ethnicity',
+        options: ['balck', 'white', 'lantino/a', 'asian', 'other']
+      }
+    ],
+    regions: [{}],
+    landmarks: [{}]
+  },
   data : [{
     name: "Barry Bonds",
     perceivedGender: "male",
