@@ -6,12 +6,6 @@ import CarouselContainer from './CarouselContainer';
 
 import styles from './PerceivedDemographics.styl';
 
-
-// Kick off initial data load
-// store.dispatch(requestFaces());
-
-
-
 class PerceivedDemographicsContainer extends Component {
   componentDidMount () {
     this.props.onEnter();
@@ -34,13 +28,10 @@ class PerceivedDemographicsContainer extends Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-
     this.setState({
       [name]: value
     });
-
     console.log(value);
-
   }
 
   handleSubmit(event) {
