@@ -24,7 +24,7 @@ describe('Faces API', () => {
     });
 
     it('should populate the full URL for the record image', () => {
-      expect(transformFace(input).image).toBe('http://localhost:8181/images/lfw_subjects/Barry_Bonds_0001.jpg');
+      expect(transformFace(input).image).toBe('http://www.code4rights.com/lfw_subjects/Barry_Bonds_0001.jpg');
     });
 
     it('should strip the name property from a record', () => {

@@ -1,72 +1,89 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { requestFaces } from '../redux/actions';
 import CanvasContainer from './CanvasContainer';
 import CarouselContainer from './CarouselContainer';
 
-import styles from './PerceivedDemographics.styl';
+// import styles from './PerceivedDemographics.styl';
 
 class PerceivedDemographicsContainer extends Component {
-  componentDidMount () {
-    this.props.onEnter();
-  }
 
   constructor(props) {
     super(props);
+
     this.state = {
-      percievedAge: 0,
-      pervievedGender: '',
-      percievedEthnicity: '',
+      perceivedAge: 0,
+      perceivedGender: '',
+      perceivedEthnicity: '',
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.props.onEnter();
+  }
+
   handleInputChange(event) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = (target.type === 'checkbox') ? target.checked : target.value;
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
+
+    // eslint-disable-next-line no-console
     console.log(value);
   }
 
   handleSubmit(event) {
+    // eslint-disable-next-line no-console
     console.log('form value: ', this.state);
     event.preventDefault();
   }
 
-  render () {
+  render() {
     return (
       <div>
-        <CanvasContainer/>
+        <CanvasContainer />
         <form onSubmit={this.handleSubmit}>
-          <label>
+          <label htmlFor="perceivedAge">
             age: (younger)
             <input
-              name="percievedAge"
+              id="perceivedAge"
+              name="perceivedAge"
               type="range"
-              checked={this.state.percievedAge}
+              checked={this.state.perceivedAge}
               onChange={this.handleInputChange}
-              min="0" max="5" />
+              min="0" max="5"
+            />
             (older)
           </label>
 
-          <label>
-            percieved  gender:
-            <select name="pervievedGender" value={this.state.pervievedGender} onChange={this.handleInputChange}>
+          <label htmlFor="perceivedGender">
+            percieved gender:
+            <select
+              id="perceivedGender"
+              name="perceivedGender"
+              value={this.state.perceivedGender}
+              onChange={this.handleInputChange}
+            >
               <option value="male">male</option>
-              <option  value="female">female</option>
+              <option value="female">female</option>
               <option value="genderqueer">genderqueer</option>
             </select>
           </label>
 
-          <label>
+          <label htmlFor="perceivedEthnicity">
             perceived ethnicity:
-            <select name="percievedEthnicity" value={this.state.percievedEthnicity} onChange={this.handleInputChange}>
+            <select
+              id="perceivedEthnicity"
+              name="perceivedEthnicity"
+              value={this.state.perceivedEthnicity}
+              onChange={this.handleInputChange}
+            >
               <option value="black">black</option>
               <option value="latino">latino</option>
               <option value="white">white</option>
@@ -75,18 +92,20 @@ class PerceivedDemographicsContainer extends Component {
             </select>
           </label>
 
-          <input type="submit" value="Submit" />
+          <button type="submit">Submit</button>
         </form>
-        <CarouselContainer/>
+        <CarouselContainer />
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => ({});
+PerceivedDemographicsContainer.propTypes = {
+  onEnter: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = dispatch => ({
   onEnter: () => dispatch(requestFaces()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PerceivedDemographicsContainer);
+export default connect(null, mapDispatchToProps)(PerceivedDemographicsContainer);
