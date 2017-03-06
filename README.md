@@ -21,20 +21,18 @@ Navigate to the following prototypes in your browser:
 
 ### React front-end
 
-`cd` into the `image-annotator` directory and run `npm install` to install front-end dependencies; then run `npm start` to launch the webpack dev server. The application will then be available at [localhost:8080](http://localhost:8080).
-
-The application currently expects [AJL-U/openfaces](https://github.com/AJL-U/openfaces) to be running in parallel, on port 8181: images are loaded from this repository.
+Run `npm install` to install front-end dependencies; then run `npm start` to launch the webpack dev server. The application will then be available at [localhost:8080](http://localhost:8080).
 
 #### Other commands
 
 These commands are available after installation within the `image-annotator/` directory:
 
-- `npm test`: run unit tests with Jest
+- `npm test`: run unit tests with Jest, then lint on exit
 - `npm run lint`: run ESLint to identify syntax & style issues in the code
 - `npm run build`: generate a static build into `image-annotator/dist`
 
+### Instructions for Ubuntu 16 dev environment setup:
 
-### Instrcutions for Ubuntu 16 dev environment setup:
 $ sudo su postgres;
 $ CREATE DATABASE image-annotator;
 
