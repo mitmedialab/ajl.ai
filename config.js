@@ -1,6 +1,8 @@
+/* eslint-disable object-shorthand */
 require('dotenv').config({
-  silent: true
+  silent: true,
 });
+
 const ENV = process.env.NODE_ENV || 'development';
 
 const DEV = ENV === 'development';
@@ -28,7 +30,7 @@ module.exports = {
     user: process.env.PGUSER,
     password: process.env.PGPASS,
     url: process.env.DATABASE_URL,
-    ssl: process.env.PGSSLMODE || PROD
-  }
+    ssl: process.env.PGSSLMODE || PROD,
+  },
 };
 

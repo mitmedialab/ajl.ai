@@ -22,6 +22,9 @@ module.exports = {
     'arrow-parens': ['error', 'as-needed', {
       requireForBlockBody: true
     }],
-    'arrow-body-style': ['off']
+    'arrow-body-style': ['off'],
+    // Allow importing devDependencies at the top level: rule is re-enabled
+    // within the frontend and backend directories
+    'import/no-extraneous-dependencies': ['off'],
   }
 };
