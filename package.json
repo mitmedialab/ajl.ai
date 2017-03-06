@@ -19,7 +19,8 @@
     "server:prod": "node backend/server",
     "server:dev": "supervisor -w backend/ backend/server",
     "lint": "eslint --ext js,jsx frontend",
-    "test": "node jest/run.js"
+    "test": "node jest/run.js",
+    "ci": "npm test && npm run lint"
   },
   "jest": {
     "moduleFileExtensions": [
