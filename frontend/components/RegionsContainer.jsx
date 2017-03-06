@@ -10,8 +10,6 @@ class RegionsContainer extends PureComponent {
   componentDidMount() {
     this.props.onEnter();
   }
-  componentDidUpdate() {
-  }
 
   render() {
     const { face } = this.props;
