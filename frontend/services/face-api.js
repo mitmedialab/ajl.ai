@@ -60,5 +60,13 @@ export function transformFace(face) {
 export function getAllFaces() {
   return axios.get('/sample-data.json')
     // Axios exposes JSON response body as .data property
+    // Returned object is an array of image entries
     .then(result => result.data.map(transformFace));
+}
+
+export function getAnnotations() {
+  return axios.get('/annotations.json')
+    // Axios exposes JSON response body as .data property
+    // Returned object is an object with an annotations key
+    .then(result => result.data.annotations);
 }
