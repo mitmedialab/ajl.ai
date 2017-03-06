@@ -8,7 +8,7 @@ import {
 import LoadingContainer from './LoadingContainer';
 import Home from './Home';
 import PerceivedDemographics from './PerceivedDemographics';
-import Regions from './Regions';
+import RegionsContainer from './RegionsContainer';
 import LandmarksContainer from './LandmarksContainer';
 
 const App = () => (
@@ -27,7 +27,7 @@ const App = () => (
 
       <Route exact path="/" component={Home} />
       <Route path="/PerceivedDemographics" component={PerceivedDemographics} />
-      <Route path="/Regions" component={Regions} />
+      <Route path="/Regions" component={RegionsContainer} />
       <Route path="/Landmarks" component={LandmarksContainer} />
     </div>
 

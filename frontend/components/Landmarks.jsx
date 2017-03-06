@@ -1,9 +1,6 @@
 import React, { PureComponent } from 'react';
-
 import fabric from '../services/fabric';
-
 import * as propShapes from '../prop-shapes';
-
 import styles from './Canvas.styl';
 
 class Canvas extends PureComponent {
