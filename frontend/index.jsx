@@ -12,8 +12,6 @@ import { Provider } from 'react-redux';
 
 import makeStore from './redux/store';
 
-import { requestFaces } from './redux/actions';
-
 import './global.styl';
 
 import App from './components/App';

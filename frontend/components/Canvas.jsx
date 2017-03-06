@@ -20,8 +20,8 @@ class Canvas extends PureComponent {
     this.updateBackground();
   }
 
-  updateBackground () {
-    if( this.props.face ) {
+  updateBackground() {
+    if (this.props.face) {
       this.canvas.setBackgroundImage(
         this.props.face.image,
         this.canvas.renderAll.bind(this.canvas),
