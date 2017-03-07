@@ -23,6 +23,18 @@ Navigate to the following prototypes in your browser:
 
 Run `npm install` to install front-end dependencies; then run `npm start` to launch the webpack dev server. The application will then be available at [localhost:8080](http://localhost:8080).
 
+### Node/Postgres backend
+The app must be pointed at a running postgres server. Default config will use the db name `image-annotator`, and you can configure all the connection paramters in the `.gitignored` `.env` file. For example:
+
+```
+PGHOST=localhost
+PGPORT=5432
+PGNAME=image-annotator
+PGUSER=postgres
+PGPASS=*****
+# if specified, DATABASE_URL overides all of the above
+DATABASE_URL=
+```
 #### Other commands
 
 These commands are available after installation within the `image-annotator/` directory:
