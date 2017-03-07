@@ -33,12 +33,16 @@ These commands are available after installation within the `image-annotator/` di
 
 ### Instructions for Ubuntu 16 dev environment setup:
 
-$ $ sudo apt-get install postgresql
+$ sudo apt-get install postgresql
+
 $ sudo su postgres
+
 $ CREATE DATABASE image-annotator;
 
 $ sudo service postgresql stop
+
 $ sudo vim /etc/postgresql/9.5/main/pg_hba.conf
+
 ```
   # "local" is for Unix domain socket connections only
   local   all             all                                     trust
@@ -55,3 +59,18 @@ PGUSER=postgres
 ```
 
 npm run migrate:up
+
+
+### Instructions for Mac OS dev environment setup:
+
+_The postgres installation step assumes you are using the [Homebrew](https://brew.sh/) package manager_
+
+$ brew install postgresql
+
+$ brew services start postgresql
+
+$ createdb image-annotator
+
+_(on subsequent runs PostgreSQL should now auto-start)_
+
+$ npm run migrate:up

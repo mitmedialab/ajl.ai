@@ -65,8 +65,9 @@ export function getAllFaces() {
 }
 
 export function getAnnotations() {
-  return axios.get('/annotations.json')
+  return axios.get('/api/annotations/types')
     // Axios exposes JSON response body as .data property
-    // Returned object is an object with an annotations key
-    .then(result => result.data.annotations);
+    .then(result => ({
+      demographics: result.data,
+    }));
 }
