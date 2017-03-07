@@ -117,4 +117,48 @@ describe('selector functions', () => {
 
   });
 
+  describe('demographics', () => {
+    const { demographics } = selectors;
+
+    it('is a function', () => {
+      expect(demographics).toBeDefined();
+      expect(demographics).toBeInstanceOf(Function);
+    });
+
+    it('returns the demographics dictionary object', () => {
+      const demoDict = {
+        a: 'Demographic Question 1',
+        b: 'Demographic Question 2',
+        c: 'Demographic Question 3',
+      };
+      const result = demographics({
+        annotations: {
+          demographics: demoDict,
+        },
+      });
+      expect(result).toBe(demoDict);
+    });
+
+  });
+
+  describe('demographicsOrder', () => {
+    const { demographicsOrder } = selectors;
+
+    it('is a function', () => {
+      expect(demographicsOrder).toBeDefined();
+      expect(demographicsOrder).toBeInstanceOf(Function);
+    });
+
+    it('returns the demographics order list', () => {
+      const demoOrder = ['a', 'b', 'c'];
+      const result = demographicsOrder({
+        annotations: {
+          demographicsOrder: demoOrder,
+        },
+      });
+      expect(result).toBe(demoOrder);
+    });
+
+  });
+
 });

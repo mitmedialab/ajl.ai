@@ -13,3 +13,10 @@ export const face = PropTypes.shape({
 });
 
 export const faces = PropTypes.arrayOf(face);
+
+export const demographicQuestion = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+});
+
+export const demographicsQuestionList = PropTypes.arrayOf(PropTypes.string);
