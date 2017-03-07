@@ -53,6 +53,13 @@ module.exports = {
     historyApiFallback: {
       index: '/',
     },
+
+    proxy: {
+     '/api': {
+        target: 'http://localhost:8000',
+        secure: false
+      }
+    }
   },
 
   module: {

@@ -1,6 +1,6 @@
 import * as controller from './controller';
 
-export const location = '/health-check';
+export const location = '/api/health-check';
 
 export const routes = {
   get: {
