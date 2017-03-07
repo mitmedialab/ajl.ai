@@ -92,7 +92,16 @@ describe('selector functions', () => {
       expect(isLoading({
         loading: {
           faces: true,
-          someOtherData: false,
+          annotations: false,
+        },
+      })).toBe(true);
+    });
+
+    it('returns true when all properties are loading', () => {
+      expect(isLoading({
+        loading: {
+          faces: true,
+          annotations: true,
         },
       })).toBe(true);
     });
@@ -101,7 +110,7 @@ describe('selector functions', () => {
       expect(isLoading({
         loading: {
           faces: false,
-          someOtherData: false,
+          annotations: false,
         },
       })).toBe(false);
     });

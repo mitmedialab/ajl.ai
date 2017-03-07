@@ -10,6 +10,8 @@ import { AppContainer } from 'react-hot-loader';
 // Provider makes the store available to connected components
 import { Provider } from 'react-redux';
 
+import { requestAnnotations } from './redux/actions';
+
 import makeStore from './redux/store';
 
 import './global.styl';
@@ -17,6 +19,11 @@ import './global.styl';
 import App from './components/App';
 
 const store = makeStore();
+
+// Annotations record defines the content used to render out each form
+// within the application: since it is not form-specific, we load it
+// here on app initialization to get the data as soon as possible
+store.dispatch(requestAnnotations());
 
 const render = (Component) => {
   ReactDOM.render(

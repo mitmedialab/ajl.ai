@@ -1,0 +1,16 @@
+{
+  "annotations": {
+    "demographics": [{
+      "name": "Perceived Age",
+      "options": ["infant", "child", "young adult", "adult", "elderly"]
+    }, {
+      "name": "Perceived Gender",
+      "options": ["other", "female", "male"]
+    }, {
+      "name": "Perceived Ethnicity",
+      "options": ["black", "white", "lantino/a", "asian", "other"]
+    }],
+    "regions": [],
+    "landmarks": []
+  }
+}

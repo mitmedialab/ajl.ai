@@ -9,56 +9,71 @@
  * size; they could be considered later on as the application grows.
  */
 
-/** @type {string} Action to select the active face */
+/** @prop {string} Action to select the active face */
 export const SELECT_FACE = 'SELECT_FACE';
-/** SELECT_FACE action creator */
 export const selectFace = image => ({
   type: SELECT_FACE,
   payload: image,
 });
 
-/** @type {string} Action to select the next available face */
+/** @prop {string} Action to select the next available face */
 export const NEXT_FACE = 'NEXT_FACE';
-/** NEXT_FACE action creator */
 export const nextFace = () => ({
   type: NEXT_FACE,
 });
 
-/** @type {string} Action to select the previous available face */
+/** @prop {string} Action to select the previous available face */
 export const PREVIOUS_FACE = 'PREVIOUS_FACE';
-/** PREVIOUS_FACE action creator */
 export const previousFace = () => ({
   type: PREVIOUS_FACE,
 });
 
-/** @type {string} Action to populate the faces within the store */
+/** @prop {string} Action to populate the faces within the store */
 export const SET_FACES = 'SET_FACES';
-/** SET_FACES action creator */
 export const setFaces = faces => ({
   type: SET_FACES,
   payload: faces,
 });
 
-/** @type {string} Action to trigger a request for face data */
+/** @prop {string} Action to trigger a request for face data */
 export const REQUEST_FACES = 'REQUEST_FACES';
-/** REQUEST_FACES action creator */
+
 export const requestFaces = () => ({
   type: REQUEST_FACES,
 });
 
-/** @type {string} Action to populate the faces within the store when the request succeeds */
+/** @prop {string} Action to populate the faces within the store when the request succeeds */
 export const RECEIVE_FACES = 'RECEIVE_FACES';
-/** RECEIVE_FACES action creator */
 export const receiveFaces = faces => ({
   type: RECEIVE_FACES,
   payload: faces,
 });
 
-/** @type {string} Action to signal a data request failed */
+/** @prop {string} Action to signal a data request failed */
 export const REQUEST_FACES_FAILED = 'REQUEST_FACES_FAILED';
-/** REQUEST_FACES_FAILED action creator */
 export const requestFacesFailed = error => ({
   type: REQUEST_FACES_FAILED,
+  payload: error,
+  error: true,
+});
+
+/** @prop {string} Action to trigger a request for face data */
+export const REQUEST_ANNOTATIONS = 'REQUEST_ANNOTATIONS';
+export const requestAnnotations = () => ({
+  type: REQUEST_ANNOTATIONS,
+});
+
+/** @prop {string} Action to populate the annotations within the store when the request succeeds */
+export const RECEIVE_ANNOTATIONS = 'RECEIVE_ANNOTATIONS';
+export const receiveAnnotations = annotations => ({
+  type: RECEIVE_ANNOTATIONS,
+  payload: annotations,
+});
+
+/** @prop {string} Action to signal a data request failed */
+export const REQUEST_ANNOTATIONS_FAILED = 'REQUEST_ANNOTATIONS_FAILED';
+export const requestAnnotationsFailed = error => ({
+  type: REQUEST_ANNOTATIONS_FAILED,
   payload: error,
   error: true,
 });

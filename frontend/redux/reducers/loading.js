@@ -1,7 +1,11 @@
-import { REQUEST_FACES, RECEIVE_FACES, REQUEST_FACES_FAILED } from '../actions';
+import {
+  REQUEST_FACES, RECEIVE_FACES, REQUEST_FACES_FAILED,
+  REQUEST_ANNOTATIONS, RECEIVE_ANNOTATIONS, REQUEST_ANNOTATIONS_FAILED,
+} from '../actions';
 
 const defaultState = {
   faces: false,
+  annotations: false,
 };
 
 export default function loadingReducer(state = defaultState, action) {
@@ -24,6 +28,27 @@ export default function loadingReducer(state = defaultState, action) {
     return {
       ...state,
       faces: false,
+    };
+  }
+
+  if (action.type === REQUEST_ANNOTATIONS) {
+    return {
+      ...state,
+      annotations: true,
+    };
+  }
+
+  if (action.type === RECEIVE_ANNOTATIONS) {
+    return {
+      ...state,
+      annotations: false,
+    };
+  }
+
+  if (action.type === REQUEST_ANNOTATIONS_FAILED) {
+    return {
+      ...state,
+      annotations: false,
     };
   }
 

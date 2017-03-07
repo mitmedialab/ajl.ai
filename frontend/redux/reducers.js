@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import facesReducer from './reducers/faces';
 import loadingReducer from './reducers/loading';
+import annotationsReducer from './reducers/annotations';
 
 /*
  * Combine reducers to produce single reducer for state.
@@ -11,4 +12,5 @@ import loadingReducer from './reducers/loading';
 export default combineReducers({
   faces: facesReducer,
   loading: loadingReducer,
+  annotations: annotationsReducer,
 });
