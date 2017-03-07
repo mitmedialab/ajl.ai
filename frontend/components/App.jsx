@@ -10,18 +10,19 @@ import Home from './Home';
 import PerceivedDemographics from './PerceivedDemographics';
 import RegionsContainer from './RegionsContainer';
 import LandmarksContainer from './LandmarksContainer';
+import './App.styl';
 
 const App = () => (
   <Router>
     <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/PerceivedDemographics">PerceivedDemographics</Link></li>
-        <li><Link to="/Regions">Regions</Link></li>
-        <li><Link to="/Landmarks">Landmarks</Link></li>
-      </ul>
-
-      <hr />
+      <header>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/PerceivedDemographics">Demographics</Link>
+          <Link to="/Regions">Regions</Link>
+          <Link to="/Landmarks">Landmarks</Link>
+        </nav>
+      </header>
 
       <LoadingContainer />
 
@@ -29,6 +30,10 @@ const App = () => (
       <Route path="/PerceivedDemographics" component={PerceivedDemographics} />
       <Route path="/Regions" component={RegionsContainer} />
       <Route path="/Landmarks" component={LandmarksContainer} />
+
+      <footer>
+        footer controls
+      </footer>
     </div>
 
   </Router>
