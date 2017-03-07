@@ -33,7 +33,8 @@ These commands are available after installation within the `image-annotator/` di
 
 ### Instructions for Ubuntu 16 dev environment setup:
 
-$ sudo su postgres;
+$ $ sudo apt-get install postgresql
+$ sudo su postgres
 $ CREATE DATABASE image-annotator;
 
 $ sudo service postgresql stop
