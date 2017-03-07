@@ -55,11 +55,11 @@ module.exports = {
     },
 
     proxy: {
-     '/api': {
+      '/api': {
         target: 'http://localhost:8000',
-        secure: false
-      }
-    }
+        secure: false,
+      },
+    },
   },
 
   module: {

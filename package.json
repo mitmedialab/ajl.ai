@@ -91,6 +91,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^19.0.0",
     "node-object-hash": "^1.1.5",
+    "npm-run-all": "^4.0.2",
     "postcss-loader": "^1.2.2",
     "redux-saga-test-plan": "^2.2.1",
     "style-loader": "^0.13.1",
