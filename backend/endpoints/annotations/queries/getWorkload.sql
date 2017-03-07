@@ -1,9 +1,6 @@
 SELECT
-  image.id,
-  image.url,
-  image.width,
-  image.height
+  images
 FROM
-  image
-ORDER BY RANDOM()
-LIMIT ${limit}
+  workload
+WHERE
+  annotator_id = ${annotatorId} AND id = ${workloadId}

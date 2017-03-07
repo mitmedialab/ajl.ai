@@ -48,6 +48,47 @@ var annotations = [
   },
   {...}
 ];
+
+
+var json = JSON.stringify({
+  workloadId:1,
+  images: [{
+    id: 1,
+    demographics:[{
+      name: 'Perceived Age',
+      option: 'adult'
+    },{
+      name: 'Perceived Gender',
+      option: 'androgynous'
+    },{
+      name: 'Perceived Ethnicity',
+      option: 'white'
+    }]
+  },{
+    id: 2,
+    demographics:[{
+      name: 'Perceived Age',
+      option: 'young adult'
+    },{
+      name: 'Perceived Gender',
+      option: 'male'
+    },{
+      name: 'Perceived Ethnicity',
+      option: 'black'
+    }]
+  }]
+});
+
+fetch("/api/annotations", {
+  method: "POST",
+  body: json,
+  "credentials": "include",
+  headers: {
+    "Content-Type": "application/json"
+  }
+});
+
+
 */
 
 
