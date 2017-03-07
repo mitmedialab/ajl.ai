@@ -4,7 +4,9 @@ import monitor from 'pg-monitor';
 
 import config from '../../config';
 
-function apiError (err) {
+/* eslint-disable no-param-reassign */
+
+function apiError(err) {
   if (err.constraint) { // Converting constraint violations into HTTP codes
     const key = err.constraint.split('_');
     err.statusCode = 409;
@@ -26,15 +28,15 @@ function apiError (err) {
 
 const options = {
   promiseLib: bluebird,
-  extend: function (obj, dc) {
+  extend(obj) {
     obj.apiError = apiError;
-  }
+  },
 };
 
 if (config.DEBUG_SQL) {
   monitor.attach(options);
   monitor.setTheme('matrix');
 }
-const _pgp = pgp(options);
-_pgp.pg.defaults.ssl = config.db.ssl;
-export default _pgp;
+const connection = pgp(options);
+connection.pg.defaults.ssl = config.db.ssl;
+export default connection;

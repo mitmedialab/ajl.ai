@@ -23,8 +23,10 @@ module.exports = {
       requireForBlockBody: true
     }],
     'arrow-body-style': ['off'],
-    // Allow importing devDependencies at the top level: rule is re-enabled
-    // within the frontend and backend directories
-    'import/no-extraneous-dependencies': ['off'],
+
+    'import/no-extraneous-dependencies': ['error', { devDependencies: [
+      // only allow devDependencies in these folders:
+      '*.js', '**/__tests__/*', 'frontend/**/*', 'jest/**/*'
+    ] }],
   }
 };
