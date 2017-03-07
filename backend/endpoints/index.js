@@ -1,5 +1,5 @@
-import * as healthCheck from './health';
-import * as annotations from './annotations';
+import * as healthCheck from './health/routes';
+import * as annotations from './annotations/routes';
 
 export default [
   healthCheck,

@@ -1,4 +1,4 @@
-CREATE TABLE annotater (
+CREATE TABLE annotator (
   id SERIAL PRIMARY KEY,
   city TEXT
 );
@@ -14,10 +14,10 @@ CREATE TABLE annotation_type (
   id SERIAL PRIMARY KEY,
   name TEXT
 );
-INSERT INTO annotation_type (name) VALUES
-  ('Perceived Age'),
-  ('Perceived Gender'),
-  ('Perceived Ethnicity');
+INSERT INTO annotation_type (id, name) VALUES
+  (1, 'Perceived Age'),
+  (2, 'Perceived Gender'),
+  (3, 'Perceived Ethnicity');
 
 CREATE TABLE annotation_option (
   id SERIAL PRIMARY KEY,
@@ -41,7 +41,7 @@ INSERT INTO annotation_option (annotation_type_id, name) VALUES
 
 CREATE TABLE image_annotation (
   id SERIAL PRIMARY KEY,
-  annotater_id INTEGER NOT NULL REFERENCES annotater(id),
+  annotator_id INTEGER NOT NULL REFERENCES annotator(id),
   image_id INTEGER NOT NULL REFERENCES image(id),
   annotation_option_id INTEGER NOT NULL REFERENCES annotation_option(id)
 );
@@ -125,7 +125,7 @@ CREATE TABLE image_landmark_annotation (
   id SERIAL PRIMARY KEY,
   image_id INTEGER NOT NULL REFERENCES image(id),
   landmark_id INTEGER NOT NULL REFERENCES landmark(id),
-  annotater_id INTEGER NOT NULL REFERENCES annotater(id),
+  annotator_id INTEGER NOT NULL REFERENCES annotator(id),
   x INTEGER NOT NULL,
   y INTEGER NOT NULL
 );
@@ -137,5 +137,5 @@ DROP TABLE landmark;
 DROP TABLE image_annotation;
 DROP TABLE annotation_option;
 DROP TABLE annotation_type;
-DROP TABLE annotater;
+DROP TABLE annotator;
 DROP TABLE image;

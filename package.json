@@ -18,7 +18,7 @@
     "start": "npm-run-all -p -r front:dev server:dev",
     "front:dev": "webpack-dev-server",
     "server:prod": "babel-node backend/server",
-    "server:dev": "supervisor -w backend/ backend/server",
+    "server:dev": "supervisor -w backend/ -e js,sql backend/server",
     "lint": "eslint --ext js,jsx ./*.js frontend jest backend",
     "test:dev": "node jest/run.js --watch",
     "test": "npm run lint && node jest/run.js"
@@ -57,6 +57,7 @@
     "express-session": "^1.15.1",
     "fabric": "^1.7.6",
     "kapow": "^1.0.0",
+    "lodash": "^4.17.4",
     "morgan": "^1.8.1",
     "pg": "^6.1.2",
     "pg-monitor": "^0.7.1",
