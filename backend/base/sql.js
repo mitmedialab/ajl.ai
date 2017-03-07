@@ -12,6 +12,9 @@ import pgp from './pgp';
  */
 export function load(basePath) {
   return fs.readdirSync(basePath).reduce((result, queryFile) => {
+    if (! /\.sql$/.test(queryFile)) {
+      return result;
+    }
     const query = path.basename(queryFile, '.sql');
     // eslint-disable-next-line no-param-reassign
     result[query] = pgp.QueryFile(path.join(basePath, queryFile));
