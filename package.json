@@ -18,7 +18,7 @@
     "start": "npm-run-all -p -r front:dev server:dev",
     "front:dev": "webpack-dev-server",
     "server:prod": "babel-node backend/server",
-    "server:dev": "supervisor -w backend/ backend/server",
+    "server:dev": "supervisor -w backend/ -e js,sql backend/server",
     "lint": "eslint --ext js,jsx ./*.js frontend jest backend",
     "test:dev": "node jest/run.js --watch",
     "test": "npm run lint && node jest/run.js"
