@@ -15,8 +15,12 @@ class Canvas extends PureComponent {
     this.updateBackground();
   }
 
-  updateBackground () {
-    if( this.props.face ) {
+  updateBackground() {
+    function capturePoints(landmark) {
+      console.log(landmark.target.uniqId, landmark.target.left, landmark.target.top);
+    }
+
+    if (this.props.face) {
       this.canvas.setBackgroundImage(
         this.props.face.image,
         this.canvas.renderAll.bind(this.canvas),
@@ -25,24 +29,20 @@ class Canvas extends PureComponent {
           originX: 'left',
           originY: 'top',
           width: 500,
-          height: 500
+          height: 500,
         }
       );
 
-      var rect = new fabric.Rect({
+      const rect = new fabric.Rect({
         left: 290,
         top: 210,
         width: 80,
         height: 60,
         fill: 0,
         stroke: '#333',
-        hasRotatingPoint: 0
+        hasRotatingPoint: 0,
       });
       this.canvas.add(rect);
-
-      function capturePoints(landmark){
-        console.log(landmark.target.uniqId, landmark.target.left, landmark.target.top);
-      }
 
       this.canvas.on({
         'object:modified': capturePoints,
@@ -52,7 +52,7 @@ class Canvas extends PureComponent {
         // 'object:rotating': capturePoints
       });
 
-      console.log(styles)
+      console.log(styles);
 
     }
   }

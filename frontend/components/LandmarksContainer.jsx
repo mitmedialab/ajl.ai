@@ -1,6 +1,5 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import fabric from '../services/fabric';
 import * as propShapes from '../prop-shapes';
 import Landmarks from './Landmarks';
 import { selectedFace } from '../redux/selectors';
@@ -15,12 +14,13 @@ class LandmarksContainer extends PureComponent {
     const { face } = this.props;
     return (
       <Landmarks face={face} />
-  );
+    );
   }
 }
 
 LandmarksContainer.propTypes = {
   face: propShapes.face,
+  onEnter: PropTypes.func.isRequired,
 };
 
 LandmarksContainer.defaultProps = {

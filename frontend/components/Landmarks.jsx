@@ -3,6 +3,20 @@ import fabric from '../services/fabric';
 import * as propShapes from '../prop-shapes';
 import styles from './Canvas.styl';
 
+function makeCircle(left, top, uniqId, color) {
+  const c = new fabric.Circle({
+    strokeWidth: 1,
+    radius: 8,
+    fill: color || '#33a',
+    left,
+    top,
+    uniqId,
+  });
+  c.hasControls = false;
+  c.hasBorders = false;
+  return c;
+}
+
 class Canvas extends PureComponent {
   componentDidMount() {
     // Promote DOM node reference to a fabric instance
@@ -15,8 +29,12 @@ class Canvas extends PureComponent {
     this.updateBackground();
   }
 
-  updateBackground () {
-    if( this.props.face ) {
+  updateBackground() {
+    function capturePoints(landmark) {
+      console.log(landmark.target.uniqId, landmark.target.left, landmark.target.top);
+    }
+
+    if (this.props.face) {
       this.canvas.setBackgroundImage(
         this.props.face.image,
         this.canvas.renderAll.bind(this.canvas),
@@ -27,7 +45,7 @@ class Canvas extends PureComponent {
           top: -650,
           left: -650,
           width: 2000,
-          height: 2000
+          height: 2000,
         }
       );
 
@@ -39,10 +57,6 @@ class Canvas extends PureComponent {
         makeCircle(160, 280, 5),
         makeCircle(310, 275, 6)
       );
-
-      function capturePoints(landmark){
-        console.log(landmark.target.uniqId, landmark.target.left, landmark.target.top);
-      }
 
       this.canvas.on({
         'object:modified': capturePoints,
@@ -65,19 +79,6 @@ class Canvas extends PureComponent {
       />
     );
   }
-}
-
-function makeCircle(left, top, uniqId, color) {
-  var c = new fabric.Circle({
-    left: left,
-    top: top,
-    strokeWidth: 1,
-    radius: 8,
-    fill: color || '#33a',
-    uniqId: uniqId
-  });
-  c.hasControls = c.hasBorders = false;
-  return c;
 }
 
 Canvas.propTypes = {

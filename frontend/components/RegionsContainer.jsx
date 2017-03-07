@@ -1,6 +1,5 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import fabric from '../services/fabric';
 import * as propShapes from '../prop-shapes';
 import Regions from './Regions';
 import { selectedFace } from '../redux/selectors';
@@ -15,12 +14,13 @@ class RegionsContainer extends PureComponent {
     const { face } = this.props;
     return (
       <Regions face={face} />
-  );
+    );
   }
 }
 
 RegionsContainer.propTypes = {
   face: propShapes.face,
+  onEnter: PropTypes.func.isRequired,
 };
 
 RegionsContainer.defaultProps = {
