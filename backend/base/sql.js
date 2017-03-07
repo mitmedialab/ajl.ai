@@ -12,7 +12,7 @@ import pgp from './pgp';
  */
 export function load(basePath) {
   return fs.readdirSync(basePath).reduce((result, queryFile) => {
-    if (!/\.sql$/.test(queryFile)) {
+    if (! /\.sql$/.test(queryFile)) {
       return result;
     }
     const query = path.basename(queryFile, '.sql');
