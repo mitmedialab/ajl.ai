@@ -64,30 +64,9 @@ export function getAllFaces() {
     .then(result => result.data.map(transformFace));
 }
 
-const mockWorkload = {
-  id: 121,
-  images: [
-    { id: 1594, url: 'http://www.code4rights.com/lfw_subjects/Hwang_Doo-yun_0001.jpg', width: 250, height: 250 },
-    { id: 28, url: 'http://www.code4rights.com/lfw_subjects/Adrianna_Zuzic_0001.jpg', width: 250, height: 250 },
-    { id: 1998, url: 'http://www.code4rights.com/lfw_subjects/John_Malkovich_0001.jpg', width: 250, height: 250 },
-    { id: 991, url: 'http://www.code4rights.com/lfw_subjects/Dimitri_Perricos_0001.jpg', width: 250, height: 250 },
-    { id: 2801, url: 'http://www.code4rights.com/lfw_subjects/Mike_Smith_0001.jpg', width: 250, height: 250 },
-    { id: 3944, url: 'http://www.code4rights.com/lfw_subjects/Tom_Tunney_0001.jpg', width: 250, height: 250 },
-    { id: 3637, url: 'http://www.code4rights.com/lfw_subjects/Shigeru_Ishiba_0001.jpg', width: 250, height: 250 },
-    { id: 14, url: 'http://www.code4rights.com/lfw_subjects/Abdullatif_Sener_0001.jpg', width: 250, height: 250 },
-    { id: 4060, url: 'http://www.code4rights.com/lfw_subjects/William_Cocksedge_0001.jpg', width: 250, height: 250 },
-    { id: 2841, url: 'http://www.code4rights.com/lfw_subjects/Mitt_Romney_0001.jpg', width: 250, height: 250 },
-    { id: 184, url: 'http://www.code4rights.com/lfw_subjects/Andrea_Kiser_0001.jpg', width: 250, height: 250 },
-    { id: 858, url: 'http://www.code4rights.com/lfw_subjects/Darrell_Royal_0001.jpg', width: 250, height: 250 },
-  ],
-};
-
 export function getWorkload() {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve({ data: mockWorkload }), 250);
-  })
+  return axios.get('/api/annotations/workload')
     // Axios exposes JSON response body as .data property
-    // Returned object is an array of image entries
     .then(result => result.data);
 }
 

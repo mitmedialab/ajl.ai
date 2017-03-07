@@ -29,7 +29,7 @@ describe('workload reducer', () => {
   const { RECEIVE_WORKLOAD } = actions;
   describe(`on ${RECEIVE_WORKLOAD}`, () => {
     const initialState = workloadReducer(undefined, {});
-    const payload = {
+    const payload = [{
       id: 121,
       images: [
         { id: 1594, url: '0001.jpg', width: 250, height: 250 },
@@ -37,7 +37,7 @@ describe('workload reducer', () => {
         { id: 1998, url: '0003.jpg', width: 250, height: 250 },
         { id: 991, url: '0004.jpg', width: 250, height: 250 },
       ],
-    };
+    }];
 
     it('populates the workload ID', () => {
       const nextState = workloadReducer(initialState, {
