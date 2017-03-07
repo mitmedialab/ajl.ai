@@ -17,7 +17,7 @@ CREATE TABLE annotation_type (
 INSERT INTO annotation_type (name) VALUES
   ('Perceived Age'),
   ('Perceived Gender'),
-  ('Perceived Skintone');
+  ('Perceived Ethnicity');
 
 CREATE TABLE annotation_option (
   id SERIAL PRIMARY KEY,
@@ -30,14 +30,14 @@ INSERT INTO annotation_option (annotation_type_id, name) VALUES
   (1, 'young adult'),
   (1, 'adult'),
   (1, 'elderly'),
-  (2, 'other'),
+  (2, 'androgynous'),
   (2, 'female'),
   (2, 'male'),
-  (3, 'skintone1'),
-  (3, 'skintone2'),
-  (3, 'skintone3'),
-  (3, 'skintone4'),
-  (3, 'skintone5');
+  (3, 'black'),
+  (3, 'white'),
+  (3, 'lantino/a'),
+  (3, 'asian'),
+  (3, 'not listed');
 
 CREATE TABLE image_annotation (
   id SERIAL PRIMARY KEY,

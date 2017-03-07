@@ -10,9 +10,10 @@ import pgp from './pgp';
  * @param {string} basePath
  * @return {object}  keyed `QueryFile` objects
  */
-export function load (basePath) {
+export function load(basePath) {
   return fs.readdirSync(basePath).reduce((result, queryFile) => {
     const query = path.basename(queryFile, '.sql');
+    // eslint-disable-next-line no-param-reassign
     result[query] = pgp.QueryFile(path.join(basePath, queryFile));
     return result;
   }, {});
@@ -28,7 +29,7 @@ export function load (basePath) {
  * @return {string} Formatted SQL query
  * @see http://vitaly-t.github.io/pg-promise/formatting.html#.format
  */
-export function format (query, values) {
+export function format(query, values) {
   return pgp.as.format(query, values);
 }
 
@@ -42,8 +43,9 @@ export function format (query, values) {
  * @return {string}              Parameterized query if `fields` is Array
  *                               Complete query string if `fields` is object
  */
-export function create (table, fields) {
-  if (!Array.isArray(fields)) {
+export function create(table, fields) {
+  if (! Array.isArray(fields)) {
+    // eslint-disable-next-line no-param-reassign
     fields = [fields];
   }
   const insertQuery = pgp.helpers.insert(
@@ -60,19 +62,18 @@ export function create (table, fields) {
  * @param {Array|object} fields
  * @return {string}              `id` is parameterized
  */
-export function update (table, fields, options) {
+export function update(table, fields, options) {
   const opts = Object.assign({}, {
-    where: 'WHERE id=$[id] RETURNING *'
+    where: 'WHERE id=$[id] RETURNING *',
   }, options);
   let updateQuery;
   if (Array.isArray(fields)) {
-    const setters = fields.map(field => {
+    const setters = fields.map((field) => {
       return `${pgp.as.name(field)}=$[${field}]`;
     }).join(', ');
     updateQuery = `UPDATE ${pgp.as.name(table)} SET ${setters}`;
 
-  }
-  else {
+  } else {
     updateQuery = pgp.helpers.update(
       fields,
       Object.keys(fields),
@@ -87,6 +88,6 @@ export function update (table, fields, options) {
  * @param {string} table
  * @return {string}       `id` is parameterized
  */
-export function destroy (table) {
+export function destroy(table) {
   return `DELETE FROM ${pgp.as.name(table)} WHERE id=$[id] RETURNING id`;
 }

@@ -17,11 +17,11 @@
     "migrate:reset": "careen -R -a -e -n 10000 -c backend/db/migrations/careen; npm run migrate:up",
     "start": "npm-run-all -p -r front:dev server:dev",
     "front:dev": "webpack-dev-server",
-    "server:prod": "node backend/server",
+    "server:prod": "babel-node backend/server",
     "server:dev": "supervisor -w backend/ backend/server",
-    "lint": "eslint --ext js,jsx ./*.js frontend jest",
-    "test:dev": "node jest/run.js",
-    "test": "node jest/run.js && npm run lint"
+    "lint": "eslint --ext js,jsx ./*.js frontend jest backend",
+    "test:dev": "node jest/run.js --watch",
+    "test": "npm run lint && node jest/run.js"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -43,6 +43,7 @@
     "axios": "^0.15.3",
     "babel-cli": "^6.23.0",
     "babel-polyfill": "^6.23.0",
+    "babel-register": "^6.23.0",
     "bluebird": "^3.4.7",
     "body-parser": "^1.16.1",
     "careen": "^0.1.1",
@@ -55,6 +56,7 @@
     "express-routebuilder": "^2.1.0",
     "express-session": "^1.15.1",
     "fabric": "^1.7.6",
+    "kapow": "^1.0.0",
     "morgan": "^1.8.1",
     "pg": "^6.1.2",
     "pg-monitor": "^0.7.1",
