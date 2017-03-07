@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { requestFaces } from '../redux/actions';
 import CanvasContainer from './CanvasContainer';
 import CarouselContainer from './CarouselContainer';
+import * as propShapes from '../prop-shapes';
 
 // import styles from './PerceivedDemographics.styl';
 
-class PerceivedDemographicsContainer extends Component {
+class PerceivedDemographics extends Component {
 
   constructor(props) {
     super(props);
@@ -100,12 +101,17 @@ class PerceivedDemographicsContainer extends Component {
   }
 }
 
-PerceivedDemographicsContainer.propTypes = {
+PerceivedDemographics.propTypes = {
   onEnter: PropTypes.func.isRequired,
+  face: propShapes.face,
+};
+
+CanvasContainer.defaultProps = {
+  face: null,
 };
 
 const mapDispatchToProps = dispatch => ({
   onEnter: () => dispatch(requestFaces()),
 });
 
-export default connect(null, mapDispatchToProps)(PerceivedDemographicsContainer);
+export default PerceivedDemographics;
