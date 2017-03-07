@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const webpack = require('webpack');
 const findCacheDir = require('find-cache-dir');
 const objectHash = require('node-object-hash');
+const express = require('express');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
@@ -59,6 +60,11 @@ module.exports = {
         target: 'http://localhost:8000',
         secure: false,
       },
+    },
+
+    // Fall back to static file serving at /api to load mock data JSON files
+    setup: (app) => {
+      app.use('/api', express.static(resolve(__dirname, 'static')));
     },
   },
 
