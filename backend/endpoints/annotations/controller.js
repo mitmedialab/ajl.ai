@@ -46,6 +46,9 @@ export function postAnnotations(req, res) {
   // Then validate that the images ids in the current annotator's stored workload
   // match the image ids whose annotations are being submitted
   .then((data) => {
+    if (! data.length) {
+      throw new Error('unknown workload');
+    }
     const images = data[0].images;
     const storedIds = images.map(image => image.id);
     const submittedIds = req.body.images.map(image => image.id);
