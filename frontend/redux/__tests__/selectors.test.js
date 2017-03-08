@@ -161,8 +161,8 @@ describe('selector functions', () => {
         c: 'Demographic Question 3',
       };
       const result = demographics({
-        annotations: {
-          demographics: demoDict,
+        demographics: {
+          questions: demoDict,
         },
       });
       expect(result).toBe(demoDict);
@@ -181,8 +181,8 @@ describe('selector functions', () => {
     it('returns the demographics order list', () => {
       const demoOrder = ['a', 'b', 'c'];
       const result = demographicsOrder({
-        annotations: {
-          demographicsOrder: demoOrder,
+        demographics: {
+          order: demoOrder,
         },
       });
       expect(result).toBe(demoOrder);
