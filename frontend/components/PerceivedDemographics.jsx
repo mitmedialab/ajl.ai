@@ -70,6 +70,9 @@ class PerceivedDemographics extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.onSubmit(this.prepareAnnotationsObject());
+    if (this.props.current >= this.props.total - 1) {
+      this.props.onCompleteWorkload();
+    }
   }
 
   prevStep() {
@@ -152,6 +155,7 @@ class PerceivedDemographics extends Component {
 PerceivedDemographics.propTypes = {
   onEnter: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onCompleteWorkload: PropTypes.func.isRequired,
   demographics: PropTypes.objectOf(propShapes.demographicQuestion).isRequired,
   questionOrder: propShapes.demographicsQuestionList.isRequired,
   face: propShapes.workloadItem,

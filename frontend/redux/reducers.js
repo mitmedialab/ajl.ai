@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 
 import facesReducer from './reducers/faces';
 import loadingReducer from './reducers/loading';
-import annotationsReducer from './reducers/annotations';
 import demographicsReducer from './reducers/demographics';
 import workloadReducer from './reducers/workload';
 
@@ -14,7 +13,6 @@ import workloadReducer from './reducers/workload';
 export default combineReducers({
   faces: facesReducer,
   loading: loadingReducer,
-  annotations: annotationsReducer,
   demographics: demographicsReducer,
   workload: workloadReducer,
 });

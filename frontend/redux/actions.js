@@ -117,3 +117,8 @@ export const saveDemographicAnnotations = ({ id, demographics }) => ({
     demographics,
   },
 });
+
+export const COMPLETE_WORKLOAD = 'COMPLETE_WORKLOAD';
+export const completeWorkload = () => ({
+  type: COMPLETE_WORKLOAD,
+});

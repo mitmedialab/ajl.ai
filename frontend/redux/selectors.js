@@ -10,6 +10,7 @@
 
 /** @deprecated use currentWorkloadItem */
 export const selectedFace = state => state.faces.list[state.faces.selected];
+
 export const currentWorkloadItem = state => state.workload.byId[state.workload.todo[0]] || null;
 
 export const selectedWorkloadItemIndex = state => state.workload.complete.length + 1;
@@ -21,5 +22,5 @@ export const isLoading = state => Object
   .keys(state.loading)
   .reduce((anyLoading, key) => (anyLoading || state.loading[key]), false);
 
-export const demographics = state => state.annotations.demographics;
-export const demographicsOrder = state => state.annotations.demographicsOrder;
+export const demographics = state => state.demographics.questions;
+export const demographicsOrder = state => state.demographics.order;

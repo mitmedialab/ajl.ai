@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import {
   requestWorkload,
   saveDemographicAnnotations,
-  nextFace,
+  completeWorkload,
 } from '../redux/actions';
 import {
   currentWorkloadItem,
@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onEnter: () => dispatch(requestWorkload()),
   onSubmit: annotations => dispatch(saveDemographicAnnotations(annotations)),
-  onClickNext: () => dispatch(nextFace()),
+  onCompleteWorkload: () => dispatch(completeWorkload()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PerceivedDemographics);
