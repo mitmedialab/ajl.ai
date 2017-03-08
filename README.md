@@ -2,29 +2,46 @@
 
 ## Repository Structure
 
-- `image-annotator/` - front-end client written in React
+- `backend` - back-end api written in node/express/postgress
+- `frontend` - front-end client written in react/redux/webpack
+- `jest` - unit and integration tests
 - `prototypes/` - exploratory interaction prototypes
     + `fabric-test/` - prototypes using [fabric.js](http://fabricjs.com/) for rendering
     + `paper-test/` - prototype using [Paper.js](http://paperjs.org) for rendering
     + `snap-svg-test/` - prototype using SVG to render landmarks
+- `sample-data` - initial sample data from researchers
+- `static` - initial static data for testing
+- `api.md` - REST API reference documentation
+
+## REST API
+This project exposes a REST API with the following endpoints:
+* get /api/annotations/types
+* get /api/annotations/workload
+* post /api/annotations
+
+More information available in [api.md](blob/master/api.md).
 
 ## Installation
+### Frontend
+The front end is running React, Redux, Webpack.
 
-### Prototypes
+Run `npm install` to install all front-end dependencies; then run `npm start` to launch the webpack dev server. The application will then be available at [localhost:8080](http://localhost:8080).
 
-`cd` into the root of the project and run `npm start` (Requires python, equivalent to running `python -m SimpleHTTPServer 8000`) or a comparable static web server.
+The front end currently needs the local node/postgres backend running (installation instructions below).
 
-Navigate to the following prototypes in your browser:
+#### Other commands
 
-* test on 25 sample landmarked images of faces [sample-data-rotate-regions](http://localhost:8000/prototypes/fabric-test/sample-data-rotate-regions.html)
-* UI experiment for three annotation modes: [general fabric.js test](http://localhost:8000/prototypes/fabric-test/)
+These commands are available after installation within the `image-annotator/` directory:
 
-### React front-end
+- `npm test`: run unit tests with Jest, then lint on exit
+- `npm run lint`: run ESLint to identify syntax & style issues in the code
+- `npm run build`: generate a static build into `image-annotator/dist`
 
-Run `npm install` to install front-end dependencies; then run `npm start` to launch the webpack dev server. The application will then be available at [localhost:8080](http://localhost:8080).
 
-### Node/Postgres backend
-The app must be pointed at a running postgres server. Default config will use the db name `image-annotator`, and you can configure all the connection paramters in the `.gitignored` `.env` file. For example:
+### backend
+The backend is running node, Postgres and an express based set of middlewares for the REST API we expose.
+
+The app must be pointed at a running postgres server. Default config will use the db name `image-annotator`, and a set of sensible connection defaults, but if you need to, you can configure all the connection parameters in the `.gitignored` `.env` file. For example:
 
 ```
 PGHOST=localhost
@@ -35,16 +52,9 @@ PGPASS=*****
 # if specified, DATABASE_URL overides all of the above
 DATABASE_URL=
 ```
-#### Other commands
 
-These commands are available after installation within the `image-annotator/` directory:
-
-- `npm test`: run unit tests with Jest, then lint on exit
-- `npm run lint`: run ESLint to identify syntax & style issues in the code
-- `npm run build`: generate a static build into `image-annotator/dist`
-
-### Instructions for Ubuntu 16 dev environment setup:
-
+#### Installing postgres
+##### Ubuntu 16 dev environment setup:
 $ sudo apt-get install postgresql
 
 $ sudo su postgres
@@ -72,9 +82,7 @@ PGUSER=postgres
 
 npm run migrate:up
 
-
-### Instructions for Mac OS dev environment setup:
-
+##### Instructions for Mac OS dev environment setup:
 _The postgres installation step assumes you are using the [Homebrew](https://brew.sh/) package manager_
 
 $ brew install postgresql
@@ -86,3 +94,10 @@ $ createdb image-annotator
 _(on subsequent runs PostgreSQL should now auto-start)_
 
 $ npm run migrate:up
+
+### Running the prototypes
+`cd` into the prototypes directory you want to look at and run `npm start` (Requires python, equivalent to running `python -m SimpleHTTPServer 8000`) or a comparable static web server.
+
+Navigate to the following prototypes in your browser:
+* test on 25 sample landmarked images of faces [sample-data-rotate-regions](http://localhost:8000/prototypes/fabric-test/sample-data-rotate-regions.html)
+* UI experiment for three annotation modes: [general fabric.js test](http://localhost:8000/prototypes/fabric-test/)
