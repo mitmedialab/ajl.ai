@@ -7,8 +7,8 @@ import {
 } from '../redux/actions';
 
 import {
-  selectedFaceIndex,
-  totalFaceCount,
+  currentWorkloadItem,
+  totalWorkloadItemCount,
 } from '../redux/selectors';
 
 import Carousel from './Carousel';
@@ -35,8 +35,8 @@ CarouselContainer.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  current: selectedFaceIndex(state),
-  total: totalFaceCount(state),
+  current: currentWorkloadItem(state),
+  total: totalWorkloadItemCount(state),
 });
 
 const mapDispatchToProps = dispatch => ({

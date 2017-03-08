@@ -15,6 +15,7 @@ describe('perceived demographics form reducer', () => {
     expect(initialState).toEqual({
       order: [],
       questions: {},
+      answers: {},
       current: 0,
     });
   });
@@ -93,6 +94,13 @@ describe('perceived demographics form reducer', () => {
     });
 
   });
+
+  // const { SAVE_DEMOGRAPHIC_ANNOTATIONS } = actions;
+  // describe(`on ${SAVE_DEMOGRAPHIC_ANNOTATIONS}`, () => {
+
+  //   it('stores the resulting')
+
+  // });
 
   const { NEXT_FACE } = actions;
   describe(`on ${NEXT_FACE}`, () => {

@@ -108,3 +108,12 @@ export const selectDemographicAnswer = ({ name, value }) => ({
     value,
   },
 });
+
+export const SAVE_DEMOGRAPHIC_ANNOTATIONS = 'SAVE_DEMOGRAPHIC_ANNOTATIONS';
+export const saveDemographicAnnotations = ({ id, demographics }) => ({
+  type: SAVE_DEMOGRAPHIC_ANNOTATIONS,
+  payload: {
+    id,
+    demographics,
+  },
+});

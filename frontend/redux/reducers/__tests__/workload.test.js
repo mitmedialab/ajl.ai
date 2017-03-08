@@ -93,4 +93,29 @@ describe('workload reducer', () => {
 
   });
 
+  const { SAVE_DEMOGRAPHIC_ANNOTATIONS } = actions;
+  describe(`on ${SAVE_DEMOGRAPHIC_ANNOTATIONS}`, () => {
+
+    it('moves a workload item from todo to complete', () => {
+      const initialState = workloadReducer({
+        todo: [4, 5, 6],
+        complete: [1, 2, 3],
+      }, {});
+      const nextState = workloadReducer(initialState, {
+        type: SAVE_DEMOGRAPHIC_ANNOTATIONS,
+        payload: {
+          id: 4,
+        },
+      });
+      expect(nextState).not.toBe(initialState);
+      expect(nextState.todo).toBeDefined();
+      expect(nextState.todo).not.toBe(initialState.todo);
+      expect(nextState.todo).toEqual([5, 6]);
+      expect(nextState.complete).toBeDefined();
+      expect(nextState.complete).not.toBe(initialState.complete);
+      expect(nextState.complete).toEqual([1, 2, 3, 4]);
+    });
+
+  });
+
 });

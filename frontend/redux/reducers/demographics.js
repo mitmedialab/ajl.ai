@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { RECEIVE_ANNOTATIONS, NEXT_FACE } from '../actions';
+import { RECEIVE_ANNOTATIONS, NEXT_FACE, SAVE_DEMOGRAPHIC_ANNOTATIONS } from '../actions';
 
 function order(state = [], action) {
   if (action.type === RECEIVE_ANNOTATIONS) {
@@ -18,9 +18,21 @@ function questions(state = {}, action) {
   return state;
 }
 
+function answers(state = {}, action) {
+  if (action.type === SAVE_DEMOGRAPHIC_ANNOTATIONS) {
+    return {
+      ...state,
+      // Indexed by image_id
+      [action.payload.id]: action.payload.demographics,
+    };
+  }
+  return state;
+}
+
 function current(state = 0, action) {
   if ([
     RECEIVE_ANNOTATIONS,
+    SAVE_DEMOGRAPHIC_ANNOTATIONS,
     NEXT_FACE,
   ].includes(action.type)) {
     return 0;
@@ -31,5 +43,6 @@ function current(state = 0, action) {
 export default combineReducers({
   order,
   questions,
+  answers,
   current,
 });

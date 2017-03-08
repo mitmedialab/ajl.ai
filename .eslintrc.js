@@ -7,6 +7,7 @@ module.exports = {
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
     'padded-blocks': ['off'],
+    'quote-props': ['error', 'as-needed'],
     'space-unary-ops': ['error', {
       words: true,
       nonwords: false,
