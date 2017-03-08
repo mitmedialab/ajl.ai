@@ -84,6 +84,8 @@ export function postAnnotations(req, res) {
   // if they did 12 and got 8 right, now they are enrolled
   .then(() => {
     session.enrolled = true;
+    // TODO
+    // send the new workload
     res.status(201).send();
   })
   // Respond with an error if it doesn't work
