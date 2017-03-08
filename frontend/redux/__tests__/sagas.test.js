@@ -1,47 +1,47 @@
 import { takeLatest } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import { getAllFaces } from '../../services/face-api';
-import rootSaga, { requestFaces } from '../sagas';
+import { getWorkload } from '../../services/face-api';
+import rootSaga, { requestWorkload } from '../sagas';
 import * as actions from '../actions';
 
 describe('sagas', () => {
 
   describe('rootSaga', () => {
 
-    it('has a takeLatest for REQUEST_FACES', () => {
+    it('has a takeLatest for REQUEST_WORKLOAD', () => {
       const generator = rootSaga();
       const next = generator.next();
       const matchingTake = next.value.find(({ FORK } = {}) => (
-        FORK.fn === takeLatest && FORK.args[0] === actions.REQUEST_FACES
+        FORK.fn === takeLatest && FORK.args[0] === actions.REQUEST_WORKLOAD
       ));
       expect(matchingTake).toBeTruthy();
-      expect(matchingTake.FORK.args).toEqual([actions.REQUEST_FACES, requestFaces]);
+      expect(matchingTake.FORK.args).toEqual([actions.REQUEST_WORKLOAD, requestWorkload]);
     });
 
   });
 
-  describe('requestFaces', () => {
+  describe('requestWorkload', () => {
 
-    it('yields an API call to get faces', () => {
-      const saga = testSaga(requestFaces);
-      const faces = [{ face: true }];
+    it('yields an API call to get workload', () => {
+      const saga = testSaga(requestWorkload);
+      const workload = [{ id: 1 }];
       saga.next()
         // Assert that getAllFaces was called
-        .call(getAllFaces)
-        .next(faces)
-        // Assert that the returned faces are sent as a receiveFaces action
-        .put(actions.receiveFaces(faces))
+        .call(getWorkload)
+        .next(workload)
+        // Assert that the returned workload are sent as a receiveFaces action
+        .put(actions.receiveWorkload(workload))
         .next()
         .isDone();
     });
 
     it('handles errors', () => {
-      const saga = testSaga(requestFaces);
+      const saga = testSaga(requestWorkload);
       const error = new Error('Test Error');
       saga.next()
-        .call(getAllFaces)
+        .call(getWorkload)
         .throw(error)
-        .put(actions.requestFacesFailed(error))
+        .put(actions.requestWorkloadFailed(error))
         .next()
         .isDone();
     });

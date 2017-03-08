@@ -1,28 +1,57 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { requestFaces } from '../redux/actions';
-import CanvasContainer from './CanvasContainer';
-import CarouselContainer from './CarouselContainer';
 
-// import styles from './PerceivedDemographics.styl';
+import strToId from '../utils/str-to-id';
+import valuesChanged from '../utils/values-changed';
 
-class PerceivedDemographicsContainer extends Component {
+import * as propShapes from '../prop-shapes';
+
+import PerceivedDemographicQuestion from './PerceivedDemographicQuestion';
+
+import styles from './PerceivedDemographics.styl';
+
+class PerceivedDemographics extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      perceivedAge: 0,
-      perceivedGender: '',
-      perceivedEthnicity: '',
+      currentStep: 0,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.prevStep = this.prevStep.bind(this);
+    this.nextStep = this.nextStep.bind(this);
   }
 
   componentDidMount() {
     this.props.onEnter();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // If the questions (or the face to which they apply) change, reset our state object
+    if (valuesChanged(this.props, nextProps, ['questionOrder', 'face'])) {
+      // TODO: This will break if a question with the name "currentStep" is passed in;
+      // this state logic might be good to eventually migrate to the Redux store
+      this.state = nextProps.questionOrder.reduce((nextState, question) => ({
+        ...nextState,
+        [question]: '',
+      }), {
+        currentStep: 0,
+      });
+    }
+  }
+
+  // Prepare the annotations into the format expected by the action/reducer
+  prepareAnnotationsObject() {
+    const demographics = this.props.questionOrder.map(questionName => ({
+      name: questionName,
+      option: this.state[questionName],
+    }));
+    return {
+      id: this.props.face.id,
+      demographics,
+    };
   }
 
   handleInputChange(event) {
@@ -39,73 +68,103 @@ class PerceivedDemographicsContainer extends Component {
   }
 
   handleSubmit(event) {
-    // eslint-disable-next-line no-console
-    console.log('form value: ', this.state);
     event.preventDefault();
+    this.props.onSubmit(this.prepareAnnotationsObject());
+    if (this.props.current >= this.props.total - 1) {
+      this.props.onCompleteWorkload();
+    }
+  }
+
+  prevStep() {
+    const { currentStep } = this.state;
+    const prevStep = currentStep - 1;
+    this.setState({
+      // Prevent out-of-bounds prevStep value
+      currentStep: prevStep <= 0 ? 0 : prevStep,
+    });
+  }
+
+  nextStep() {
+    const { currentStep } = this.state;
+    const nextStep = currentStep + 1;
+    this.setState({
+      // Prevent out-of-bounds nextStep value
+      currentStep: nextStep >= 2 ? 2 : nextStep,
+    });
   }
 
   render() {
+    const { currentStep } = this.state;
+    const { demographics, questionOrder } = this.props;
+    window.props = this.props;
     return (
       <div>
-        <CanvasContainer />
+        <img
+          src={this.props.face && this.props.face.url}
+          alt="A face to label with perceived demographic information"
+        />
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="perceivedAge">
-            age: (younger)
-            <input
-              id="perceivedAge"
-              name="perceivedAge"
-              type="range"
-              checked={this.state.perceivedAge}
-              onChange={this.handleInputChange}
-              min="0" max="5"
-            />
-            (older)
-          </label>
+          {questionOrder.map((questionId, idx) => {
+            const { id, name, options } = demographics[questionId];
+            return (
+              <PerceivedDemographicQuestion
+                key={`question_${strToId(name)}_${id}`}
+                name={name}
+                options={options}
+                selected={this.state[name]}
+                visible={currentStep === idx}
+                onChange={this.handleInputChange}
+              />
+            );
+          })}
 
-          <label htmlFor="perceivedGender">
-            percieved gender:
-            <select
-              id="perceivedGender"
-              name="perceivedGender"
-              value={this.state.perceivedGender}
-              onChange={this.handleInputChange}
-            >
-              <option value="male">male</option>
-              <option value="female">female</option>
-              <option value="genderqueer">genderqueer</option>
-            </select>
-          </label>
+          <div className={styles.carousel}>
+            <button
+              className={styles.prev}
+              type="button"
+              onClick={this.prevStep}
+            >Back</button>
 
-          <label htmlFor="perceivedEthnicity">
-            perceived ethnicity:
-            <select
-              id="perceivedEthnicity"
-              name="perceivedEthnicity"
-              value={this.state.perceivedEthnicity}
-              onChange={this.handleInputChange}
-            >
-              <option value="black">black</option>
-              <option value="latino">latino</option>
-              <option value="white">white</option>
-              <option value="asian">asian</option>
-              <option value="other">other</option>
-            </select>
-          </label>
+            <span className={styles.current}>
+              Step {currentStep + 1} of {questionOrder.length};
+              {' '}
+              Face {this.props.current} of {this.props.total}
+            </span>
 
-          <button type="submit">Submit</button>
+            {currentStep < 2 ? (
+              <button
+                className={styles.next}
+                type="button"
+                onClick={this.nextStep}
+              >Next Step</button>
+            ) : null}
+
+            {currentStep >= 2 ? (
+              <button
+                className={`${styles.next} ${styles.save}`}
+                type="submit"
+              >Submit</button>
+            ) : null}
+          </div>
         </form>
-        <CarouselContainer />
       </div>
     );
   }
 }
 
-PerceivedDemographicsContainer.propTypes = {
+PerceivedDemographics.propTypes = {
   onEnter: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onCompleteWorkload: PropTypes.func.isRequired,
+  demographics: PropTypes.objectOf(propShapes.demographicQuestion).isRequired,
+  questionOrder: propShapes.demographicsQuestionList.isRequired,
+  face: propShapes.workloadItem,
+  current: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-  onEnter: () => dispatch(requestFaces()),
-});
+PerceivedDemographics.defaultProps = {
+  face: null,
+};
 
-export default connect(null, mapDispatchToProps)(PerceivedDemographicsContainer);
+export default PerceivedDemographics;

@@ -58,6 +58,27 @@ export const requestFacesFailed = error => ({
 });
 
 /** @prop {string} Action to trigger a request for face data */
+export const REQUEST_WORKLOAD = 'REQUEST_WORKLOAD';
+export const requestWorkload = () => ({
+  type: REQUEST_WORKLOAD,
+});
+
+/** @prop {string} Action to populate the workload within the store when the request succeeds */
+export const RECEIVE_WORKLOAD = 'RECEIVE_WORKLOAD';
+export const receiveWorkload = workload => ({
+  type: RECEIVE_WORKLOAD,
+  payload: workload,
+});
+
+/** @prop {string} Action to signal a data request failed */
+export const REQUEST_WORKLOAD_FAILED = 'REQUEST_WORKLOAD_FAILED';
+export const requestWorkloadFailed = error => ({
+  type: REQUEST_WORKLOAD_FAILED,
+  payload: error,
+  error: true,
+});
+
+/** @prop {string} Action to trigger a request for face data */
 export const REQUEST_ANNOTATIONS = 'REQUEST_ANNOTATIONS';
 export const requestAnnotations = () => ({
   type: REQUEST_ANNOTATIONS,
@@ -76,4 +97,28 @@ export const requestAnnotationsFailed = error => ({
   type: REQUEST_ANNOTATIONS_FAILED,
   payload: error,
   error: true,
+});
+
+/** @prop {string} Action to select the next available face */
+export const SELECT_ANSWER = 'SELECT_ANSWER';
+export const selectDemographicAnswer = ({ name, value }) => ({
+  type: SELECT_ANSWER,
+  payload: {
+    name,
+    value,
+  },
+});
+
+export const SAVE_DEMOGRAPHIC_ANNOTATIONS = 'SAVE_DEMOGRAPHIC_ANNOTATIONS';
+export const saveDemographicAnnotations = ({ id, demographics }) => ({
+  type: SAVE_DEMOGRAPHIC_ANNOTATIONS,
+  payload: {
+    id,
+    demographics,
+  },
+});
+
+export const COMPLETE_WORKLOAD = 'COMPLETE_WORKLOAD';
+export const completeWorkload = () => ({
+  type: COMPLETE_WORKLOAD,
 });

@@ -2,83 +2,112 @@ import * as selectors from '../selectors';
 
 describe('selector functions', () => {
 
-  describe('selectedFace', () => {
-    const { selectedFace } = selectors;
+  describe('currentWorkloadItem', () => {
+    const { currentWorkloadItem } = selectors;
 
     it('is a function', () => {
-      expect(selectedFace).toBeDefined();
-      expect(selectedFace).toBeInstanceOf(Function);
+      expect(currentWorkloadItem).toBeDefined();
+      expect(currentWorkloadItem).toBeInstanceOf(Function);
     });
 
-    it('returns the currently-selected face object', () => {
-      expect(selectedFace({
-        faces: {
-          list: ['A', 'B', 'C', 'D'],
-          selected: 1,
+    it('returns null if no item is found', () => {
+      expect(currentWorkloadItem({
+        workload: {
+          todo: [],
+          byId: {
+            A: 1,
+            B: 2,
+            C: 3,
+            D: 4,
+          },
         },
-      })).toBe('B');
+      })).toBeNull();
+    });
+
+    it('returns the first workload item in the to-do array', () => {
+      expect(currentWorkloadItem({
+        workload: {
+          todo: ['C', 'D'],
+          byId: {
+            A: 1,
+            B: 2,
+            C: 3,
+            D: 4,
+          },
+        },
+      })).toBe(3);
     });
 
   });
 
-  describe('selectedFaceIndex', () => {
-    const { selectedFaceIndex } = selectors;
+  describe('selectedWorkloadItemIndex', () => {
+    const { selectedWorkloadItemIndex } = selectors;
 
     it('is a function', () => {
-      expect(selectedFaceIndex).toBeDefined();
-      expect(selectedFaceIndex).toBeInstanceOf(Function);
+      expect(selectedWorkloadItemIndex).toBeDefined();
+      expect(selectedWorkloadItemIndex).toBeInstanceOf(Function);
     });
 
     it('returns the human-oriented index of the selected face in the set', () => {
-      expect(selectedFaceIndex({
-        faces: {
-          selected: 0,
+      expect(selectedWorkloadItemIndex({
+        workload: {
+          complete: ['C', 'D'],
         },
-      })).toBe(1);
-      expect(selectedFaceIndex({
-        faces: {
-          selected: 10,
+      })).toBe(3);
+      expect(selectedWorkloadItemIndex({
+        workload: {
+          complete: ['A', 'B', 'C', 'D', 'E'],
         },
-      })).toBe(11);
+      })).toBe(6);
     });
 
-    it('returns 0 when no face is selected', () => {
-      expect(selectedFaceIndex({
-        faces: {
-          selected: null,
+    it('returns 1 when no workload items have been completed', () => {
+      expect(selectedWorkloadItemIndex({
+        workload: {
+          complete: [],
+        },
+      })).toBe(1);
+    });
+
+  });
+
+  describe('totalWorkloadItemCount', () => {
+    const { totalWorkloadItemCount } = selectors;
+
+    it('is a function', () => {
+      expect(totalWorkloadItemCount).toBeDefined();
+      expect(totalWorkloadItemCount).toBeInstanceOf(Function);
+    });
+
+    it('returns 0 if no workload items are loaded', () => {
+      expect(totalWorkloadItemCount({
+        workload: {
+          todo: [],
+          complete: [],
         },
       })).toBe(0);
     });
 
-  });
-
-  describe('totalFaceCount', () => {
-    const { totalFaceCount } = selectors;
-
-    it('is a function', () => {
-      expect(totalFaceCount).toBeDefined();
-      expect(totalFaceCount).toBeInstanceOf(Function);
+    it('returns the total number of workload items currently loaded', () => {
+      expect(totalWorkloadItemCount({
+        workload: {
+          todo: [1, 2, 3],
+          complete: [4, 5],
+        },
+      })).toBe(5);
     });
 
-    it('returns 0 when the data has not loaded', () => {
-      const count = totalFaceCount({
-        faces: {
-          list: [],
+    it('returns the total number of workload items even if all are complete', () => {
+      expect(totalWorkloadItemCount({
+        workload: {
+          todo: [],
+          complete: [1, 2, 3, 4, 5],
         },
-      });
-      expect(count).toBe(0);
-    });
-
-    it('returns the number of total faces in the set', () => {
-      const count = totalFaceCount({
-        faces: {
-          list: [1, 2, 3, 4, 5, 6, 7],
-        },
-      });
-      expect(count).toBe(7);
+      })).toBe(5);
     });
 
   });
+
 
   describe('isLoading', () => {
     const { isLoading } = selectors;
@@ -113,6 +142,50 @@ describe('selector functions', () => {
           annotations: false,
         },
       })).toBe(false);
+    });
+
+  });
+
+  describe('demographics', () => {
+    const { demographics } = selectors;
+
+    it('is a function', () => {
+      expect(demographics).toBeDefined();
+      expect(demographics).toBeInstanceOf(Function);
+    });
+
+    it('returns the demographics dictionary object', () => {
+      const demoDict = {
+        a: 'Demographic Question 1',
+        b: 'Demographic Question 2',
+        c: 'Demographic Question 3',
+      };
+      const result = demographics({
+        demographics: {
+          questions: demoDict,
+        },
+      });
+      expect(result).toBe(demoDict);
+    });
+
+  });
+
+  describe('demographicsOrder', () => {
+    const { demographicsOrder } = selectors;
+
+    it('is a function', () => {
+      expect(demographicsOrder).toBeDefined();
+      expect(demographicsOrder).toBeInstanceOf(Function);
+    });
+
+    it('returns the demographics order list', () => {
+      const demoOrder = ['a', 'b', 'c'];
+      const result = demographicsOrder({
+        demographics: {
+          order: demoOrder,
+        },
+      });
+      expect(result).toBe(demoOrder);
     });
 
   });
