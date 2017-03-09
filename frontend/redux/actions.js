@@ -123,8 +123,3 @@ export const completeWorkload = workload => ({
   type: COMPLETE_WORKLOAD,
   payload: workload,
 });
-
-export const SEND_WORKLOAD = 'SEND_WORKLOAD';
-export const sendWorkload = () => ({
-  type: SEND_WORKLOAD,
-});

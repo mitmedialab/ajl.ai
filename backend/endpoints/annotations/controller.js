@@ -53,7 +53,7 @@ export function postAnnotations(req, res) {
     const storedIds = images.map(image => image.id);
     const submittedIds = req.body.images.map(image => image.id);
     if (! isEqual(storedIds.sort(), submittedIds.sort())) {
-      throw new Error('unknown workload: session workload of #s ' + submittedIds + ' did not match stored workload #s ' + storedIds);
+      throw new Error('unknown workload: session workload of #s ${ submittedIds } did not match stored workload #s ${ storedIds }');
     }
   })
   // then if the workload is valid, store the annotations in the db

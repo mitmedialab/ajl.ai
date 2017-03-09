@@ -71,7 +71,6 @@ export function getWorkload() {
 }
 
 export function postWorkload(workload) {
-  console.log(workload);
   return axios.post('/api/annotations', workload)
     // Axios exposes JSON response body as .data property
     .then(result => result.data);

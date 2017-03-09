@@ -27,11 +27,11 @@ export const demographicsOrder = state => state.demographics.order;
 
 export const selectWorkload = function(state) {
   const images = [];
-  const answers = store.getState().demographics.answers;
+  const answers = state.demographics.answers;
 
   Object.keys(answers).map((i) => {
     images.push({
-      id: parseInt(i),
+      id: Number(i),
       demographics: answers[i],
     });
   });
