@@ -47,22 +47,24 @@ export function postAnnotations(req, res) {
   // match the image ids whose annotations are being submitted
   .then((data) => {
     if (! data.length) {
-      throw new Error('unknown workload');
+      throw new Error('unknown workload: no stored workload');
     }
     const images = data[0].images;
     const storedIds = images.map(image => image.id);
     const submittedIds = req.body.images.map(image => image.id);
-    if (! isEqual(storedIds, submittedIds)) {
-      throw new Error('unknown workload');
+    if (! isEqual(storedIds.sort(), submittedIds.sort())) {
+      throw new Error(`unknown workload: session workload of #s ${submittedIds} did not match stored workload #s ${storedIds}`);
     }
   })
   // then if the workload is valid, store the annotations in the db
   .then(() => {
-    req.body.forEach(({ id: imageId, demographics }) => {
+    const workloadId = req.body.workloadId;
+    req.body.images.forEach(({ id: imageId, demographics }) => {
       demographics.forEach(({ name, option }) => {
         const params = {
           annotatorId,
           imageId,
+          workloadId,
           name,
           option,
         };

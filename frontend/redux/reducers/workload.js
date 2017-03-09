@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { RECEIVE_WORKLOAD, SAVE_DEMOGRAPHIC_ANNOTATIONS } from '../actions';
+import { RECEIVE_WORKLOAD, SAVE_DEMOGRAPHIC_ANNOTATIONS, COMPLETE_WORKLOAD } from '../actions';
 
 function id(state = null, action) {
   if (action.type === RECEIVE_WORKLOAD) {
@@ -34,6 +34,9 @@ function complete(state = [], action) {
   }
   if (action.type === RECEIVE_WORKLOAD) {
     return [];
+  }
+  if (action.type === COMPLETE_WORKLOAD) {
+    console.log('COMPLETE_WORKLOAD IS HAPPENDING', state, action);
   }
   return state;
 }
