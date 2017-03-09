@@ -89,7 +89,7 @@ export function postAnnotations(req, res) {
 
     // now we want to return a new workload in the 201 success created response
     // start by gettting a set of images from the db
-    db.query(queries.getImages, { limit: 1 })
+    db.query(queries.getImages, { limit: 3 })
     // then store those images as a workload so we can use the workload to
     // validate that the annotations which come back
     // are for a valid workload that the session should have had access to
