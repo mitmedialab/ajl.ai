@@ -26,15 +26,12 @@ export const demographics = state => state.demographics.questions;
 export const demographicsOrder = state => state.demographics.order;
 
 export const selectWorkload = function(state) {
-  const images = [];
   const answers = state.demographics.answers;
 
-  Object.keys(answers).map((i) => {
-    images.push({
-      id: Number(i),
-      demographics: answers[i],
-    });
-  });
+  const images = Object.keys(answers).map(id => ({
+    id: Number(id),
+    demographics: answers[id],
+  }));
 
   const response = {
     workloadId: state.workload.id,
