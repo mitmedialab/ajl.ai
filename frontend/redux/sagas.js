@@ -42,7 +42,7 @@ export function* completeWorkload() {
   try {
     const workloadToSend = yield select(selectWorkload);
     const workloadPostResponse = yield call(postWorkload, workloadToSend);
-    yield put(workloadPostResponse);
+    yield put(receiveWorkload(workloadPostResponse));
   } catch (e) {
     console.log('I FAILED TO POST ANNOTATIONS', e);
   }
