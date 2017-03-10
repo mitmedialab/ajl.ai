@@ -38,5 +38,7 @@ export const selectWorkload = function(state) {
     images,
   };
 
+  state.demographics.answers = {};
+
   return response;
 };
