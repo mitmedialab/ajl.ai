@@ -15,41 +15,6 @@ export const nextFace = () => ({
   type: NEXT_FACE,
 });
 
-/** @prop {string} Action to select the previous available face */
-export const PREVIOUS_FACE = 'PREVIOUS_FACE';
-export const previousFace = () => ({
-  type: PREVIOUS_FACE,
-});
-
-/** @prop {string} Action to populate the faces within the store */
-export const SET_FACES = 'SET_FACES';
-export const setFaces = faces => ({
-  type: SET_FACES,
-  payload: faces,
-});
-
-/** @prop {string} Action to trigger a request for face data */
-export const REQUEST_FACES = 'REQUEST_FACES';
-
-export const requestFaces = () => ({
-  type: REQUEST_FACES,
-});
-
-/** @prop {string} Action to populate the faces within the store when the request succeeds */
-export const RECEIVE_FACES = 'RECEIVE_FACES';
-export const receiveFaces = faces => ({
-  type: RECEIVE_FACES,
-  payload: faces,
-});
-
-/** @prop {string} Action to signal a data request failed */
-export const REQUEST_FACES_FAILED = 'REQUEST_FACES_FAILED';
-export const requestFacesFailed = error => ({
-  type: REQUEST_FACES_FAILED,
-  payload: error,
-  error: true,
-});
-
 /** @prop {string} Action to trigger a request for face data */
 export const REQUEST_WORKLOAD = 'REQUEST_WORKLOAD';
 export const requestWorkload = () => ({

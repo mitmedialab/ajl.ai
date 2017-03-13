@@ -1,22 +1,11 @@
 import { call, fork, put, takeLatest, select } from 'redux-saga/effects';
-import { getAllFaces, getAnnotations, getWorkload, postWorkload } from '../services/face-api';
+import { getAnnotations, getWorkload, postWorkload } from '../services/face-api';
 import {
-  REQUEST_FACES, receiveFaces, requestFacesFailed,
   REQUEST_ANNOTATIONS, receiveAnnotations, requestAnnotationsFailed,
   REQUEST_WORKLOAD, receiveWorkload, requestWorkloadFailed,
   COMPLETE_WORKLOAD,
 } from './actions';
 import { selectWorkload } from './selectors';
-
-// worker Saga: will be fired on REQUEST_FACES actions
-export function* requestFaces() {
-  try {
-    const faces = yield call(getAllFaces);
-    yield put(receiveFaces(faces));
-  } catch (e) {
-    yield put(requestFacesFailed(e));
-  }
-}
 
 // worker Saga: will be fired on REQUEST_ANNOTATIONS actions
 export function* requestAnnotations() {
@@ -51,7 +40,6 @@ export function* completeWorkload() {
 // Export a single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield [
-    fork(takeLatest, REQUEST_FACES, requestFaces),
     fork(takeLatest, REQUEST_ANNOTATIONS, requestAnnotations),
     fork(takeLatest, REQUEST_WORKLOAD, requestWorkload),
     fork(takeLatest, COMPLETE_WORKLOAD, completeWorkload),
