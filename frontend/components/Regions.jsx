@@ -22,7 +22,7 @@ class Canvas extends PureComponent {
 
     if (this.props.face) {
       this.canvas.setBackgroundImage(
-        this.props.face.image,
+        this.props.face.url,
         this.canvas.renderAll.bind(this.canvas),
         {
           // Needed to position background image at 0/0
@@ -70,7 +70,7 @@ class Canvas extends PureComponent {
 }
 
 Canvas.propTypes = {
-  face: propShapes.face,
+  face: propShapes.workloadItem,
 };
 
 Canvas.defaultProps = {
