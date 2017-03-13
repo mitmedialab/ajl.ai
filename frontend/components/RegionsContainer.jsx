@@ -2,8 +2,8 @@ import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as propShapes from '../prop-shapes';
 import Regions from './Regions';
-import { selectedFace } from '../redux/selectors';
-import { requestFaces } from '../redux/actions';
+import { currentWorkloadItem } from '../redux/selectors';
+import { requestWorkload } from '../redux/actions';
 
 class RegionsContainer extends PureComponent {
   componentDidMount() {
@@ -19,7 +19,7 @@ class RegionsContainer extends PureComponent {
 }
 
 RegionsContainer.propTypes = {
-  face: propShapes.face,
+  face: propShapes.workloadItem,
   onEnter: PropTypes.func.isRequired,
 };
 
@@ -28,11 +28,11 @@ RegionsContainer.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  face: selectedFace(state),
+  face: currentWorkloadItem(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onEnter: () => dispatch(requestFaces()),
+  onEnter: () => dispatch(requestWorkload()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegionsContainer);

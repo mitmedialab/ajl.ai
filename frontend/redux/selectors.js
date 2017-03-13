@@ -8,9 +8,6 @@
 // state, or returning comparable-by-value types like booleans, strings and
 // numbers, is best.
 
-/** @deprecated use currentWorkloadItem */
-export const selectedFace = state => state.faces.list[state.faces.selected];
-
 export const currentWorkloadItem = state => state.workload.byId[state.workload.todo[0]] || null;
 
 export const selectedWorkloadItemIndex = state => state.workload.complete.length + 1;

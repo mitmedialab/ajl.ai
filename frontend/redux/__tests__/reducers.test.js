@@ -22,11 +22,6 @@ describe('rootReducer', () => {
 
   describe('state shape', () => {
 
-    it('returns a state object with a faces store property', () => {
-      const state = rootReducer(undefined, {});
-      expect(state.faces).toBeDefined();
-    });
-
     it('returns a state object with a loading store property', () => {
       const state = rootReducer(undefined, {});
       expect(state.loading).toBeDefined();
