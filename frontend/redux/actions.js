@@ -81,3 +81,10 @@ export const completeWorkload = workload => ({
   type: COMPLETE_WORKLOAD,
   payload: workload,
 });
+
+export const COMPLETE_WORKLOAD_FAILED = 'COMPLETE_WORKLOAD_FAILED';
+export const completeWorkloadFailed = error => ({
+  type: COMPLETE_WORKLOAD_FAILED,
+  payload: error,
+  error: true,
+});
