@@ -1,6 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import { getAnnotations, getWorkload, postWorkload } from '../../services/face-api';
+import { getAnnotations, getWorkload, postWorkload } from '../../services/api';
 import rootSaga, {
   requestWorkload,
   requestAnnotations,

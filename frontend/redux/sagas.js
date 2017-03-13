@@ -1,5 +1,5 @@
 import { call, fork, put, takeLatest, select } from 'redux-saga/effects';
-import { getAnnotations, getWorkload, postWorkload } from '../services/face-api';
+import { getAnnotations, getWorkload, postWorkload } from '../services/api';
 import {
   REQUEST_ANNOTATIONS, receiveAnnotations, requestAnnotationsFailed,
   REQUEST_WORKLOAD, receiveWorkload, requestWorkloadFailed,
