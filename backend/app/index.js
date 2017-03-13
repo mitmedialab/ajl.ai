@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import chalk from 'chalk';
 
 import { NAME, HTTP_PORT, HTTP_HOST } from '../../config';

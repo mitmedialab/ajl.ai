@@ -62,9 +62,6 @@ class PerceivedDemographics extends Component {
     this.setState({
       [name]: value,
     });
-
-    // eslint-disable-next-line no-console
-    console.log(value);
   }
 
   handleSubmit(event) {
