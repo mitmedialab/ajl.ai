@@ -22,7 +22,7 @@ export const isLoading = state => Object
 export const demographics = state => state.demographics.questions;
 export const demographicsOrder = state => state.demographics.order;
 
-export const selectWorkload = function(state) {
+export const selectWorkload = (state) => {
   const answers = state.demographics.answers;
 
   const images = Object.keys(answers).map(id => ({
@@ -30,10 +30,8 @@ export const selectWorkload = function(state) {
     demographics: answers[id],
   }));
 
-  const response = {
+  return {
     workloadId: state.workload.id,
     images,
   };
-
-  return response;
 };

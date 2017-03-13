@@ -8,14 +8,14 @@ import {
 
 function order(state = [], action) {
   if (action.type === RECEIVE_ANNOTATIONS) {
-    return action.payload.demographics.map(question => question.name);
+    return action.payload.map(question => question.name);
   }
   return state;
 }
 
 function questions(state = {}, action) {
   if (action.type === RECEIVE_ANNOTATIONS) {
-    return action.payload.demographics.reduce((newState, item) => ({
+    return action.payload.reduce((newState, item) => ({
       ...newState,
       [item.name]: item,
     }), {});

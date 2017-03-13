@@ -1,50 +1,94 @@
-import { transformFace } from '../face-api';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import * as api from '../face-api';
 
-describe('Faces API', () => {
-  describe('transformFace data utility', () => {
-    const input = {
-      name: 'Barry Bonds',
-      perceivedGender: 'male',
-      age: 51,
-      perceivedEthnicity: 'black',
-      imgUri: 'lfw_subjects/Barry_Bonds_0001.jpg',
-      landmarks: [104.250000, 141.750000, 131.250000, 113.750000, 145.250000, 113.250000, 110.750000, 130.750000, 156.250000, 152.750000, '1 2 2 3'],
-    };
+describe('API', () => {
+  let mock;
 
-    it('should set the perceivedGender property from a record', () => {
-      expect(transformFace(input).perceivedGender).toBe('male');
-    });
-
-    it('should set the perceivedAge property from a record', () => {
-      expect(transformFace(input).perceivedAge).toBe(51);
-    });
-
-    it('should set the perceivedEthnicity property from a record', () => {
-      expect(transformFace(input).perceivedEthnicity).toBe('black');
-    });
-
-    it('should populate the full URL for the record image', () => {
-      expect(transformFace(input).image).toBe('http://www.code4rights.com/lfw_subjects/Barry_Bonds_0001.jpg');
-    });
-
-    it('should strip the name property from a record', () => {
-      expect(transformFace(input).name).toBeUndefined();
-    });
-
-    it('should register a string ID property for a record', () => {
-      const result = transformFace(input);
-      expect(result.id).toBeDefined();
-      expect(typeof result.id).toBe('string');
-    });
-
-    it('should parse landmarks into x/y pairs', () => {
-      expect(transformFace(input).landmarks).toEqual([
-        { x: 104.250000, y: 141.750000 },
-        { x: 131.250000, y: 113.750000 },
-        { x: 145.250000, y: 113.250000 },
-        { x: 110.750000, y: 130.750000 },
-        { x: 156.250000, y: 152.750000 },
-      ]);
-    });
+  beforeEach(() => {
+    // Mock out Axios' internal request behavior
+    mock = new MockAdapter(axios);
   });
+
+  afterEach(() => {
+    mock.restore();
+  });
+
+  describe('getWorkload', () => {
+    const { getWorkload } = api;
+
+    it('is a function', () => {
+      expect(getWorkload).toBeDefined();
+      expect(getWorkload).toBeInstanceOf(Function);
+    });
+
+    it('requests an annotations API workload', () => {
+      const mockResponse = [{
+        id: 121,
+        images: [
+          { id: 1594, url: '0001.jpg', width: 250, height: 250 },
+          { id: 28, url: '0002.jpg', width: 250, height: 250 },
+          { id: 1998, url: '0003.jpg', width: 250, height: 250 },
+          { id: 991, url: '0004.jpg', width: 250, height: 250 },
+        ],
+      }];
+      mock.onGet('/api/annotations/workload').reply(200, mockResponse);
+      return getWorkload()
+        .then(result => expect(result).toEqual(mockResponse));
+    });
+
+  });
+
+  describe('postWorkload', () => {
+    const { postWorkload } = api;
+
+    it('is a function', () => {
+      expect(postWorkload).toBeDefined();
+      expect(postWorkload).toBeInstanceOf(Function);
+    });
+
+    it('sends an annotations list to the server', () => {
+      const mockPostData = {
+        id: 121,
+        images: [{
+          id: 1,
+          annotations: [{ name: 'A', value: '1' }],
+        }],
+      };
+      const mockResponse = [{
+        id: 122,
+        images: [
+          { id: 1594, url: '0001.jpg', width: 250, height: 250 },
+          { id: 28, url: '0002.jpg', width: 250, height: 250 },
+          { id: 1998, url: '0003.jpg', width: 250, height: 250 },
+          { id: 991, url: '0004.jpg', width: 250, height: 250 },
+        ],
+      }];
+      mock.onPost('/api/annotations').reply(200, mockResponse);
+      return postWorkload(mockPostData)
+        .then(result => expect(result).toEqual(mockResponse));
+    });
+
+  });
+
+  describe('getAnnotations', () => {
+    const { getAnnotations } = api;
+
+    it('is a function', () => {
+      expect(getAnnotations).toBeDefined();
+      expect(getAnnotations).toBeInstanceOf(Function);
+    });
+
+    it('requests an annotations list', () => {
+      const mockResponse = [
+        { name: 'a', options: [1, 2, 3] },
+        { name: 'b', options: [4, 5, 7] },
+      ];
+      mock.onGet('/api/annotations/types').reply(200, mockResponse);
+      return getAnnotations()
+        .then(result => expect(result).toEqual(mockResponse));
+    });
+
+  });
+
 });

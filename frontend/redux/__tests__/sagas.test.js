@@ -49,7 +49,7 @@ describe('sagas', () => {
 
     it('yields an API call to get annotations', () => {
       const saga = testSaga(requestAnnotations);
-      const annotations = [{ id:1, name: 'Perceived Age', options: [] }];
+      const annotations = [{ id: 1, name: 'Perceived Age', options: [] }];
       saga.next()
         // Assert that the annotations API was called
         .call(getAnnotations)
