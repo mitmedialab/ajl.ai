@@ -33,15 +33,10 @@ describe('perceived demographics form reducer', () => {
       const initialState = demographics(undefined, {});
       const nextState = demographics(initialState, {
         type: RECEIVE_ANNOTATIONS,
-        payload: {
-          demographics: [{
-            name: 'a',
-            options: [1, 2, 3],
-          }, {
-            name: 'b',
-            options: [4, 5, 7],
-          }],
-        },
+        payload: [
+          { name: 'a', options: [1, 2, 3] },
+          { name: 'b', options: [4, 5, 7] },
+        ],
       });
       expect(nextState).not.toBe(initialState);
       expect(nextState.questions).toBeDefined();
@@ -62,15 +57,10 @@ describe('perceived demographics form reducer', () => {
       const initialState = demographics(undefined, {});
       const nextState = demographics(initialState, {
         type: RECEIVE_ANNOTATIONS,
-        payload: {
-          demographics: [{
-            name: 'a',
-            options: [1, 2, 3],
-          }, {
-            name: 'b',
-            options: [4, 5, 7],
-          }],
-        },
+        payload: [
+          { name: 'a', options: [1, 2, 3] },
+          { name: 'b', options: [4, 5, 7] },
+        ],
       });
       expect(nextState).not.toBe(initialState);
       expect(nextState.order).toBeDefined();
@@ -84,9 +74,7 @@ describe('perceived demographics form reducer', () => {
       }, {});
       const nextState = demographics(initialState, {
         type: RECEIVE_ANNOTATIONS,
-        payload: {
-          demographics: [],
-        },
+        payload: [],
       });
       expect(nextState).not.toBe(initialState);
       expect(nextState.current).toBeDefined();

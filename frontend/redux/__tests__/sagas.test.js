@@ -1,6 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import { getAnnotations, getWorkload, postWorkload } from '../../services/face-api';
+import { getAnnotations, getWorkload, postWorkload } from '../../services/api';
 import rootSaga, {
   requestWorkload,
   requestAnnotations,
@@ -49,7 +49,7 @@ describe('sagas', () => {
 
     it('yields an API call to get annotations', () => {
       const saga = testSaga(requestAnnotations);
-      const annotations = [{ id:1, name: 'Perceived Age', options: [] }];
+      const annotations = [{ id: 1, name: 'Perceived Age', options: [] }];
       saga.next()
         // Assert that the annotations API was called
         .call(getAnnotations)
