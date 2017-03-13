@@ -9,13 +9,6 @@
  * size; they could be considered later on as the application grows.
  */
 
-/** @prop {string} Action to select the active face */
-export const SELECT_FACE = 'SELECT_FACE';
-export const selectFace = image => ({
-  type: SELECT_FACE,
-  payload: image,
-});
-
 /** @prop {string} Action to select the next available face */
 export const NEXT_FACE = 'NEXT_FACE';
 export const nextFace = () => ({

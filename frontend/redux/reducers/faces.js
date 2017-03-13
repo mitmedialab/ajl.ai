@@ -1,4 +1,4 @@
-import { RECEIVE_FACES, SELECT_FACE, NEXT_FACE, PREVIOUS_FACE } from '../actions';
+import { RECEIVE_FACES, NEXT_FACE, PREVIOUS_FACE } from '../actions';
 
 const defaultState = {
   list: [],
@@ -12,30 +12,6 @@ export default function facesReducer(state = defaultState, action) {
       list: action.payload,
       // Auto-select the first face
       selected: 0,
-    };
-  }
-
-  // TODO: This is a bit YAGNI; being able to select face by index OR by object
-  // reference is a bit of premature flexibility
-  if (action.type === SELECT_FACE) {
-    // If a numeric index was provided, and that index is within the bounds of
-    // the faces list array, store that index directly
-    if (
-      typeof action.payload === 'number' &&
-      action.payload >= 0 &&
-      action.payload < state.list.length
-    ) {
-      return {
-        ...state,
-        selected: action.payload,
-      };
-    }
-    // Otherwise, figure out which face was passed in and set that
-    const idx = state.list.indexOf(action.payload);
-    return {
-      ...state,
-      // If the object was not found, make no change
-      selected: idx > -1 ? idx : state.selected,
     };
   }
 
