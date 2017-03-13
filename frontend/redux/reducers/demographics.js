@@ -1,5 +1,10 @@
 import { combineReducers } from 'redux';
-import { RECEIVE_ANNOTATIONS, NEXT_FACE, SAVE_DEMOGRAPHIC_ANNOTATIONS } from '../actions';
+import {
+  RECEIVE_ANNOTATIONS,
+  NEXT_FACE,
+  SAVE_DEMOGRAPHIC_ANNOTATIONS,
+  RECEIVE_WORKLOAD,
+ } from '../actions';
 
 function order(state = [], action) {
   if (action.type === RECEIVE_ANNOTATIONS) {
@@ -26,6 +31,11 @@ function answers(state = {}, action) {
       [action.payload.id]: action.payload.demographics,
     };
   }
+
+  if (action.type === RECEIVE_WORKLOAD) {
+    return {};
+  }
+
   return state;
 }
 

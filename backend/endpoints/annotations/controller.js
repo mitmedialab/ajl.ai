@@ -15,22 +15,22 @@ export function getWorkload(req, res) {
   // get a set of images from the db
   // limit is based on enrollment status
   db.query(queries.getImages, { limit })
-    // then store those images as a workload so we can use the workload to
-    // validate that the annotations which come back
-    // are for a valid workload that the session should have had access to
-    .then((images) => {
-      return db.query(queries.storeWorkload, {
-        annotatorId: req.session.annotatorId,
-        images,
-      });
-    })
-    // then send the workload to the user with the workload id from the
-    // prior storeWorload query
-    .then((data) => {
-      res.send(data);
-    })
-    // Respond with an error if it doesn't work
-    .catch(e => apiDatabaseError(e, req, res));
+  // then store those images as a workload so we can use the workload to
+  // validate that the annotations which come back
+  // are for a valid workload that the session should have had access to
+  .then((images) => {
+    return db.query(queries.storeWorkload, {
+      annotatorId: req.session.annotatorId,
+      images,
+    });
+  })
+  // then send the workload to the user with the workload id from the
+  // prior storeWorload query
+  .then((data) => {
+    res.send(data);
+  })
+  // Respond with an error if it doesn't work
+  .catch(e => apiDatabaseError(e, req, res));
 }
 
 export function postAnnotations(req, res) {
@@ -86,9 +86,23 @@ export function postAnnotations(req, res) {
   // if they did 12 and got 8 right, now they are enrolled
   .then(() => {
     session.enrolled = true;
-    // TODO
-    // send the new workload
-    res.status(201).send();
+
+    // now we want to return a new workload in the 201 success created response
+    // start by gettting a set of images from the db
+    db.query(queries.getImages, { limit: 3 })
+    // then store those images as a workload so we can use the workload to
+    // validate that the annotations which come back
+    // are for a valid workload that the session should have had access to
+    .then((images) => {
+      return db.query(queries.storeWorkload, {
+        annotatorId: req.session.annotatorId,
+        images,
+      });
+    })
+    // now we can respond 201 with the new workload
+    .then((data) => {
+      res.status(201).send(data);
+    });
   })
   // Respond with an error if it doesn't work
   .catch(e => apiDatabaseError(e, req, res));

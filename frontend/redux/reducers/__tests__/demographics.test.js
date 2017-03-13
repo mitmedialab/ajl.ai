@@ -95,12 +95,25 @@ describe('perceived demographics form reducer', () => {
 
   });
 
-  // const { SAVE_DEMOGRAPHIC_ANNOTATIONS } = actions;
-  // describe(`on ${SAVE_DEMOGRAPHIC_ANNOTATIONS}`, () => {
+  const { RECEIVE_WORKLOAD } = actions;
+  describe(`on ${RECEIVE_WORKLOAD}`, () => {
 
-  //   it('stores the resulting')
+    it('resets the answers dictionary', () => {
+      const initialState = demographics({
+        answers: {
+          a: [],
+          b: [],
+        },
+      }, {});
+      const nextState = demographics(initialState, {
+        type: RECEIVE_WORKLOAD,
+      });
+      expect(nextState).not.toBe(initialState);
+      expect(nextState.answers).toBeDefined();
+      expect(nextState.answers).toEqual({});
+    });
 
-  // });
+  });
 
   const { NEXT_FACE } = actions;
   describe(`on ${NEXT_FACE}`, () => {
