@@ -3,7 +3,7 @@ import {
   RECEIVE_ANNOTATIONS,
   NEXT_FACE,
   SAVE_DEMOGRAPHIC_ANNOTATIONS,
-  RECEIVE_WORKLOAD
+  RECEIVE_WORKLOAD,
  } from '../actions';
 
 function order(state = [], action) {
@@ -33,8 +33,9 @@ function answers(state = {}, action) {
   }
 
   if (action.type === RECEIVE_WORKLOAD) {
-    return {}
+    return {};
   }
+
   return state;
 }
 
