@@ -59,14 +59,14 @@ export function postAnnotations(req, res) {
   // then if the workload is valid, store the annotations in the db
   .then(() => {
     const workloadId = req.body.workloadId;
-    req.body.images.forEach(({ id: imageId, demographics }) => {
-      demographics.forEach(({ name, option }) => {
+    req.body.images.forEach(({ id: imageId, annotations }) => {
+      annotations.forEach(({ name, value }) => {
         const params = {
           annotatorId,
           imageId,
           workloadId,
           name,
-          option,
+          value,
         };
         allQueries.push(db.query(queries.postAnnotations, params));
       });

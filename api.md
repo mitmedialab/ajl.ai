@@ -48,26 +48,25 @@ Session enrollment occurs when an active session successfully annotates 12 image
 Expects the following JSON post:
 
 ```
-"{
-  "workloadId":1,
-  "images":[
-    {
-      "id":1,
-      "demographics":[
-        {"name":"Perceived Age","option":"adult"},
-        {"name":"Perceived Gender","option":"androgynous"},
-        {"name":"Perceived Ethnicity","option":"white"}
-      ]
-    },{
-      "id":2,
-      "demographics":[
-        {"name":"Perceived Age","option":"young adult"},
-        {"name":"Perceived Gender","option":"male"},
-        {"name":"Perceived Ethnicity","option":"black"}
-      ]
-    }
-    ...{the last object}
-  ]}"
+"workloadId":1,
+"images":[
+  {
+    "id":1,
+    "annotations":[
+      {"name":"Perceived Age","value":"adult"},
+      {"name":"Perceived Gender","value":"androgynous"},
+      {"name":"Perceived Ethnicity","value":"white"}
+    ]
+  },{
+    "id":2,
+    "annotations":[
+      {"name":"Perceived Age","value":"young adult"},
+      {"name":"Perceived Gender","value":"male"},
+      {"name":"Perceived Ethnicity","value":"black"}
+    ]
+  }
+  ...{the last object}
+]}"
 ```
 This post must contain only and all annotations for images sent to the current session. If there is a discrepancy between the current workload sent to the current session's annotation post, the post will return an error 500.
 
