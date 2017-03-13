@@ -48,13 +48,14 @@ PerceivedDemographicQuestion.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selected: PropTypes.string.isRequired,
+  selected: PropTypes.string,
   visible: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
 PerceivedDemographicQuestion.defaultProps = {
   className: '',
+  selected: '',
 };
 
 export default PerceivedDemographicQuestion;
