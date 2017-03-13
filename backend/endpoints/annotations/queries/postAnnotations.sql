@@ -9,5 +9,5 @@ INSERT into image_annotation
     annotation_option.id as annotation_option_id
   FROM annotation_option
     LEFT JOIN annotation_type ON annotation_option.annotation_type_id = annotation_type.id
-  WHERE annotation_option.name = ${option} AND annotation_type.name = ${name}
+  WHERE annotation_option.name = ${value} AND annotation_type.name = ${name}
 )
