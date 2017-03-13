@@ -3,7 +3,7 @@ import { getAnnotations, getWorkload, postWorkload } from '../services/face-api'
 import {
   REQUEST_ANNOTATIONS, receiveAnnotations, requestAnnotationsFailed,
   REQUEST_WORKLOAD, receiveWorkload, requestWorkloadFailed,
-  COMPLETE_WORKLOAD,
+  COMPLETE_WORKLOAD, completeWorkloadFailed,
 } from './actions';
 import { selectWorkload } from './selectors';
 
@@ -33,7 +33,7 @@ export function* completeWorkload() {
     const workloadPostResponse = yield call(postWorkload, workloadToSend);
     yield put(receiveWorkload(workloadPostResponse));
   } catch (e) {
-    console.log('I FAILED TO POST ANNOTATIONS', e);
+    yield put(completeWorkloadFailed(e));
   }
 }
 

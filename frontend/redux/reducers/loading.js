@@ -1,5 +1,7 @@
 import {
   REQUEST_ANNOTATIONS, RECEIVE_ANNOTATIONS, REQUEST_ANNOTATIONS_FAILED,
+  REQUEST_WORKLOAD, RECEIVE_WORKLOAD, REQUEST_WORKLOAD_FAILED,
+  COMPLETE_WORKLOAD, COMPLETE_WORKLOAD_FAILED,
 } from '../actions';
 
 const defaultState = {
@@ -16,17 +18,34 @@ export default function loadingReducer(state = defaultState, action) {
     };
   }
 
-  if (action.type === RECEIVE_ANNOTATIONS) {
+  if ([
+    RECEIVE_ANNOTATIONS,
+    REQUEST_ANNOTATIONS_FAILED,
+  ].includes(action.type)) {
     return {
       ...state,
       annotations: false,
     };
   }
 
-  if (action.type === REQUEST_ANNOTATIONS_FAILED) {
+  if ([
+    REQUEST_WORKLOAD,
+    COMPLETE_WORKLOAD,
+  ].includes(action.type)) {
     return {
       ...state,
-      annotations: false,
+      workload: true,
+    };
+  }
+
+  if ([
+    RECEIVE_WORKLOAD,
+    REQUEST_WORKLOAD_FAILED,
+    COMPLETE_WORKLOAD_FAILED,
+  ].includes(action.type)) {
+    return {
+      ...state,
+      workload: false,
     };
   }
 
