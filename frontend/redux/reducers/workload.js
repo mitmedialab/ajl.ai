@@ -1,5 +1,9 @@
 import { combineReducers } from 'redux';
-import { RECEIVE_WORKLOAD, SAVE_DEMOGRAPHIC_ANNOTATIONS } from '../actions';
+import {
+  REQUEST_WORKLOAD,
+  RECEIVE_WORKLOAD,
+  SAVE_DEMOGRAPHIC_ANNOTATIONS,
+} from '../actions';
 
 function id(state = null, action) {
   if (action.type === RECEIVE_WORKLOAD) {
@@ -9,6 +13,9 @@ function id(state = null, action) {
 }
 
 function todo(state = [], action) {
+  if (action.type === REQUEST_WORKLOAD) {
+    return [];
+  }
   if (action.type === SAVE_DEMOGRAPHIC_ANNOTATIONS) {
     return state.slice(1);
   }
