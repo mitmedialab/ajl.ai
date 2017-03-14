@@ -9,30 +9,37 @@ import {
  } from '../actions';
 
 function order(state = [], action) {
-  if (action.type === RECEIVE_ANNOTATIONS) {
+  switch (action.type) {
+  case RECEIVE_ANNOTATIONS:
     return action.payload.map(question => question.name);
+
+  default:
+    return state;
   }
-  return state;
 }
 
 function questions(state = {}, action) {
-  if (action.type === RECEIVE_ANNOTATIONS) {
+  switch (action.type) {
+  case RECEIVE_ANNOTATIONS:
     return action.payload.reduce((newState, item) => ({
       ...newState,
       [item.name]: item,
     }), {});
+
+  default:
+    return state;
   }
-  return state;
 }
 
 function current(state = 0, action) {
-  if ([
-    RECEIVE_ANNOTATIONS,
-    SAVE_DEMOGRAPHIC_ANNOTATIONS,
-  ].includes(action.type)) {
+  switch (action.type) {
+  case RECEIVE_ANNOTATIONS:
+  case SAVE_DEMOGRAPHIC_ANNOTATIONS:
     return 0;
+
+  default:
+    return state;
   }
-  return state;
 }
 
 export default combineReducers({
