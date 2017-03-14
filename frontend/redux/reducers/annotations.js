@@ -15,23 +15,29 @@ import {
 // Each of these methods reduces the state property that shares its name
 
 function workloadId(state = null, action) {
-  if (action.type === RECEIVE_WORKLOAD) {
+  switch (action.type) {
+  case RECEIVE_WORKLOAD:
     return action.payload[0].id;
+
+  default:
+    return state;
   }
-  return state;
 }
 
 function images(state = [], action) {
-  if (action.type === RECEIVE_WORKLOAD) {
+  switch (action.type) {
+  case RECEIVE_WORKLOAD:
     return [];
-  }
-  if (action.type === SAVE_DEMOGRAPHIC_ANNOTATIONS) {
+
+  case SAVE_DEMOGRAPHIC_ANNOTATIONS:
     return state.concat({
       id: action.payload.id,
       annotations: action.payload.demographics,
     });
+
+  default:
+    return state;
   }
-  return state;
 }
 
 export default combineReducers({

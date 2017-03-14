@@ -11,43 +11,55 @@ import {
 } from '../actions';
 
 function id(state = null, action) {
-  if (action.type === RECEIVE_WORKLOAD) {
+  switch (action.type) {
+  case RECEIVE_WORKLOAD:
     return action.payload[0].id;
+
+  default:
+    return state;
   }
-  return state;
 }
 
 function todo(state = [], action) {
-  if (action.type === REQUEST_WORKLOAD) {
+  switch (action.type) {
+  case REQUEST_WORKLOAD:
     return [];
-  }
-  if (action.type === SAVE_DEMOGRAPHIC_ANNOTATIONS) {
+
+  case SAVE_DEMOGRAPHIC_ANNOTATIONS:
     return state.slice(1);
-  }
-  if (action.type === RECEIVE_WORKLOAD) {
+
+  case RECEIVE_WORKLOAD:
     return action.payload[0].images.map(item => item.id);
+
+  default:
+    return state;
   }
-  return state;
 }
 
 function byId(state = {}, action) {
-  if (action.type === RECEIVE_WORKLOAD) {
+  switch (action.type) {
+  case RECEIVE_WORKLOAD:
     return action.payload[0].images.reduce((newState, item) => ({
       ...newState,
       [item.id]: item,
     }), {});
+
+  default:
+    return state;
   }
-  return state;
 }
 
 function complete(state = [], action) {
-  if (action.type === SAVE_DEMOGRAPHIC_ANNOTATIONS) {
+  switch (action.type) {
+  case SAVE_DEMOGRAPHIC_ANNOTATIONS:
     return state.concat(action.payload.id);
-  }
-  if (action.type === RECEIVE_WORKLOAD) {
+
+  case RECEIVE_WORKLOAD:
     return [];
+
+  default:
+    return state;
   }
-  return state;
 }
 
 export default combineReducers({

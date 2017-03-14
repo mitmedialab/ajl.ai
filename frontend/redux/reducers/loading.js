@@ -14,44 +14,37 @@ const defaultState = {
 };
 
 export default function loadingReducer(state = defaultState, action) {
+  switch (action.type) {
 
-  if (action.type === REQUEST_ANNOTATIONS) {
+  case REQUEST_ANNOTATIONS:
     return {
       ...state,
       annotations: true,
     };
-  }
 
-  if ([
-    RECEIVE_ANNOTATIONS,
-    REQUEST_ANNOTATIONS_FAILED,
-  ].includes(action.type)) {
+  case RECEIVE_ANNOTATIONS:
+  case REQUEST_ANNOTATIONS_FAILED:
     return {
       ...state,
       annotations: false,
     };
-  }
 
-  if ([
-    REQUEST_WORKLOAD,
-    COMPLETE_WORKLOAD,
-  ].includes(action.type)) {
+  case REQUEST_WORKLOAD:
+  case COMPLETE_WORKLOAD:
     return {
       ...state,
       workload: true,
     };
-  }
 
-  if ([
-    RECEIVE_WORKLOAD,
-    REQUEST_WORKLOAD_FAILED,
-    COMPLETE_WORKLOAD_FAILED,
-  ].includes(action.type)) {
+  case RECEIVE_WORKLOAD:
+  case REQUEST_WORKLOAD_FAILED:
+  case COMPLETE_WORKLOAD_FAILED:
     return {
       ...state,
       workload: false,
     };
-  }
 
-  return state;
+  default:
+    return state;
+  }
 }
