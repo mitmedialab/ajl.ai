@@ -1,3 +1,7 @@
+/**
+ * This reducer manages UI flags that indicate whether any AJAX requests are
+ * currently in-flight within the application.
+ */
 import {
   REQUEST_ANNOTATIONS, RECEIVE_ANNOTATIONS, REQUEST_ANNOTATIONS_FAILED,
   REQUEST_WORKLOAD, RECEIVE_WORKLOAD, REQUEST_WORKLOAD_FAILED,

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-import loadingReducer from './reducers/loading';
-import demographicsReducer from './reducers/demographics';
-import workloadReducer from './reducers/workload';
+import loading from './reducers/loading';
+import demographics from './reducers/demographics';
+import workload from './reducers/workload';
 import annotations from './reducers/annotations';
 
 /*
@@ -11,9 +11,12 @@ import annotations from './reducers/annotations';
  * on its name.
  */
 export default combineReducers({
-  loading: loadingReducer,
-  demographics: demographicsReducer,
-  workload: workloadReducer,
+  // UI state indicating whether any AJAX calls are pending
+  loading,
+  // annotation types and options relating to demographic annotations
+  demographics,
+  // The workload of images currently being annotated
+  workload,
   // The image annotations to be submitted to the server
   annotations,
 });

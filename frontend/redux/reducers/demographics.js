@@ -1,3 +1,7 @@
+/**
+ * This reducer contains the annotation types and annotation options relating
+ * to the Perceived Demographics screen within the application.
+ */
 import { combineReducers } from 'redux';
 import {
   RECEIVE_ANNOTATIONS,

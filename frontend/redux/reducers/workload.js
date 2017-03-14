@@ -1,3 +1,8 @@
+/**
+ * This reducer contains a workload of images to be annotated, which are
+ * loaded from the server in a batch whenever the prior workload is completed
+ * (i.e., fully annotated & posted back to the API).
+ */
 import { combineReducers } from 'redux';
 import {
   REQUEST_WORKLOAD,
