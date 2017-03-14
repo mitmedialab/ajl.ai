@@ -15,7 +15,7 @@ import {
 import PerceivedDemographics from './PerceivedDemographics';
 
 const mapStateToProps = state => ({
-  face: currentWorkloadItem(state),
+  image: currentWorkloadItem(state),
   demographics: demographics(state),
   questionOrder: demographicsOrder(state),
   current: selectedWorkloadItemIndex(state),

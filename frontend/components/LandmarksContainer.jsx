@@ -11,24 +11,24 @@ class LandmarksContainer extends PureComponent {
   }
 
   render() {
-    const { face } = this.props;
+    const { image } = this.props;
     return (
-      <Landmarks face={face} />
+      <Landmarks image={image} />
     );
   }
 }
 
 LandmarksContainer.propTypes = {
-  face: propShapes.workloadItem,
+  image: propShapes.workloadItem,
   onEnter: PropTypes.func.isRequired,
 };
 
 LandmarksContainer.defaultProps = {
-  face: null,
+  image: null,
 };
 
 const mapStateToProps = state => ({
-  face: currentWorkloadItem(state),
+  image: currentWorkloadItem(state),
 });
 
 const mapDispatchToProps = dispatch => ({

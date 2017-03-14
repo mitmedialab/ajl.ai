@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import {
   RECEIVE_ANNOTATIONS,
-  NEXT_FACE,
   SAVE_DEMOGRAPHIC_ANNOTATIONS,
  } from '../actions';
 
@@ -26,7 +25,6 @@ function current(state = 0, action) {
   if ([
     RECEIVE_ANNOTATIONS,
     SAVE_DEMOGRAPHIC_ANNOTATIONS,
-    NEXT_FACE,
   ].includes(action.type)) {
     return 0;
   }

@@ -9,13 +9,7 @@
  * size; they could be considered later on as the application grows.
  */
 
-/** @prop {string} Action to select the next available face */
-export const NEXT_FACE = 'NEXT_FACE';
-export const nextFace = () => ({
-  type: NEXT_FACE,
-});
-
-/** @prop {string} Action to trigger a request for face data */
+/** @prop {string} Action to trigger a request for workload data */
 export const REQUEST_WORKLOAD = 'REQUEST_WORKLOAD';
 export const requestWorkload = () => ({
   type: REQUEST_WORKLOAD,

@@ -82,21 +82,4 @@ describe('perceived demographics form reducer', () => {
 
   });
 
-  const { NEXT_FACE } = actions;
-  describe(`on ${NEXT_FACE}`, () => {
-
-    it('resets the current question index', () => {
-      const initialState = demographics({
-        current: 3,
-      }, {});
-      const nextState = demographics(initialState, {
-        type: NEXT_FACE,
-      });
-      expect(nextState).not.toBe(initialState);
-      expect(nextState.current).toBeDefined();
-      expect(nextState.current).toBe(0);
-    });
-
-  });
-
 });

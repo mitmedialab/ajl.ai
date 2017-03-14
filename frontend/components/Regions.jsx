@@ -20,9 +20,9 @@ class Canvas extends PureComponent {
       console.log(landmark.target.uniqId, landmark.target.left, landmark.target.top);
     }
 
-    if (this.props.face) {
+    if (this.props.image) {
       this.canvas.setBackgroundImage(
-        this.props.face.url,
+        this.props.image.url,
         this.canvas.renderAll.bind(this.canvas),
         {
           // Needed to position background image at 0/0
@@ -70,11 +70,11 @@ class Canvas extends PureComponent {
 }
 
 Canvas.propTypes = {
-  face: propShapes.workloadItem,
+  image: propShapes.workloadItem,
 };
 
 Canvas.defaultProps = {
-  face: null,
+  image: null,
 };
 
 export default Canvas;

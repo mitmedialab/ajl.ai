@@ -29,8 +29,8 @@ class PerceivedDemographics extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // If the questions (or the face to which they apply) change, reset our state object
-    if (valuesChanged(this.props, nextProps, ['questionOrder', 'face'])) {
+    // If the questions (or the image to which they apply) change, reset our state object
+    if (valuesChanged(this.props, nextProps, ['questionOrder', 'image'])) {
       // TODO: This will break if a question with the name "currentStep" is passed in;
       // this state logic might be good to eventually migrate to the Redux store
       this.state = nextProps.questionOrder.reduce((nextState, question) => ({
@@ -49,7 +49,7 @@ class PerceivedDemographics extends Component {
       option: this.state[questionName],
     }));
     return {
-      id: this.props.face.id,
+      id: this.props.image.id,
       demographics,
     };
   }
@@ -97,7 +97,7 @@ class PerceivedDemographics extends Component {
     return (
       <div>
         <img
-          src={this.props.face && this.props.face.url}
+          src={this.props.image && this.props.image.url}
           alt="A face to label with perceived demographic information"
         />
         <form onSubmit={this.handleSubmit}>
@@ -125,7 +125,7 @@ class PerceivedDemographics extends Component {
             <span className={styles.current}>
               Step {currentStep + 1} of {questionOrder.length};
               {' '}
-              Face {this.props.current} of {this.props.total}
+              Image {this.props.current} of {this.props.total}
             </span>
 
             {currentStep < 2 ? (
@@ -155,13 +155,13 @@ PerceivedDemographics.propTypes = {
   onCompleteWorkload: PropTypes.func.isRequired,
   demographics: PropTypes.objectOf(propShapes.demographicQuestion).isRequired,
   questionOrder: propShapes.demographicsQuestionList.isRequired,
-  face: propShapes.workloadItem,
+  image: propShapes.workloadItem,
   current: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
 };
 
 PerceivedDemographics.defaultProps = {
-  face: null,
+  image: null,
 };
 
 export default PerceivedDemographics;
