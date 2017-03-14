@@ -35,3 +35,5 @@ export const selectWorkload = (state) => {
     images,
   };
 };
+
+export const imageAnnotations = state => state.annotations;
