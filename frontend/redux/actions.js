@@ -51,16 +51,6 @@ export const requestAnnotationsFailed = error => ({
   error: true,
 });
 
-/** @prop {string} Action to select the next available face */
-export const SELECT_ANSWER = 'SELECT_ANSWER';
-export const selectDemographicAnswer = ({ name, value }) => ({
-  type: SELECT_ANSWER,
-  payload: {
-    name,
-    value,
-  },
-});
-
 export const SAVE_DEMOGRAPHIC_ANNOTATIONS = 'SAVE_DEMOGRAPHIC_ANNOTATIONS';
 export const saveDemographicAnnotations = ({ id, demographics }) => ({
   type: SAVE_DEMOGRAPHIC_ANNOTATIONS,
