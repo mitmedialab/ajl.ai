@@ -11,24 +11,24 @@ class RegionsContainer extends PureComponent {
   }
 
   render() {
-    const { face } = this.props;
+    const { image } = this.props;
     return (
-      <Regions face={face} />
+      <Regions image={image} />
     );
   }
 }
 
 RegionsContainer.propTypes = {
-  face: propShapes.workloadItem,
+  image: propShapes.workloadItem,
   onEnter: PropTypes.func.isRequired,
 };
 
 RegionsContainer.defaultProps = {
-  face: null,
+  image: null,
 };
 
 const mapStateToProps = state => ({
-  face: currentWorkloadItem(state),
+  image: currentWorkloadItem(state),
 });
 
 const mapDispatchToProps = dispatch => ({

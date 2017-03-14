@@ -7,7 +7,7 @@ import rootSaga, {
   completeWorkload,
 } from '../sagas';
 import * as actions from '../actions';
-import { selectWorkload } from '../selectors';
+import { imageAnnotations } from '../selectors';
 
 describe('sagas', () => {
 
@@ -108,7 +108,7 @@ describe('sagas', () => {
       const workload = [{ id: 1 }];
       saga.next()
         // Assert that the workload API object is selected
-        .select(selectWorkload)
+        .select(imageAnnotations)
         .next(workload)
         // Assert that the workload is posted to the server
         .call(postWorkload, workload)
@@ -123,7 +123,7 @@ describe('sagas', () => {
       const saga = testSaga(completeWorkload);
       const error = new Error('Test Error');
       saga.next()
-        .select(selectWorkload)
+        .select(imageAnnotations)
         .next({})
         .call(postWorkload, {})
         .throw(error)

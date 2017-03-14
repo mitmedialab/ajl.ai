@@ -9,13 +9,7 @@
  * size; they could be considered later on as the application grows.
  */
 
-/** @prop {string} Action to select the next available face */
-export const NEXT_FACE = 'NEXT_FACE';
-export const nextFace = () => ({
-  type: NEXT_FACE,
-});
-
-/** @prop {string} Action to trigger a request for face data */
+/** @prop {string} Action to trigger a request for workload data */
 export const REQUEST_WORKLOAD = 'REQUEST_WORKLOAD';
 export const requestWorkload = () => ({
   type: REQUEST_WORKLOAD,
@@ -55,16 +49,6 @@ export const requestAnnotationsFailed = error => ({
   type: REQUEST_ANNOTATIONS_FAILED,
   payload: error,
   error: true,
-});
-
-/** @prop {string} Action to select the next available face */
-export const SELECT_ANSWER = 'SELECT_ANSWER';
-export const selectDemographicAnswer = ({ name, value }) => ({
-  type: SELECT_ANSWER,
-  payload: {
-    name,
-    value,
-  },
 });
 
 export const SAVE_DEMOGRAPHIC_ANNOTATIONS = 'SAVE_DEMOGRAPHIC_ANNOTATIONS';

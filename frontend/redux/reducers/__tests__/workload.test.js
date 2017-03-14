@@ -26,6 +26,23 @@ describe('workload reducer', () => {
     expect(nextState).toBe(initialState);
   });
 
+  const { REQUEST_WORKLOAD } = actions;
+  describe(`on ${REQUEST_WORKLOAD}`, () => {
+
+    it('empties the todo ID array', () => {
+      const initialState = workloadReducer({
+        todo: [1594, 28, 1998, 991],
+      }, {});
+      const nextState = workloadReducer(initialState, {
+        type: REQUEST_WORKLOAD,
+      });
+      expect(nextState).not.toBe(initialState);
+      expect(nextState.todo).toBeDefined();
+      expect(nextState.todo).toEqual([]);
+    });
+
+  });
+
   const { RECEIVE_WORKLOAD } = actions;
   describe(`on ${RECEIVE_WORKLOAD}`, () => {
     const initialState = workloadReducer(undefined, {});

@@ -27,6 +27,21 @@ describe('rootReducer', () => {
       expect(state.loading).toBeDefined();
     });
 
+    it('returns a state object with an image annotations store property', () => {
+      const state = rootReducer(undefined, {});
+      expect(state.annotations).toBeDefined();
+    });
+
+    it('returns a state object with a demographic annotations questions store property', () => {
+      const state = rootReducer(undefined, {});
+      expect(state.demographics).toBeDefined();
+    });
+
+    it('returns a state object with a workload store property', () => {
+      const state = rootReducer(undefined, {});
+      expect(state.workload).toBeDefined();
+    });
+
   });
 
 });

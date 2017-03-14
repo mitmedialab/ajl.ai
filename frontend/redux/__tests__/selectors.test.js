@@ -108,7 +108,6 @@ describe('selector functions', () => {
 
   });
 
-
   describe('isLoading', () => {
     const { isLoading } = selectors;
 
@@ -186,6 +185,24 @@ describe('selector functions', () => {
         },
       });
       expect(result).toBe(demoOrder);
+    });
+
+  });
+
+  describe('imageAnnotations', () => {
+    const { imageAnnotations } = selectors;
+
+    it('is a function', () => {
+      expect(imageAnnotations).toBeDefined();
+      expect(imageAnnotations).toBeInstanceOf(Function);
+    });
+
+    it('returns the annotations property from the state', () => {
+      const annotations = { foo: true };
+      const result = imageAnnotations({
+        annotations,
+      });
+      expect(result).toBe(annotations);
     });
 
   });

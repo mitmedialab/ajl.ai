@@ -5,7 +5,7 @@ import {
   REQUEST_WORKLOAD, receiveWorkload, requestWorkloadFailed,
   COMPLETE_WORKLOAD, completeWorkloadFailed,
 } from './actions';
-import { selectWorkload } from './selectors';
+import { imageAnnotations } from './selectors';
 
 // worker Saga: will be fired on REQUEST_ANNOTATIONS actions
 export function* requestAnnotations() {
@@ -29,7 +29,7 @@ export function* requestWorkload() {
 
 export function* completeWorkload() {
   try {
-    const workloadToSend = yield select(selectWorkload);
+    const workloadToSend = yield select(imageAnnotations);
     const workloadPostResponse = yield call(postWorkload, workloadToSend);
     yield put(receiveWorkload(workloadPostResponse));
   } catch (e) {

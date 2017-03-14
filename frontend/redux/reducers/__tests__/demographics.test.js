@@ -15,7 +15,6 @@ describe('perceived demographics form reducer', () => {
     expect(initialState).toEqual({
       order: [],
       questions: {},
-      answers: {},
       current: 0,
     });
   });
@@ -75,43 +74,6 @@ describe('perceived demographics form reducer', () => {
       const nextState = demographics(initialState, {
         type: RECEIVE_ANNOTATIONS,
         payload: [],
-      });
-      expect(nextState).not.toBe(initialState);
-      expect(nextState.current).toBeDefined();
-      expect(nextState.current).toBe(0);
-    });
-
-  });
-
-  const { RECEIVE_WORKLOAD } = actions;
-  describe(`on ${RECEIVE_WORKLOAD}`, () => {
-
-    it('resets the answers dictionary', () => {
-      const initialState = demographics({
-        answers: {
-          a: [],
-          b: [],
-        },
-      }, {});
-      const nextState = demographics(initialState, {
-        type: RECEIVE_WORKLOAD,
-      });
-      expect(nextState).not.toBe(initialState);
-      expect(nextState.answers).toBeDefined();
-      expect(nextState.answers).toEqual({});
-    });
-
-  });
-
-  const { NEXT_FACE } = actions;
-  describe(`on ${NEXT_FACE}`, () => {
-
-    it('resets the current question index', () => {
-      const initialState = demographics({
-        current: 3,
-      }, {});
-      const nextState = demographics(initialState, {
-        type: NEXT_FACE,
       });
       expect(nextState).not.toBe(initialState);
       expect(nextState.current).toBeDefined();
