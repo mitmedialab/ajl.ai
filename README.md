@@ -108,7 +108,7 @@ This section clarifies the verbiage and terms used within the application code.
 
 ### Attribute
 
-An **attribute** is the object representing a specific type of annotation a user will apply to any given image, such as demographic attributes like "perceived ethnicity" or positional attributes like "the location of the right eye."
+An **attribute** is the object representing a specific type of annotation a user will apply to any given image, such as demographic attributes like "perceived ethnicity" or positional values like "the location of the right eye."
 
 Attribute properties:
 
@@ -127,7 +127,7 @@ Attribute objects have the shape
 
 ### Annotation
 
-An **annotation** is the object representing the submitted value for a particular attribute.
+An **annotation** is the object representing the submitted value for a particular [`Attribute`](#Attribute).
 
 Annotation properties:
 
@@ -142,20 +142,86 @@ Annotation objects have the shape
 }
 ```
 
-### Image Annotation
+### ImageAnnotation
 
-An **image annotation** is an object associating one or more annotations with the specific image to which they were applied. It contains an array of annotations, and the ID of their associated image.
+An **image annotation** is an object associating one or more [`Annotations`](#Annotation) with the specific [`Image`](#Image) to which they were applied. It contains an array of annotations, and the ID of their associated image.
 
-Image annotation objects have the shape:
+ImageAnnotation objects have the shape:
 ```json
 {
-    "id": "numeric-image-id",
+    "id": 3359,
     "annotations": [{
         "name": "Attribute Name",
         "value": "selected-value"
     }, {
         "name": "Another Attribute Name",
         "value": "selected-value"
+    }]
+}
+```
+
+### Image
+
+An **image** is a representation of an image to which [`Annotation`s](#Annotation) will be applied.
+
+Image objects have the shape:
+```json
+{
+    "id": 3359,
+    "url": "http://www.url.com/some-image.jpg",
+    "width": 250,
+    "height": 250
+}
+```
+
+### Workload
+
+A **workload** is an object containing a list of [`Image`s](#Image) to be annotated.
+
+Workload objects have the shape:
+```json
+{
+    "id": 121,
+    "images": [{
+        "id": 3359,
+        "url": "http://url.com/some-image.jpg",
+        "width": 250,
+        "height": 250
+    }, {
+        "id": 3360,
+        "url": "http://url.com/other-image.jpg",
+        "width": 250,
+        "height": 250
+    }]
+}
+```
+
+### AnnotatedWorkload
+
+An **annotated workload** is a collection of [`ImageAnnotation`s](#ImageAnnotation) submitted for a specific [`Workload`](#Workload).
+
+Annotated Workload objects have the shape
+```json
+{
+    "workloadId": 121,
+    "images": [{
+        "id": 3359,
+        "annotations": [{
+            "name": "Attribute Name",
+            "value": "selected-value"
+        }, {
+            "name": "Another Attribute Name",
+            "value": "selected-value"
+        }]
+    }, {
+        "id": 3360,
+        "annotations": [{
+            "name": "Attribute Name",
+            "value": "selected-value"
+        }, {
+            "name": "Another Attribute Name",
+            "value": "selected-value"
+        }]
     }]
 }
 ```
