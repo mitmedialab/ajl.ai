@@ -127,14 +127,26 @@ Attribute objects have the shape
 
 ### Annotation
 
-An **image annotation** is the object representing the value of a specific attribute a user applied to a specific image.
+An **annotation** is the object representing the submitted value for a particular attribute.
 
-Image annotation properties:
+Annotation properties:
 
 - **Name**: the name of the image attribute annotated, such as "Perceived Ethnicity".
 - **Value**: the value with which the image is annotated, such as "Asian" or "Black."
 
 Annotation objects have the shape
+```json
+{
+    "name": "Attribute Name",
+    "value": "selected-value"
+}
+```
+
+### Image Annotation
+
+An **image annotation** is an object associating one or more annotations with the specific image to which they were applied. It contains an array of annotations, and the ID of their associated image.
+
+Image annotation objects have the shape:
 ```json
 {
     "id": "numeric-image-id",
