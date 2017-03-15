@@ -101,3 +101,127 @@ $ npm run migrate:up
 Navigate to the following prototypes in your browser:
 * test on 25 sample landmarked images of faces [sample-data-rotate-regions](http://localhost:8000/prototypes/fabric-test/sample-data-rotate-regions.html)
 * UI experiment for three annotation modes: [general fabric.js test](http://localhost:8000/prototypes/fabric-test/)
+
+## Glossary of Terms
+
+This section clarifies the verbiage and terms used within the application code.
+
+### Attribute
+
+An **attribute** is the object representing a specific type of annotation a user will apply to any given image, such as demographic attributes like "perceived ethnicity" or positional values like "the location of the right eye."
+
+Attribute properties:
+
+- **Name**: the human-oriented label of an attribute, such as "Perceived Gender."
+- **Type**: the type of data represented by the attribute, *e.g.* a list of multiple-choice options, or a set of coordinates, etc. _Note: This is a database- / data model-oriented value, and has no inherent correspondence to front-end presentation._
+- **Options**: the list of accepted values for a multiple-choice image attribute.
+
+Attribute objects have the shape
+```json
+{
+    "name": "Attribute Name",
+    "type": "type-of-data",
+    "options": ["list", "of", "accepted", "values", "for", "multiple", "choice", "attributes"]
+}
+```
+
+### Annotation
+
+An **annotation** is the object representing the submitted value for a particular [`Attribute`](#attribute).
+
+Annotation properties:
+
+- **Name**: the name of the image attribute annotated, such as "Perceived Ethnicity".
+- **Value**: the value with which the image is annotated, such as "Asian" or "Black."
+
+Annotation objects have the shape
+```json
+{
+    "name": "Attribute Name",
+    "value": "selected-value"
+}
+```
+
+### ImageAnnotation
+
+An **image annotation** is an object associating one or more [`Annotations`](#annotation) with the specific [`Image`](#image) to which they were applied. It contains an array of annotations, and the ID of their associated image.
+
+ImageAnnotation objects have the shape:
+```json
+{
+    "id": 3359,
+    "annotations": [{
+        "name": "Attribute Name",
+        "value": "selected-value"
+    }, {
+        "name": "Another Attribute Name",
+        "value": "selected-value"
+    }]
+}
+```
+
+### Image
+
+An **image** is a representation of an image to which [`Annotations`](#annotation) will be applied.
+
+Image objects have the shape:
+```json
+{
+    "id": 3359,
+    "url": "http://www.url.com/some-image.jpg",
+    "width": 250,
+    "height": 250
+}
+```
+
+### Workload
+
+A **workload** is an object containing a list of [`Images`](#image) to be annotated.
+
+Workload objects have the shape:
+```json
+{
+    "id": 121,
+    "images": [{
+        "id": 3359,
+        "url": "http://url.com/some-image.jpg",
+        "width": 250,
+        "height": 250
+    }, {
+        "id": 3360,
+        "url": "http://url.com/other-image.jpg",
+        "width": 250,
+        "height": 250
+    }]
+}
+```
+
+### AnnotatedWorkload
+
+An **annotated workload** is a collection of [`ImageAnnotations`](#imageannotation) submitted for a specific [`Workload`](#workload).
+
+Annotated Workload objects have the shape
+```json
+{
+    "workloadId": 121,
+    "images": [{
+        "id": 3359,
+        "annotations": [{
+            "name": "Attribute Name",
+            "value": "selected-value"
+        }, {
+            "name": "Another Attribute Name",
+            "value": "selected-value"
+        }]
+    }, {
+        "id": 3360,
+        "annotations": [{
+            "name": "Attribute Name",
+            "value": "selected-value"
+        }, {
+            "name": "Another Attribute Name",
+            "value": "selected-value"
+        }]
+    }]
+}
+```
