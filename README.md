@@ -162,7 +162,7 @@ ImageAnnotation objects have the shape:
 
 ### Image
 
-An **image** is a representation of an image to which [`Annotation`s](#annotation) will be applied.
+An **image** is a representation of an image to which [`Annotations`](#annotation) will be applied.
 
 Image objects have the shape:
 ```json
@@ -176,7 +176,7 @@ Image objects have the shape:
 
 ### Workload
 
-A **workload** is an object containing a list of [`Image`s](#image) to be annotated.
+A **workload** is an object containing a list of [`Images`](#image) to be annotated.
 
 Workload objects have the shape:
 ```json
@@ -198,7 +198,7 @@ Workload objects have the shape:
 
 ### AnnotatedWorkload
 
-An **annotated workload** is a collection of [`ImageAnnotation`s](#imageannotation) submitted for a specific [`Workload`](#workload).
+An **annotated workload** is a collection of [`ImageAnnotations`](#imageannotation) submitted for a specific [`Workload`](#workload).
 
 Annotated Workload objects have the shape
 ```json
