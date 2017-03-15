@@ -127,7 +127,7 @@ Attribute objects have the shape
 
 ### Annotation
 
-An **annotation** is the object representing the submitted value for a particular [`Attribute`](#Attribute).
+An **annotation** is the object representing the submitted value for a particular [`Attribute`](#attribute).
 
 Annotation properties:
 
@@ -144,7 +144,7 @@ Annotation objects have the shape
 
 ### ImageAnnotation
 
-An **image annotation** is an object associating one or more [`Annotations`](#Annotation) with the specific [`Image`](#Image) to which they were applied. It contains an array of annotations, and the ID of their associated image.
+An **image annotation** is an object associating one or more [`Annotations`](#annotation) with the specific [`Image`](#image) to which they were applied. It contains an array of annotations, and the ID of their associated image.
 
 ImageAnnotation objects have the shape:
 ```json
@@ -162,7 +162,7 @@ ImageAnnotation objects have the shape:
 
 ### Image
 
-An **image** is a representation of an image to which [`Annotation`s](#Annotation) will be applied.
+An **image** is a representation of an image to which [`Annotation`s](#annotation) will be applied.
 
 Image objects have the shape:
 ```json
@@ -176,7 +176,7 @@ Image objects have the shape:
 
 ### Workload
 
-A **workload** is an object containing a list of [`Image`s](#Image) to be annotated.
+A **workload** is an object containing a list of [`Image`s](#image) to be annotated.
 
 Workload objects have the shape:
 ```json
@@ -198,7 +198,7 @@ Workload objects have the shape:
 
 ### AnnotatedWorkload
 
-An **annotated workload** is a collection of [`ImageAnnotation`s](#ImageAnnotation) submitted for a specific [`Workload`](#Workload).
+An **annotated workload** is a collection of [`ImageAnnotation`s](#imageannotation) submitted for a specific [`Workload`](#workload).
 
 Annotated Workload objects have the shape
 ```json
