@@ -101,3 +101,49 @@ $ npm run migrate:up
 Navigate to the following prototypes in your browser:
 * test on 25 sample landmarked images of faces [sample-data-rotate-regions](http://localhost:8000/prototypes/fabric-test/sample-data-rotate-regions.html)
 * UI experiment for three annotation modes: [general fabric.js test](http://localhost:8000/prototypes/fabric-test/)
+
+## Glossary of Terms
+
+This section clarifies the verbiage and terms used within the application code.
+
+### Attribute
+
+An **attribute** is the object representing a specific type of annotation a user will apply to any given image, such as demographic attributes like "perceived ethnicity" or positional attributes like "the location of the right eye."
+
+Attribute properties:
+
+- **Name**: the human-oriented label of an attribute, such as "Perceived Gender."
+- **Type**: the type of data represented by the attribute, *e.g.* a list of multiple-choice options, or a set of coordinates, etc. _Note: This is a database- / data model-oriented value, and has no inherent correspondence to front-end presentation._
+- **Options**: the list of accepted values for a multiple-choice image attribute.
+
+Attribute objects have the shape
+```json
+{
+    "name": "Attribute Name",
+    "type": "type-of-data",
+    "options": ["list", "of", "accepted", "values", "for", "multiple", "choice", "attributes"]
+}
+```
+
+### Annotation
+
+An **image annotation** is the object representing the value of a specific attribute a user applied to a specific image.
+
+Image annotation properties:
+
+- **Name**: the name of the image attribute annotated, such as "Perceived Ethnicity".
+- **Value**: the value with which the image is annotated, such as "Asian" or "Black."
+
+Annotation objects have the shape
+```json
+{
+    "id": "numeric-image-id",
+    "annotations": [{
+        "name": "Attribute Name",
+        "value": "selected-value"
+    }, {
+        "name": "Another Attribute Name",
+        "value": "selected-value"
+    }]
+}
+```
