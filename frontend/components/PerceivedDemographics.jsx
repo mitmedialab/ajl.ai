@@ -59,8 +59,15 @@ class PerceivedDemographics extends Component {
     const value = (target.type === 'checkbox') ? target.checked : target.value;
     const name = target.name;
 
-    this.setState({
-      [name]: value,
+    this.setState(({ currentStep }, { questionOrder }) => {
+      const nextStep = currentStep + 1;
+      const maxStep = questionOrder.length;
+      return {
+        // Persist value
+        [name]: value,
+        // Auto-advance to the next step, preventing out-of-bounds values
+        currentStep: nextStep > maxStep ? maxStep : nextStep,
+      };
     });
   }
 
@@ -73,20 +80,26 @@ class PerceivedDemographics extends Component {
   }
 
   prevStep() {
-    const { currentStep } = this.state;
-    const prevStep = currentStep - 1;
-    this.setState({
-      // Prevent out-of-bounds prevStep value
-      currentStep: prevStep <= 0 ? 0 : prevStep,
+    // pull currentStep out of this.state to compute prev step
+    this.setState(({ currentStep }) => {
+      const prevStep = currentStep - 1;
+      return {
+        // Prevent out-of-bounds prevStep value
+        currentStep: prevStep <= 0 ? 0 : prevStep,
+      };
     });
   }
 
   nextStep() {
-    const { currentStep } = this.state;
-    const nextStep = currentStep + 1;
-    this.setState({
-      // Prevent out-of-bounds nextStep value
-      currentStep: nextStep >= 2 ? 2 : nextStep,
+    // pull currentStep out of this.state to compute next step,
+    // and questionOrder out of this.props to compute max step
+    this.setState(({ currentStep }, { questionOrder }) => {
+      const nextStep = currentStep + 1;
+      const maxStep = questionOrder.length;
+      return {
+        // Prevent out-of-bounds nextStep value
+        currentStep: nextStep > maxStep ? maxStep : nextStep,
+      };
     });
   }
 
@@ -101,8 +114,8 @@ class PerceivedDemographics extends Component {
           alt="A face to label with perceived demographic information"
         />
         <form onSubmit={this.handleSubmit}>
-          {questionOrder.map((questionId, idx) => {
-            const { id, name, options } = demographicAttributes[questionId];
+          {questionOrder.map((questionName, idx) => {
+            const { id, name, options } = demographicAttributes[questionName];
             return (
               <PerceivedDemographicQuestion
                 key={`question_${strToId(name)}_${id}`}
@@ -114,6 +127,20 @@ class PerceivedDemographics extends Component {
               />
             );
           })}
+          {currentStep >= questionOrder.length ? (
+            <div role="alert">
+              <p>Review your annotations</p>
+              <ul>{questionOrder.map((questionName) => {
+                const { name } = demographicAttributes[questionName];
+                const value = this.state[name];
+                return (
+                  <li key={`confirmation_${name}`}>
+                    {name}: <strong>{value}</strong>
+                  </li>
+                );
+              })}</ul>
+            </div>
+          ) : null}
 
           <div className={styles.carousel}>
             <button
@@ -128,20 +155,18 @@ class PerceivedDemographics extends Component {
               Image {this.props.current} of {this.props.total}
             </span>
 
-            {currentStep < 2 ? (
+            {currentStep < questionOrder.length ? (
               <button
                 className={styles.next}
                 type="button"
                 onClick={this.nextStep}
               >Next Step</button>
-            ) : null}
-
-            {currentStep >= 2 ? (
+            ) : (
               <button
                 className={`${styles.next} ${styles.save}`}
                 type="submit"
               >Submit</button>
-            ) : null}
+            )}
           </div>
         </form>
       </div>
