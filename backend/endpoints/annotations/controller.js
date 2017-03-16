@@ -11,7 +11,7 @@ export function getTypes(req, res) {
 
 export function getWorkload(req, res) {
   const numTruths = req.session.enrolled ? 2 : 8;
-  const limit = req.session.enrolled ? 3 : 12;
+  const limit = 1;// req.session.enrolled ? 3 : 12;
   const annotatorId = req.session.annotatorId;
 
   // get a set of images from the db
@@ -36,7 +36,6 @@ export function getWorkload(req, res) {
       return { ...workload, images };
     });
 
-
     res.send(response);
   })
   // Respond with an error if it doesn't work
@@ -53,21 +52,25 @@ export function postAnnotations(req, res) {
     annotatorId,
     workloadId: req.body.workloadId,
   })
+
   // Then validate that the images ids in the current annotator's stored workload
   // match the image ids whose annotations are being submitted
-  .then((data) => {
-    if (! data.length) {
+  .then((storedWorkload) => {
+    if (! storedWorkload.length) {
       throw new Error('unknown workload: no stored workload');
     }
-    const images = data[0].images;
+    const images = storedWorkload[0].images;
     const storedIds = images.map(image => image.id);
     const submittedIds = req.body.images.map(image => image.id);
     if (! isEqual(storedIds.sort(), submittedIds.sort())) {
       throw new Error(`unknown workload: session workload of #s ${submittedIds} did not match stored workload #s ${storedIds}`);
     }
+
+    return storedWorkload;
   })
+
   // then if the workload is valid, store the annotations in the db
-  .then(() => {
+  .then((storedWorkload) => {
     const workloadId = req.body.workloadId;
     req.body.images.forEach(({ id: imageId, annotations }) => {
       annotations.forEach(({ name, value }) => {
@@ -82,23 +85,38 @@ export function postAnnotations(req, res) {
       });
     });
 
-    return Promise.all(allQueries);
+    return Promise.all(allQueries).then(() => storedWorkload);
   })
-  /*
-  TODO:
-  .then(() => {
-    // check if they got the 8 ground truths correct
-    // if they didn't get 8 right then have them start over
-    // if they did, then check if the 4 unknown images have 4 agreeing submissions
-    // and make a new ground truth
-  })
-  */
-  // if they did 12 and got 8 right, now they are enrolled
-  .then(() => {
-    session.enrolled = true;
-    // now we want to return a new workload in the 201 success created response
-    // start by gettting a set of images from the db
-    return getWorkload(req, res);
+
+  // check if they got the 8 ground truths correct
+  // if they didn't get 8 right then have them start over
+  // if they did, then check if the 4 unknown images have 4 agreeing submissions
+  // and make a new ground truth
+  .then((storedWorkload) => {
+    const annotations = req.body.images;
+
+    const knownImageIds = storedWorkload[0].images
+      .filter(({ is_known }) => is_known)
+      .map(({ id }) => id);
+
+    return db.query(queries.getKnowns, {
+      imageIds: knownImageIds,
+    }).then((knownAnnotations) => {
+
+      console.log(knownAnnotations);
+
+      if (knownAnnotations === annotations) {
+        // ^^^ this is not reeal need to actually write this comparison
+
+        // if they did 12 and got 8 right, now they are enrolled
+        session.enrolled = true;
+        // now we want to return a new workload in response
+        return getWorkload(req, res);
+      }
+        // otherwise, tell them they got it wrong
+      throw new Error('your annotations did not match the known work of other annotators');
+
+    });
   })
   // Respond with an error if it doesn't work
   .catch(e => apiDatabaseError(e, req, res));
