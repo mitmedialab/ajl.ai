@@ -106,10 +106,16 @@ export function postAnnotations(req, res) {
       console.log(knownAnnotations);
 
       if (knownAnnotations === annotations) {
-        // ^^^ this is not reeal need to actually write this comparison
+        // ^^^ TODO this is not reeal need to actually write this comparison
 
         // if they did 12 and got 8 right, now they are enrolled
         session.enrolled = true;
+
+        // TODO query annotations table to see if there are 3+ annotations
+        // that agree with each of the new annotations, and if so, store a new
+        // known annotation in the known db
+
+
         // now we want to return a new workload in response
         return getWorkload(req, res);
       }
