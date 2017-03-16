@@ -1,19 +1,19 @@
 import { call, fork, put, takeLatest, select } from 'redux-saga/effects';
-import { getAnnotations, getWorkload, postWorkload } from '../services/api';
+import { getAttributes, getWorkload, postWorkload } from '../services/api';
 import {
-  REQUEST_ANNOTATIONS, receiveAnnotations, requestAnnotationsFailed,
+  REQUEST_ATTRIBUTES, receiveAttributes, requestAttributesFailed,
   REQUEST_WORKLOAD, receiveWorkload, requestWorkloadFailed,
   COMPLETE_WORKLOAD, completeWorkloadFailed,
 } from './actions';
 import { imageAnnotations } from './selectors';
 
-// worker Saga: will be fired on REQUEST_ANNOTATIONS actions
-export function* requestAnnotations() {
+// worker Saga: will be fired on REQUEST_ATTRIBUTES actions
+export function* requestAttributes() {
   try {
-    const annotations = yield call(getAnnotations);
-    yield put(receiveAnnotations(annotations));
+    const anotatableAttributes = yield call(getAttributes);
+    yield put(receiveAttributes(anotatableAttributes));
   } catch (e) {
-    yield put(requestAnnotationsFailed(e));
+    yield put(requestAttributesFailed(e));
   }
 }
 
@@ -40,7 +40,7 @@ export function* completeWorkload() {
 // Export a single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield [
-    fork(takeLatest, REQUEST_ANNOTATIONS, requestAnnotations),
+    fork(takeLatest, REQUEST_ATTRIBUTES, requestAttributes),
     fork(takeLatest, REQUEST_WORKLOAD, requestWorkload),
     fork(takeLatest, COMPLETE_WORKLOAD, completeWorkload),
   ];

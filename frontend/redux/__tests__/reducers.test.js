@@ -32,9 +32,9 @@ describe('rootReducer', () => {
       expect(state.annotations).toBeDefined();
     });
 
-    it('returns a state object with a demographic annotations questions store property', () => {
+    it('returns a state object with a demographic attributes store property', () => {
       const state = rootReducer(undefined, {});
-      expect(state.demographics).toBeDefined();
+      expect(state.demographicAttributes).toBeDefined();
     });
 
     it('returns a state object with a workload store property', () => {

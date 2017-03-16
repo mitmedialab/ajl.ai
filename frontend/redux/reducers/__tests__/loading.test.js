@@ -14,7 +14,7 @@ describe('loading reducer', () => {
     const initialState = loadingReducer(undefined, {});
     expect(initialState).toEqual({
       faces: false,
-      annotations: false,
+      attributes: false,
     });
   });
 
@@ -24,79 +24,79 @@ describe('loading reducer', () => {
     expect(nextState).toBe(initialState);
   });
 
-  describe('annotations actions', () => {
+  describe('attributes actions', () => {
 
-    const { REQUEST_ANNOTATIONS } = actions;
-    describe(`on ${REQUEST_ANNOTATIONS}`, () => {
+    const { REQUEST_ATTRIBUTES } = actions;
+    describe(`on ${REQUEST_ATTRIBUTES}`, () => {
 
-      it('flags the annotations as loading', () => {
+      it('flags the attributes as loading', () => {
         const initialState = loadingReducer({
-          annotations: false,
+          attributes: false,
         }, {});
         const nextState = loadingReducer(initialState, {
-          type: REQUEST_ANNOTATIONS,
+          type: REQUEST_ATTRIBUTES,
         });
-        expect(nextState.annotations).toBe(true);
+        expect(nextState.attributes).toBe(true);
       });
 
       it('does not change the loading flag if it is already true', () => {
         const initialState = loadingReducer({
-          annotations: true,
+          attributes: true,
         }, {});
         const nextState = loadingReducer(initialState, {
-          type: REQUEST_ANNOTATIONS,
+          type: REQUEST_ATTRIBUTES,
         });
-        expect(nextState.annotations).toBe(true);
+        expect(nextState.attributes).toBe(true);
       });
 
     });
 
-    const { RECEIVE_ANNOTATIONS } = actions;
-    describe(`on ${RECEIVE_ANNOTATIONS}`, () => {
+    const { RECEIVE_ATTRIBUTES } = actions;
+    describe(`on ${RECEIVE_ATTRIBUTES}`, () => {
 
-      it('flags the annotations as not loading', () => {
+      it('flags the attributes as not loading', () => {
         const initialState = loadingReducer({
-          annotations: true,
+          attributes: true,
         }, {});
         const nextState = loadingReducer(initialState, {
-          type: RECEIVE_ANNOTATIONS,
+          type: RECEIVE_ATTRIBUTES,
         });
-        expect(nextState.annotations).toBe(false);
+        expect(nextState.attributes).toBe(false);
       });
 
       it('does not change the loading flag if it is already false', () => {
         const initialState = loadingReducer({
-          annotations: false,
+          attributes: false,
         }, {});
         const nextState = loadingReducer(initialState, {
-          type: RECEIVE_ANNOTATIONS,
+          type: RECEIVE_ATTRIBUTES,
         });
-        expect(nextState.annotations).toBe(false);
+        expect(nextState.attributes).toBe(false);
       });
 
     });
 
-    const { REQUEST_ANNOTATIONS_FAILED } = actions;
-    describe(`on ${REQUEST_ANNOTATIONS_FAILED}`, () => {
+    const { REQUEST_ATTRIBUTES_FAILED } = actions;
+    describe(`on ${REQUEST_ATTRIBUTES_FAILED}`, () => {
 
-      it('flags the annotations as not loading', () => {
+      it('flags the attributes as not loading', () => {
         const initialState = loadingReducer({
-          annotations: true,
+          attributes: true,
         }, {});
         const nextState = loadingReducer(initialState, {
-          type: REQUEST_ANNOTATIONS_FAILED,
+          type: REQUEST_ATTRIBUTES_FAILED,
         });
-        expect(nextState.annotations).toBe(false);
+        expect(nextState.attributes).toBe(false);
       });
 
       it('does not change the loading flag if it is already false', () => {
         const initialState = loadingReducer({
-          annotations: false,
+          attributes: false,
         }, {});
         const nextState = loadingReducer(initialState, {
-          type: REQUEST_ANNOTATIONS_FAILED,
+          type: REQUEST_ATTRIBUTES_FAILED,
         });
-        expect(nextState.annotations).toBe(false);
+        expect(nextState.attributes).toBe(false);
       });
 
     });

@@ -62,8 +62,8 @@ describe('image annotations reducer', () => {
     it('clears the image annotations array', () => {
       const initialState = annotations({
         images: [
-          { id: 1234, annotations: [{ type: 'a', option: '1' }] },
-          { id: 5678, annotations: [{ type: 'b', option: '2' }] },
+          { id: 1234, annotations: [{ name: 'a', value: '1' }] },
+          { id: 5678, annotations: [{ name: 'b', value: '2' }] },
         ],
       }, {});
       const nextState = annotations(initialState, {
@@ -92,14 +92,9 @@ describe('image annotations reducer', () => {
         type: SAVE_DEMOGRAPHIC_ANNOTATIONS,
         payload: {
           id: 1234,
-          // TODO: migrate to new verbiage:
-          // annotations: [{
-          //   name: 'a',
-          //   value: '1',
-          // }],
-          demographics: [{
-            type: 'a',
-            option: '1',
+          annotations: [{
+            name: 'a',
+            value: '1',
           }],
         },
       });
@@ -107,7 +102,7 @@ describe('image annotations reducer', () => {
       expect(nextState.images).toBeDefined();
       expect(nextState.images).not.toBe(initialState.images);
       expect(nextState.images).toEqual([
-        { id: 1234, annotations: [{ type: 'a', option: '1' }] },
+        { id: 1234, annotations: [{ name: 'a', value: '1' }] },
       ]);
     });
 
@@ -115,21 +110,16 @@ describe('image annotations reducer', () => {
       const initialState = annotations({
         workloadId: 121,
         images: [
-          { id: 1234, annotations: [{ type: 'a', option: '1' }] },
+          { id: 1234, annotations: [{ name: 'a', value: '1' }] },
         ],
       }, {});
       const nextState = annotations(initialState, {
         type: SAVE_DEMOGRAPHIC_ANNOTATIONS,
         payload: {
           id: 5678,
-          // TODO: migrate to new verbiage:
-          // annotations: [{
-          //   name: 'b',
-          //   value: '2',
-          // }],
-          demographics: [{
-            type: 'b',
-            option: '2',
+          annotations: [{
+            name: 'b',
+            value: '2',
           }],
         },
       });
@@ -137,8 +127,8 @@ describe('image annotations reducer', () => {
       expect(nextState.images).toBeDefined();
       expect(nextState.images).not.toBe(initialState.images);
       expect(nextState.images).toEqual([
-        { id: 1234, annotations: [{ type: 'a', option: '1' }] },
-        { id: 5678, annotations: [{ type: 'b', option: '2' }] },
+        { id: 1234, annotations: [{ name: 'a', value: '1' }] },
+        { id: 5678, annotations: [{ name: 'b', value: '2' }] },
       ]);
     });
 

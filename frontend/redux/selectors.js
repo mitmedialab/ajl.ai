@@ -19,7 +19,7 @@ export const isLoading = state => Object
   .keys(state.loading)
   .reduce((anyLoading, key) => (anyLoading || state.loading[key]), false);
 
-export const demographics = state => state.demographics.questions;
-export const demographicsOrder = state => state.demographics.order;
+export const demographicAttributes = state => state.demographicAttributes.byName;
+export const demographicAttributesOrder = state => state.demographicAttributes.order;
 
 export const imageAnnotations = state => state.annotations;

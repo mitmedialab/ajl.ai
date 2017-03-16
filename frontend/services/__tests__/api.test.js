@@ -71,12 +71,12 @@ describe('API', () => {
 
   });
 
-  describe('getAnnotations', () => {
-    const { getAnnotations } = api;
+  describe('getAttributes', () => {
+    const { getAttributes } = api;
 
     it('is a function', () => {
-      expect(getAnnotations).toBeDefined();
-      expect(getAnnotations).toBeInstanceOf(Function);
+      expect(getAttributes).toBeDefined();
+      expect(getAttributes).toBeInstanceOf(Function);
     });
 
     it('requests an annotations list', () => {
@@ -85,7 +85,7 @@ describe('API', () => {
         { name: 'b', options: [4, 5, 7] },
       ];
       mock.onGet('/api/annotations/types').reply(200, mockResponse);
-      return getAnnotations()
+      return getAttributes()
         .then(result => expect(result).toEqual(mockResponse));
     });
 

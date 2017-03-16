@@ -31,32 +31,32 @@ export const requestWorkloadFailed = error => ({
 });
 
 /** @prop {string} Action to trigger a request for face data */
-export const REQUEST_ANNOTATIONS = 'REQUEST_ANNOTATIONS';
-export const requestAnnotations = () => ({
-  type: REQUEST_ANNOTATIONS,
+export const REQUEST_ATTRIBUTES = 'REQUEST_ATTRIBUTES';
+export const requestAttributes = () => ({
+  type: REQUEST_ATTRIBUTES,
 });
 
 /** @prop {string} Action to populate the annotations within the store when the request succeeds */
-export const RECEIVE_ANNOTATIONS = 'RECEIVE_ANNOTATIONS';
-export const receiveAnnotations = annotations => ({
-  type: RECEIVE_ANNOTATIONS,
+export const RECEIVE_ATTRIBUTES = 'RECEIVE_ATTRIBUTES';
+export const receiveAttributes = annotations => ({
+  type: RECEIVE_ATTRIBUTES,
   payload: annotations,
 });
 
 /** @prop {string} Action to signal a data request failed */
-export const REQUEST_ANNOTATIONS_FAILED = 'REQUEST_ANNOTATIONS_FAILED';
-export const requestAnnotationsFailed = error => ({
-  type: REQUEST_ANNOTATIONS_FAILED,
+export const REQUEST_ATTRIBUTES_FAILED = 'REQUEST_ATTRIBUTES_FAILED';
+export const requestAttributesFailed = error => ({
+  type: REQUEST_ATTRIBUTES_FAILED,
   payload: error,
   error: true,
 });
 
 export const SAVE_DEMOGRAPHIC_ANNOTATIONS = 'SAVE_DEMOGRAPHIC_ANNOTATIONS';
-export const saveDemographicAnnotations = ({ id, demographics }) => ({
+export const saveDemographicAnnotations = ({ id, annotations }) => ({
   type: SAVE_DEMOGRAPHIC_ANNOTATIONS,
   payload: {
     id,
-    demographics,
+    annotations,
   },
 });
 
