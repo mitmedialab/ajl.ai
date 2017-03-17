@@ -77,7 +77,7 @@ class PerceivedDemographics extends Component {
     console.log('Submitted!');
     event.preventDefault();
     this.props.onSubmit(this.prepareAnnotationsObject());
-    if (this.props.current >= this.props.total) {
+    if (this.props.current > this.props.total) {
       this.props.onCompleteWorkload();
     }
   }
