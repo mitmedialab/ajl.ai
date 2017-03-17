@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { isEqual, omit } from 'lodash';
+import { isEqual, omit, find } from 'lodash';
 import db from '../../services/db';
 import queries from './queries';
 import { apiDatabaseError } from '../../base/controller';
@@ -11,7 +11,7 @@ export function getTypes(req, res) {
 
 export function getWorkload(req, res) {
   const numTruths = req.session.enrolled ? 2 : 8;
-  const limit = 1;// req.session.enrolled ? 3 : 12;
+  const limit =  1;//req.session.enrolled ? 3 : 12;
   const annotatorId = req.session.annotatorId;
 
   // get a set of images from the db
@@ -93,7 +93,7 @@ export function postAnnotations(req, res) {
   // if they did, then check if the 4 unknown images have 4 agreeing submissions
   // and make a new ground truth
   .then((storedWorkload) => {
-    const annotations = req.body.images;
+    const images = req.body.images;
 
     const knownImageIds = storedWorkload[0].images
       .filter(({ is_known }) => is_known)
@@ -103,24 +103,33 @@ export function postAnnotations(req, res) {
       imageIds: knownImageIds,
     }).then((knownAnnotations) => {
 
-      console.log(knownAnnotations);
+      // go over every image that came back
+      // and check it against the known truths database
+      images.forEach( image => {
+        image.annotations.forEach( annotation => {
+          const currentKnownAnnotation = find(knownAnnotations, function(o) {
+            return o.data.name === annotation.name;
+          });
 
-      if (knownAnnotations === annotations) {
-        // ^^^ TODO this is not reeal need to actually write this comparison
+          const comparisonResult = currentKnownAnnotation.data.value === annotation.option;
 
-        // if they did 12 and got 8 right, now they are enrolled
-        session.enrolled = true;
+          if(!comparisonResult) {
+            throw new Error('your annotations did not match the known work of other annotators');
+          }
+        });
+      });
 
-        // TODO query annotations table to see if there are 3+ annotations
-        // that agree with each of the new annotations, and if so, store a new
-        // known annotation in the known db
+      // if they didn't have any errors with the comparisons
+      // now they are enrolled
+      session.enrolled = true;
+
+      // TODO query annotations table to see if there are 3+ annotations
+      // that agree with each of the new annotations, and if so, store a new
+      // known annotation in the known db
 
 
-        // now we want to return a new workload in response
-        return getWorkload(req, res);
-      }
-        // otherwise, tell them they got it wrong
-      throw new Error('your annotations did not match the known work of other annotators');
+      // now we want to return a new workload in response
+      return getWorkload(req, res);
 
     });
   })
