@@ -145,23 +145,23 @@ describe('selector functions', () => {
 
   });
 
-  describe('demographics', () => {
-    const { demographics } = selectors;
+  describe('demographicAttributes', () => {
+    const { demographicAttributes } = selectors;
 
     it('is a function', () => {
-      expect(demographics).toBeDefined();
-      expect(demographics).toBeInstanceOf(Function);
+      expect(demographicAttributes).toBeDefined();
+      expect(demographicAttributes).toBeInstanceOf(Function);
     });
 
-    it('returns the demographics dictionary object', () => {
+    it('returns the perceived demographic annotations dictionary object', () => {
       const demoDict = {
         a: 'Demographic Question 1',
         b: 'Demographic Question 2',
         c: 'Demographic Question 3',
       };
-      const result = demographics({
-        demographics: {
-          questions: demoDict,
+      const result = demographicAttributes({
+        demographicAttributes: {
+          byName: demoDict,
         },
       });
       expect(result).toBe(demoDict);
@@ -169,18 +169,18 @@ describe('selector functions', () => {
 
   });
 
-  describe('demographicsOrder', () => {
-    const { demographicsOrder } = selectors;
+  describe('demographicAttributesOrder', () => {
+    const { demographicAttributesOrder } = selectors;
 
     it('is a function', () => {
-      expect(demographicsOrder).toBeDefined();
-      expect(demographicsOrder).toBeInstanceOf(Function);
+      expect(demographicAttributesOrder).toBeDefined();
+      expect(demographicAttributesOrder).toBeInstanceOf(Function);
     });
 
-    it('returns the demographics order list', () => {
+    it('returns the perceived demographic annotations order list', () => {
       const demoOrder = ['a', 'b', 'c'];
-      const result = demographicsOrder({
-        demographics: {
+      const result = demographicAttributesOrder({
+        demographicAttributes: {
           order: demoOrder,
         },
       });

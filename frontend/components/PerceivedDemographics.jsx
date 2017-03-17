@@ -44,13 +44,13 @@ class PerceivedDemographics extends Component {
 
   // Prepare the annotations into the format expected by the action/reducer
   prepareAnnotationsObject() {
-    const demographics = this.props.questionOrder.map(questionName => ({
+    const annotations = this.props.questionOrder.map(questionName => ({
       name: questionName,
-      option: this.state[questionName],
+      value: this.state[questionName],
     }));
     return {
       id: this.props.image.id,
-      demographics,
+      annotations,
     };
   }
 
@@ -92,7 +92,7 @@ class PerceivedDemographics extends Component {
 
   render() {
     const { currentStep } = this.state;
-    const { demographics, questionOrder } = this.props;
+    const { demographicAttributes, questionOrder } = this.props;
     window.props = this.props;
     return (
       <div>
@@ -102,7 +102,7 @@ class PerceivedDemographics extends Component {
         />
         <form onSubmit={this.handleSubmit}>
           {questionOrder.map((questionId, idx) => {
-            const { id, name, options } = demographics[questionId];
+            const { id, name, options } = demographicAttributes[questionId];
             return (
               <PerceivedDemographicQuestion
                 key={`question_${strToId(name)}_${id}`}
@@ -153,7 +153,7 @@ PerceivedDemographics.propTypes = {
   onEnter: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCompleteWorkload: PropTypes.func.isRequired,
-  demographics: PropTypes.objectOf(propShapes.demographicQuestion).isRequired,
+  demographicAttributes: PropTypes.objectOf(propShapes.demographicQuestion).isRequired,
   questionOrder: propShapes.demographicsQuestionList.isRequired,
   image: propShapes.workloadItem,
   current: PropTypes.number.isRequired,

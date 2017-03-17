@@ -32,7 +32,7 @@ function images(state = [], action) {
   case SAVE_DEMOGRAPHIC_ANNOTATIONS:
     return state.concat({
       id: action.payload.id,
-      annotations: action.payload.demographics,
+      annotations: action.payload.annotations,
     });
 
   default:

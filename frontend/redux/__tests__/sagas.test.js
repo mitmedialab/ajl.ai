@@ -1,9 +1,9 @@
 import { takeLatest } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import { getAnnotations, getWorkload, postWorkload } from '../../services/api';
+import { getAttributes, getWorkload, postWorkload } from '../../services/api';
 import rootSaga, {
   requestWorkload,
-  requestAnnotations,
+  requestAttributes,
   completeWorkload,
 } from '../sagas';
 import * as actions from '../actions';
@@ -13,14 +13,14 @@ describe('sagas', () => {
 
   describe('rootSaga', () => {
 
-    it('has a takeLatest for REQUEST_ANNOTATIONS', () => {
+    it('has a takeLatest for REQUEST_ATTRIBUTES', () => {
       const generator = rootSaga();
       const next = generator.next();
       const matchingTake = next.value.find(({ FORK } = {}) => (
-        FORK.fn === takeLatest && FORK.args[0] === actions.REQUEST_ANNOTATIONS
+        FORK.fn === takeLatest && FORK.args[0] === actions.REQUEST_ATTRIBUTES
       ));
       expect(matchingTake).toBeTruthy();
-      expect(matchingTake.FORK.args).toEqual([actions.REQUEST_ANNOTATIONS, requestAnnotations]);
+      expect(matchingTake.FORK.args).toEqual([actions.REQUEST_ATTRIBUTES, requestAttributes]);
     });
 
     it('has a takeLatest for REQUEST_WORKLOAD', () => {
@@ -45,28 +45,28 @@ describe('sagas', () => {
 
   });
 
-  describe('requestAnnotations', () => {
+  describe('requestAttributes', () => {
 
-    it('yields an API call to get annotations', () => {
-      const saga = testSaga(requestAnnotations);
-      const annotations = [{ id: 1, name: 'Perceived Age', options: [] }];
+    it('yields an API call to get attributes', () => {
+      const saga = testSaga(requestAttributes);
+      const attributes = [{ id: 1, name: 'Perceived Age', options: [] }];
       saga.next()
-        // Assert that the annotations API was called
-        .call(getAnnotations)
-        .next(annotations)
-        // Assert that the returned annotations are dispatched
-        .put(actions.receiveAnnotations(annotations))
+        // Assert that the attributes API was called
+        .call(getAttributes)
+        .next(attributes)
+        // Assert that the returned attributes are dispatched
+        .put(actions.receiveAttributes(attributes))
         .next()
         .isDone();
     });
 
     it('handles errors', () => {
-      const saga = testSaga(requestAnnotations);
+      const saga = testSaga(requestAttributes);
       const error = new Error('Test Error');
       saga.next()
-        .call(getAnnotations)
+        .call(getAttributes)
         .throw(error)
-        .put(actions.requestAnnotationsFailed(error))
+        .put(actions.requestAttributesFailed(error))
         .next()
         .isDone();
     });

@@ -8,16 +8,16 @@ import {
   currentWorkloadItem,
   selectedWorkloadItemIndex,
   totalWorkloadItemCount,
-  demographics,
-  demographicsOrder,
+  demographicAttributes,
+  demographicAttributesOrder,
 } from '../redux/selectors';
 
 import PerceivedDemographics from './PerceivedDemographics';
 
 const mapStateToProps = state => ({
   image: currentWorkloadItem(state),
-  demographics: demographics(state),
-  questionOrder: demographicsOrder(state),
+  demographicAttributes: demographicAttributes(state),
+  questionOrder: demographicAttributesOrder(state),
   current: selectedWorkloadItemIndex(state),
   total: totalWorkloadItemCount(state),
 });

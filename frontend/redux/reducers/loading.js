@@ -3,30 +3,30 @@
  * currently in-flight within the application.
  */
 import {
-  REQUEST_ANNOTATIONS, RECEIVE_ANNOTATIONS, REQUEST_ANNOTATIONS_FAILED,
+  REQUEST_ATTRIBUTES, RECEIVE_ATTRIBUTES, REQUEST_ATTRIBUTES_FAILED,
   REQUEST_WORKLOAD, RECEIVE_WORKLOAD, REQUEST_WORKLOAD_FAILED,
   COMPLETE_WORKLOAD, COMPLETE_WORKLOAD_FAILED,
 } from '../actions';
 
 const defaultState = {
   faces: false,
-  annotations: false,
+  attributes: false,
 };
 
 export default function loadingReducer(state = defaultState, action) {
   switch (action.type) {
 
-  case REQUEST_ANNOTATIONS:
+  case REQUEST_ATTRIBUTES:
     return {
       ...state,
-      annotations: true,
+      attributes: true,
     };
 
-  case RECEIVE_ANNOTATIONS:
-  case REQUEST_ANNOTATIONS_FAILED:
+  case RECEIVE_ATTRIBUTES:
+  case REQUEST_ATTRIBUTES_FAILED:
     return {
       ...state,
-      annotations: false,
+      attributes: false,
     };
 
   case REQUEST_WORKLOAD:

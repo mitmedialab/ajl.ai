@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import loading from './reducers/loading';
-import demographics from './reducers/demographics';
+import demographicAttributes from './reducers/demographic-attributes';
 import workload from './reducers/workload';
 import annotations from './reducers/annotations';
 
@@ -13,8 +13,8 @@ import annotations from './reducers/annotations';
 export default combineReducers({
   // UI state indicating whether any AJAX calls are pending
   loading,
-  // annotation types and options relating to demographic annotations
-  demographics,
+  // annotatable demographic attributes and their options
+  demographicAttributes,
   // The workload of images currently being annotated
   workload,
   // The image annotations to be submitted to the server
