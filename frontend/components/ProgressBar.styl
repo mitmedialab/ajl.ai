@@ -1,0 +1,20 @@
+@import './shared/mixins.styl';
+
+.label {
+  visually-hidden();
+}
+
+.barContainer {
+  height: 5px;
+  width: 100%;
+  border: 1px solid #444;
+}
+
+.bar {
+  height: 5px;
+  background: #222;
+}
+
+.inProgress {
+  transition: width 200ms;
+}

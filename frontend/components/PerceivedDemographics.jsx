@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 
 import strToId from '../utils/str-to-id';
 import valuesChanged from '../utils/values-changed';
@@ -6,6 +7,8 @@ import valuesChanged from '../utils/values-changed';
 import * as propShapes from '../prop-shapes';
 
 import PerceivedDemographicQuestion from './PerceivedDemographicQuestion';
+import ProgressBar from './ProgressBar';
+import ProportionalContainer from './ProportionalContainer';
 
 import styles from './PerceivedDemographics.styl';
 
@@ -21,7 +24,6 @@ class PerceivedDemographics extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.prevStep = this.prevStep.bind(this);
-    this.nextStep = this.nextStep.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +74,7 @@ class PerceivedDemographics extends Component {
   }
 
   handleSubmit(event) {
+    console.log('Submitted!');
     event.preventDefault();
     this.props.onSubmit(this.prepareAnnotationsObject());
     if (this.props.current >= this.props.total) {
@@ -90,28 +93,33 @@ class PerceivedDemographics extends Component {
     });
   }
 
-  nextStep() {
-    // pull currentStep out of this.state to compute next step,
-    // and questionOrder out of this.props to compute max step
-    this.setState(({ currentStep }, { questionOrder }) => {
-      const nextStep = currentStep + 1;
-      const maxStep = questionOrder.length;
-      return {
-        // Prevent out-of-bounds nextStep value
-        currentStep: nextStep > maxStep ? maxStep : nextStep,
-      };
-    });
-  }
-
   render() {
     const { currentStep } = this.state;
-    const { demographicAttributes, questionOrder } = this.props;
-    window.props = this.props;
+    const {
+      demographicAttributes,
+      questionOrder,
+      current: currentImage,
+      total: totalImages,
+    } = this.props;
     return (
       <div>
-        <img
-          src={this.props.image && this.props.image.url}
-          alt="A face to label with perceived demographic information"
+        <ProportionalContainer maxWidth="500px" widthHeightRatio={1}>
+          <img
+            src={this.props.image && this.props.image.url}
+            alt="A face to label with perceived demographic information"
+          />
+        </ProportionalContainer>
+        <ProgressBar
+          className={styles.progressBar}
+          incrementName="Image"
+          current={currentImage}
+          total={totalImages}
+        />
+        <ProgressBar
+          className={styles.progressBar}
+          incrementName="Step"
+          current={currentStep + 1}
+          total={questionOrder.length}
         />
         <form onSubmit={this.handleSubmit}>
           {questionOrder.map((questionName, idx) => {
@@ -119,10 +127,10 @@ class PerceivedDemographics extends Component {
             return (
               <PerceivedDemographicQuestion
                 key={`question_${strToId(name)}_${id}`}
+                className={currentStep !== idx ? styles.hidden : ''}
                 name={name}
                 options={options}
                 selected={this.state[name]}
-                visible={currentStep === idx}
                 onChange={this.handleInputChange}
               />
             );
@@ -142,32 +150,20 @@ class PerceivedDemographics extends Component {
             </div>
           ) : null}
 
-          <div className={styles.carousel}>
+          {currentStep !== 0 ? (
             <button
               className={styles.prev}
               type="button"
               onClick={this.prevStep}
             >Back</button>
+          ) : null}
 
-            <span className={styles.current}>
-              Step {currentStep + 1} of {questionOrder.length};
-              {' '}
-              Image {this.props.current} of {this.props.total}
-            </span>
-
-            {currentStep < questionOrder.length ? (
-              <button
-                className={styles.next}
-                type="button"
-                onClick={this.nextStep}
-              >Next Step</button>
-            ) : (
-              <button
-                className={`${styles.next} ${styles.save}`}
-                type="submit"
-              >Submit</button>
-            )}
-          </div>
+          <button
+            className={classNames(styles.save, {
+              [styles.hidden]: currentStep < questionOrder.length,
+            })}
+            type="submit"
+          >Submit Annotations</button>
         </form>
       </div>
     );

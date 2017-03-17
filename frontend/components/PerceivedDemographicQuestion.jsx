@@ -1,44 +1,34 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 
 import strToId from '../utils/str-to-id';
+
+import RadioButtonOption from './RadioButtonOption';
 
 import styles from './PerceivedDemographics.styl';
 
 // ESLint didn't detect all props as being used without this destructuring...
 const PerceivedDemographicQuestion = ({
   className,
-  visible,
   name,
   options,
   onChange,
   selected,
 }) => (
-  <fieldset
-    className={`${className} ${styles.fieldset}`}
-    style={{
-      display: visible ? 'block' : 'none',
-    }}
-  >
+  <fieldset className={classNames(className, styles.fieldset)}>
     <legend>{name}</legend>
     {options.map((option) => {
       const optionKey = `${strToId(name)}_${strToId(option)}`;
       return (
-        <label
+        <RadioButtonOption
           key={optionKey}
-          className={styles.radioButton}
-          htmlFor={optionKey}
-        >
-          <input
-            id={optionKey}
-            type="radio"
-            name={name}
-            value={option}
-            onChange={onChange}
-            checked={option === selected}
-            required
-          />
-          {option}
-        </label>
+          id={optionKey}
+          name={name}
+          value={option}
+          checked={option === selected}
+          onChange={onChange}
+          required
+        />
       );
     })}
   </fieldset>
@@ -49,7 +39,6 @@ PerceivedDemographicQuestion.propTypes = {
   name: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   selected: PropTypes.string,
-  visible: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

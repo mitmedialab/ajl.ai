@@ -1,37 +1,20 @@
 @import './shared/mixins.styl';
 
-label {
-  display: block;
-  margin: 10px 0px;
-}
-
-.radioButton {
-  text-transform: capitalize;
-}
-
-.carousel {
+.progressBar {
   margin: 0.5em 0;
-  width: 100%;
-  text-align: center;
 }
+
 .prev,
-.current,
-.next {
-  display: inline-block;
-  text-align: center;
-}
-.prev,
-.next {
-  padding: 5px 10px;
-  border: 1px solid grey;
-  background-color: #ececec;
+.save {
+  button();
 }
 .prev {
   float: left;
 }
-.next {
+.save {
   float: right;
 }
+
 .hidden {
   visually-hidden();
 }
