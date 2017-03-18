@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { isEqual, omit, find } from 'lodash';
+import { isEqual, omit, find, includes } from 'lodash';
 import db from '../../services/db';
 import queries from './queries';
 import { apiDatabaseError } from '../../base/controller';
@@ -11,7 +11,7 @@ export function getTypes(req, res) {
 
 export function getWorkload(req, res) {
   const numTruths = req.session.enrolled ? 2 : 8;
-  const limit =  1;//req.session.enrolled ? 3 : 12;
+  const limit =  req.session.enrolled ? 3 : 12;
   const annotatorId = req.session.annotatorId;
 
   // get a set of images from the db
@@ -99,24 +99,29 @@ export function postAnnotations(req, res) {
       .filter(({ is_known }) => is_known)
       .map(({ id }) => id);
 
-    return db.query(queries.getKnowns, {
+    return db.query(queries.getKnownAnnotations, {
       imageIds: knownImageIds,
     }).then((knownAnnotations) => {
 
       // go over every image that came back
       // and check it against the known truths database
       images.forEach( image => {
-        image.annotations.forEach( annotation => {
-          const currentKnownAnnotation = find(knownAnnotations, function(o) {
-            return o.data.name === annotation.name;
+        if(includes(knownImageIds, image.id)) {
+          image.annotations.forEach( newAnnotation => {
+            const currentKnownAnnotation = find(knownAnnotations,
+              function(knownAnnotation) {
+                return knownAnnotation.data.name === newAnnotation.name;
+              });
+            const comparisonResult = currentKnownAnnotation.data.value == newAnnotation.option;
+            if(!comparisonResult) {
+              throw new Error('your annotations did not match the known work of other annotators');
+            }
           });
-
-          const comparisonResult = currentKnownAnnotation.data.value === annotation.option;
-
-          if(!comparisonResult) {
-            throw new Error('your annotations did not match the known work of other annotators');
-          }
-        });
+        } else {
+          // Check if there are four other truths for this, if their are,
+          // put it in the knowns table.
+          console.log(">>>>>>>>>>>>>>>> image", image);
+        }
       });
 
       // if they didn't have any errors with the comparisons
