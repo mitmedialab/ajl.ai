@@ -29,7 +29,11 @@ module.exports = {
 
     'import/no-extraneous-dependencies': ['error', { devDependencies: [
       // only allow devDependencies in these folders:
-      '*.js', '**/__tests__/*', 'frontend/**/*', 'jest/**/*'
+      '*.js',
+      '**/__tests__/*',
+      'jest/**/*',
+      '**/*.stories.jsx',
+      '.storybook/**/*'
     ] }],
   }
 };

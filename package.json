@@ -19,9 +19,11 @@
     "front:dev": "webpack-dev-server",
     "server:prod": "babel-node backend/server",
     "server:dev": "supervisor -w backend/ -e js,sql backend/server",
-    "lint": "eslint --ext js,jsx ./*.js frontend jest backend",
+    "lint": "eslint --ext js,jsx ./*.js frontend jest backend .storybook",
     "test:dev": "node jest/run.js --watch",
-    "test": "npm run lint && node jest/run.js"
+    "test": "npm run lint && node jest/run.js",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -73,6 +75,8 @@
     "redux-saga": "^0.14.3"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
+    "@kadira/storybook-addon-knobs": "^1.7.1",
     "autoprefixer": "^6.7.0",
     "axios-mock-adapter": "^1.7.1",
     "babel-core": "^6.22.1",
