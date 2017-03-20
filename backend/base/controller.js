@@ -41,7 +41,7 @@ function formatLink(urlPath, query, params) {
   return `${urlPath}?${stringify(linkQuery)}`;
 }
 
-export const makeLinks = function(metadata, req) {
+export function makeLinks(metadata, req) {
   const links = {};
   const {
     page,
@@ -66,7 +66,7 @@ export const makeLinks = function(metadata, req) {
     }
   }
   return links;
-};
+}
 
 export function setLinkHeader(links, req, res) {
   const linkChunks = Object.keys(links).map((link) => {
@@ -168,7 +168,7 @@ export function makeDestroyer(model) {
  * element will get a copy of each mapped param.
  */
 export function injectParams(paramMap) {
-  return function(req, res, next) {
+  return (req, res, next) => {
     const data = (req.body && req.body.data) || {};
     Object.keys(paramMap).forEach((paramKey) => {
       const paramValue = req.params[paramKey];
