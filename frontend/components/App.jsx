@@ -8,8 +8,6 @@ import {
 import LoadingContainer from './LoadingContainer';
 import Home from './Home';
 import PerceivedDemographicsContainer from './PerceivedDemographicsContainer';
-import RegionsContainer from './RegionsContainer';
-import LandmarksContainer from './LandmarksContainer';
 import './App.styl';
 
 const App = () => (
@@ -19,8 +17,6 @@ const App = () => (
         <nav>
           <Link to="/">Home</Link>
           <Link to="/PerceivedDemographics">Demographics</Link>
-          <Link to="/Regions">Regions</Link>
-          <Link to="/Landmarks">Landmarks</Link>
         </nav>
       </header>
 
@@ -28,8 +24,6 @@ const App = () => (
 
       <Route exact path="/" component={Home} />
       <Route path="/PerceivedDemographics" component={PerceivedDemographicsContainer} />
-      <Route path="/Regions" component={RegionsContainer} />
-      <Route path="/Landmarks" component={LandmarksContainer} />
 
       <footer>
         footer controls
