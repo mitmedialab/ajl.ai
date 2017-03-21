@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
+  "engines": {
+    "node": ">=6.6.0"
+  },
   "browserslist": [
     "> 5%",
     "last 2 versions"
