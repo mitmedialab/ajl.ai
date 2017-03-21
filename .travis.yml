@@ -1,13 +1,15 @@
 language: node_js
 
-script: "npm test"
-
-env:
-- CI=1
-
 node_js:
   - "7"
   - "6"
-  - "5"
+
+before_install:
+  - npm prune
+  - npm update
+
+cache:
+  directories:
+    - node_modules
 
 sudo: false
