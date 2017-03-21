@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { isEqual, omit, find, includes } from 'lodash';
+import { isEqual, omit } from 'lodash';
 import db from '../../services/db';
 import queries from './queries';
 import { apiDatabaseError } from '../../base/controller';
@@ -11,7 +11,7 @@ export function getTypes(req, res) {
 
 export function getWorkload(req, res) {
   const numTruths = req.session.enrolled ? 2 : 8;
-  const limit =  req.session.enrolled ? 3 : 12;
+  const limit = req.session.enrolled ? 3 : 12;
   const annotatorId = req.session.annotatorId;
 
   // get a set of images from the db
@@ -85,7 +85,9 @@ export function postAnnotations(req, res) {
       });
     });
 
-    return Promise.all(allQueries).then(() => storedWorkload);
+    return Promise.all(allQueries)
+    // return the storedWorkload through the chain
+      .then(() => storedWorkload);
   })
 
   // check if they got the 8 ground truths correct
@@ -96,37 +98,45 @@ export function postAnnotations(req, res) {
     const images = req.body.images;
 
     const knownImageIds = storedWorkload[0].images
-      .filter(({ is_known }) => is_known)
+      .filter(({ is_known: known }) => known)
       .map(({ id }) => id);
+
+    const annotationMap = {};
+    images.forEach((image) => {
+      const annotations = {};
+      annotationMap[image.id] = annotations;
+
+      image.annotations.forEach((annotation) => {
+        annotations[annotation.name] = annotation;
+      });
+    });
+
+    console.log('annotationMap: ', annotationMap);
 
     return db.query(queries.getKnownAnnotations, {
       imageIds: knownImageIds,
     }).then((knownAnnotations) => {
 
-      // go over every image that came back
-      // and check it against the known truths database
-      images.forEach( image => {
-        if(includes(knownImageIds, image.id)) {
-          image.annotations.forEach( newAnnotation => {
-            const currentKnownAnnotation = find(knownAnnotations,
-              function(knownAnnotation) {
-                return knownAnnotation.data.name === newAnnotation.name;
-              });
-            const comparisonResult = currentKnownAnnotation.data.value == newAnnotation.option;
-            if(!comparisonResult) {
-              throw new Error('your annotations did not match the known work of other annotators');
-            }
-          });
-        } else {
-          // Check if there are four other truths for this, if their are,
-          // put it in the knowns table.
-          console.log(">>>>>>>>>>>>>>>> image", image);
+      const correctKnowns = knownAnnotations.reduce((memo, known) => {
+        if (annotationMap[known.image_id][known.name].option === known.data.value) {
+          return memo + 1;
         }
-      });
+        console.log('>>> Got one wrong', known, 'vs', annotationMap[known.image_id][known.name]);
+        return memo;
+      }, 0);
 
-      // if they didn't have any errors with the comparisons
-      // now they are enrolled
-      session.enrolled = true;
+      // Basically a percent for now...
+      const score = correctKnowns / knownAnnotations.length;
+
+      console.log('>>> final score: ', correctKnowns, 'of', knownAnnotations.length, score);
+      console.log('workload #', storedWorkload[0].id);
+      db.query(queries.scoreWorkload, { id: storedWorkload[0].id, score });
+
+      if (score === 1) {
+        // if they didn't have any errors with the comparisons
+        // now they are enrolled
+        session.enrolled = true;
+      }
 
       // TODO query annotations table to see if there are 3+ annotations
       // that agree with each of the new annotations, and if so, store a new
