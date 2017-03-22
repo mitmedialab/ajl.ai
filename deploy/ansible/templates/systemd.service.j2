@@ -1,0 +1,14 @@
+[Unit]
+Description=image-annotator api
+After=network.target
+
+[Service]
+Type=simple
+User={{user}}
+Group={{group}}
+Restart=always
+WorkingDirectory={{site_path}}
+ExecStart=/usr/bin/npm run server:{{env}}
+
+[Install]
+WantedBy=multi-user.target

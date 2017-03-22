@@ -1,0 +1,134 @@
+- hosts: all
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  vars_files:
+    - vars/main.yml
+    - "vars/{{env}}.yml"
+  tasks:
+    # Start managing system packages and updates.
+    - name: ensure python is installed
+      raw: apt-get update && apt-get install -y python
+
+    - name: ensure apt keys have been added
+      apt_key:
+        url: "{{item}}"
+        state: present
+      with_items:
+        - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        - https://www.postgresql.org/media/keys/ACCC4CF8.asc
+        - https://dl.yarnpkg.com/debian/pubkey.gpg
+
+    - name: ensure apt repositories have been added
+      apt_repository:
+        repo: "{{item}}"
+        state: present
+        update_cache: yes
+      with_items:
+        - ppa:git-core/ppa
+        - deb https://deb.nodesource.com/node_6.x trusty main
+        - deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
+        - deb https://dl.yarnpkg.com/debian/ stable main
+
+    - name: ensure apt packages have been installed
+      apt:
+        name: "{{item}}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - build-essential
+        - unattended-upgrades
+        - nginx
+        - git
+        - yarn
+        - nodejs
+        - postgresql-9.6
+        - postgresql-client-9.6
+        - awscli
+
+    - name: ensure unattended upgrades are configured
+      copy:
+        content: |
+          APT::Periodic::Update-Package-Lists "1";
+          APT::Periodic::Download-Upgradeable-Packages "1";
+          APT::Periodic::AutocleanInterval "7";
+          APT::Periodic::Unattended-Upgrade "1";
+        dest: /etc/apt/apt.conf.d/10periodic
+    # End managing system packages and updates.
+
+    # Start managing users.
+    - name: ensure users are synced
+      user:
+        name: "{{item.name}}"
+        force: yes
+        remove: yes
+        password: "{{item.shadow_pass | default(omit)}}"
+        state: "{{item.state | default(omit)}}"
+        shell: "{{item.shell | default('/bin/bash')}}"
+        groups: "{{item.groups | default('sudo')}}"
+      with_items: "{{users}}"
+
+    - name: ensure user public keys are synced
+      authorized_key:
+        user: "{{item.name}}"
+        key: "{{item.public_keys | join('\n')}}"
+        state: present
+        exclusive: yes
+      with_items: "{{users}}"
+      when: "{{item.public_keys is defined and item.public_keys | length > 0}}"
+    # End managing users.
+
+    # Start managing networking.
+    - name: ensure hostname is set
+      hostname:
+        name: "{{hostname}}"
+
+    - name: ensure loopback references have ben created in /etc/hosts
+      lineinfile:
+        dest: /etc/hosts
+        state: present
+        line: "127.0.0.1 {{hostname}} {{fqdn}}"
+    # End managing networking.
+
+    # Start managing nginx.
+    - name: ensure default nginx config is absent
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: ensure nginx is configured
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/sites-enabled/site.conf
+
+    - name: ensure nginx is restarted
+      systemd:
+        name: nginx
+        state: restarted
+    # End managing nginx.
+
+    # Start managing PostgreSQL.
+    - name: ensure postgresql is running and will start at boot
+      systemd:
+        name: postgresql
+        state: started
+        enabled: yes
+
+    - name: ensure postgresql security is entirely disabled in development
+      copy:
+        dest: /etc/postgresql/9.6/main/pg_hba.conf
+        content: |
+          local all postgres trust
+          local all all trust
+          host all all 127.0.0.1/32 trust
+          host all all ::1/128 trust
+        force: yes
+      when: "{{env == 'development'}}"
+    # End managing PostgreSQL.
+
+    # Start managing API service.
+    - name: ensure api service has been installed
+      template:
+        src: systemd.service.j2
+        dest: /etc/systemd/system/api.service
+    # End managing API service.

@@ -1,0 +1,55 @@
+# The domain for the site
+fqdn: ajl.bocoup.com
+
+# The commit to deploy.
+commit: master
+
+# The git repository to clone when deploying
+git_repo: https://github.com/bocoup/image-annotator.git
+
+# Parent directory for cloned repository directories. The clone_path and
+# site_path should be children of this directory.
+base_path: /mnt
+
+# Temporary location where git_repo will be cloned and the build scripts
+# will be run before going live.
+clone_path: "{{base_path}}/temp"
+
+# Where the production site symlink will exist.
+site_path: "{{base_path}}/site"
+
+# The directory that nginx will serve as the production site.
+public_path: "{{site_path}}/dist"
+
+# Ownership for the running application and code.
+user: www-data
+group: www-data
+
+# The hostname of the server this is deployed to.
+hostname: image-annotator
+
+# Keep this many previous deploys so we can roll back quickly if needed.
+keep_n_most_recent: 3
+
+# Use a custom parameter for stronger DHE key exchange.
+dhe_param_path: /etc/ssl/certs/dhparam.pem
+
+# Specified users will be added to the remote server, along with all specified
+# public keys. Removing a user from this list does NOT remove them from the
+# remote server! You need to set their state to "absent", remove all the other
+# properties for that user, and re-run the "configure" playbook. Also, the
+# shadow password (that user's sudo password) should be a hash, and NOT plain
+# text!
+#
+# Generate a shadow password hash using the following command:
+# openssl passwd -1 -salt $(openssl rand -base64 6) yourpassword
+#
+users: []
+
+# users:
+#   - name: bob
+#     state: present
+#     real_name: Bob Bocoup
+#     shadow_pass: $xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/
+#     public_keys:
+#       - ssh-rsa xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
