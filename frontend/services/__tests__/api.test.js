@@ -84,7 +84,7 @@ describe('API', () => {
         { name: 'a', options: [1, 2, 3] },
         { name: 'b', options: [4, 5, 7] },
       ];
-      mock.onGet('/api/annotations/types').reply(200, mockResponse);
+      mock.onGet('/api/annotations/attributes').reply(200, mockResponse);
       return getAttributes()
         .then(result => expect(result).toEqual(mockResponse));
     });
