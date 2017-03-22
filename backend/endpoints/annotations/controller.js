@@ -4,8 +4,8 @@ import db from '../../services/db';
 import queries from './queries';
 import { apiDatabaseError } from '../../base/controller';
 
-export function getTypes(req, res) {
-  db.query(queries.getTypes)
+export function getAttributes(req, res) {
+  db.query(queries.getAttributes)
     .then(data => res.send(data));
 }
 
@@ -124,7 +124,7 @@ export function postAnnotations(req, res) {
     }).then((knownAnnotations) => {
 
       const correctKnowns = knownAnnotations.reduce((memo, known) => {
-        if (annotationMap[known.image_id][known.name].option === known.data.value) {
+        if (annotationMap[known.image_id][known.name].value === known.data.value) {
           return memo + 1;
         }
         console.log('>>> Got one wrong', known, 'vs', annotationMap[known.image_id][known.name]);

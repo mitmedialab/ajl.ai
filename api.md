@@ -1,4 +1,4 @@
-### get /api/annotations/types
+### get /api/annotations/attributes
 returns a JSON list of possible annotation types, eg:
 
 ```

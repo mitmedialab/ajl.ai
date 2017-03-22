@@ -4,9 +4,9 @@ import * as session from '../session/controller';
 export const location = '/api/annotations';
 export const routes = {
   get: {
-    '/types': [
+    '/attributes': [
       session.ensureSession,
-      controller.getTypes,
+      controller.getAttributes,
     ],
     '/workload': [
       session.ensureSession,

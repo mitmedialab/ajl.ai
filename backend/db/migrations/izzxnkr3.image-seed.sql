@@ -4151,4 +4151,5 @@ INSERT INTO image (url, width, height) VALUES
 ('http://www.code4rights.com/lfw_subjects/Zumrati_Juma_0001.jpg', 250, 250),
 ('http://www.code4rights.com/lfw_subjects/Zydrunas_Ilgauskas_0001.jpg', 250, 250)
 ---
-DELETE FROM image WHERE url LIKE 'http://www.code4rights.com/lfw_subjects%'
+DELETE FROM image_annotation WHERE image_id IN (SELECT id FROM image WHERE url LIKE 'http://www.code4rights.com/lfw_subjects%');
+DELETE FROM image WHERE url LIKE 'http://www.code4rights.com/lfw_subjects%';

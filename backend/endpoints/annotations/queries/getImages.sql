@@ -10,12 +10,12 @@
 -- LIMIT ${limit}
 
 -- NEW QUERY:
--- First, select the total count of annotaiton types
-WITH types as (
+-- First, select the total count of annotaiton attributes
+WITH attributes as (
   SELECT
     COUNT(*) as count
   FROM
-    annotation_type
+    annotation_attribute
 ),
 -- How many known truths are present for each image
 known_count as (
@@ -43,12 +43,12 @@ truth_table as (
     image.url,
     image.width,
     image.height,
-    COALESCE(known.count = types.count, false) as is_known
+    COALESCE(known.count = attributes.count, false) as is_known
   FROM
     image
     LEFT JOIN known_count known on image.id = known.image_id
     LEFT JOIN annotator on image.id = annotator.image_id,
-    types
+    attributes
   WHERE
     annotator.count is null
   ORDER BY RANDOM()

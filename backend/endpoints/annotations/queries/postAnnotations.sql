@@ -8,6 +8,6 @@ INSERT into image_annotation
     ${workloadId} as workload_id,
     annotation_option.id as annotation_option_id
   FROM annotation_option
-    LEFT JOIN annotation_type ON annotation_option.annotation_type_id = annotation_type.id
-  WHERE annotation_option.name = ${value} AND annotation_type.name = ${name}
+    LEFT JOIN annotation_attribute ON annotation_option.annotation_attribute_id = annotation_attribute.id
+  WHERE annotation_option.name = ${value} AND annotation_attribute.name = ${name}
 )
