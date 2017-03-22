@@ -34,3 +34,5 @@ logfile
 .env
 
 dist
+
+.vagrant
