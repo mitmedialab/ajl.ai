@@ -112,6 +112,12 @@ export function postAnnotations(req, res) {
     });
 
     console.log('annotationMap: ', annotationMap);
+    console.log('knownImageIds:', knownImageIds);
+
+    if (!knownImageIds) {
+      // if they worked through every known image in the database, give them a score of 1
+      return db.query(queries.scoreWorkload, { id: storedWorkload[0].id, score: 1 });
+    }
 
     return db.query(queries.getKnownAnnotations, {
       imageIds: knownImageIds,
@@ -141,13 +147,10 @@ export function postAnnotations(req, res) {
       // TODO query annotations table to see if there are 3+ annotations
       // that agree with each of the new annotations, and if so, store a new
       // known annotation in the known db
-
-
-      // now we want to return a new workload in response
-      return getWorkload(req, res);
-
     });
   })
+  // the reply to submitting a workload should be getting a new one
+  .then(() => getWorkload(req, res))
   // Respond with an error if it doesn't work
   .catch(e => apiDatabaseError(e, req, res));
 }
