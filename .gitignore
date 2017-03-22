@@ -33,6 +33,11 @@ logfile
 
 .env
 
+# built site
 dist
 
+# vagrant data
 .vagrant
+
+# ansible .retry files
+.retry
