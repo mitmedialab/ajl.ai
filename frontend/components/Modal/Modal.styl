@@ -1,0 +1,40 @@
+@import '../shared/mixins';
+
+.modalWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.8);
+}
+
+.modal {
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 2px;
+  width: 500px;
+  max-width: 90%;
+  max-height: calc( 100% - 4em );
+  padding: 1em;
+  background: white;
+  margin: 2em auto;
+  overflow: auto;
+}
+
+.button {
+  button();
+}
+
+.confirm {
+  background: lightblue;
+}
+
+.cancel {
+  margin-right: 1em;
+  +respond-above($xs-screen) { margin-right: 0; }
+}
+
+.cancel + .confirm {
+  +respond-above($xs-screen) { float: right; }
+}
