@@ -13,7 +13,7 @@ export function postWorkload(workload) {
 }
 
 export function getAttributes() {
-  return axios.get('/api/annotations/types')
+  return axios.get('/api/annotations/attributes')
     // Axios exposes JSON response body as .data property
     .then(result => result.data);
 }
