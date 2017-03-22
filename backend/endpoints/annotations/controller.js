@@ -114,7 +114,7 @@ export function postAnnotations(req, res) {
     console.log('annotationMap: ', annotationMap);
     console.log('knownImageIds:', knownImageIds);
 
-    if (!knownImageIds) {
+    if (! knownImageIds) {
       // if they worked through every known image in the database, give them a score of 1
       return db.query(queries.scoreWorkload, { id: storedWorkload[0].id, score: 1 });
     }
