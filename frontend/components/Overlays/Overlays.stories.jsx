@@ -1,10 +1,25 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
-import Modal from './';
+
+import Overlay from './Overlay';
+import Loading from './Loading';
+import Modal from './Modal';
+
 import '../App.styl';
 
-storiesOf('Modal', module)
-  .add('Basic Overlay', () => (
+storiesOf('Overlays', module)
+  .add('Basic Overlay Covers Page', () => (
+    <div style={{ padding: '0 10px' }}>
+      <p>Content should be occluded by the overlay</p>
+      <Overlay>
+        <div />
+      </Overlay>
+    </div>
+  ))
+  .add('Loading Spinner', () => (
+    <Loading isLoading />
+  ))
+  .add('Modal', () => (
     <Modal
       onConfirm={action('confirmation-button-click')}
       confirmText="OK"
@@ -13,7 +28,7 @@ storiesOf('Modal', module)
       <p>Paragraph content of some sort or another</p>
     </Modal>
   ))
-  .add('With Cancel Button', () => (
+  .add('Modal w/ Cancel Button', () => (
     <Modal
       onConfirm={action('confirmation-button-click')}
       confirmText="That's Fine"
@@ -24,7 +39,7 @@ storiesOf('Modal', module)
       <p>Paragraph content of some sort or another</p>
     </Modal>
   ))
-  .add('With Very Tall Content', () => (
+  .add('Modal w/ Tall Content', () => (
     <Modal
       onConfirm={action('confirmation-button-click')}
       confirmText="OK"

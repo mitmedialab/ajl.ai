@@ -1,0 +1,50 @@
+// From https://github.com/lukehaas/css-loaders/blob/step2/css/load1.css
+
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  background: #ffffff;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+
+.loader {
+  top: 50%;
+  margin: -44px auto 88px;
+  position: relative;
+  font-size: 11px;
+  transform: translateZ(0);
+  animation-delay: -0.16s;
+  color: #ffffff;
+  text-indent: -9999em;
+
+  &:before,
+  &:after {
+    position: absolute;
+    top: 0;
+    content: '';
+  }
+
+  &:before {
+    left: -1.5em;
+    animation-delay: -0.32s;
+  }
+
+  &:after {
+    left: 1.5em;
+  }
+}

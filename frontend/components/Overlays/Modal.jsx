@@ -3,8 +3,10 @@ import classNames from 'classnames';
 
 import styles from './Modal.styl';
 
+import Overlay from './Overlay';
+
 const Modal = props => (
-  <div className={styles.modalWrapper}>
+  <Overlay>
     <div className={styles.modal}>
       {props.children}
 
@@ -21,7 +23,7 @@ const Modal = props => (
         className={classNames(styles.button, styles.confirm)}
       >{props.confirmText}</button>
     </div>
-  </div>
+  </Overlay>
 );
 
 Modal.propTypes = {
