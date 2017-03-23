@@ -1,7 +1,0 @@
-env_vars:
-  PGHOST: localhost
-  PGNAME: image-annotator
-  PGUSER: postgres
-  PGPASS:
-  NODE_ENV: development
-  HTTP_PORT: 8000

@@ -1,0 +1,20 @@
+- hosts: all
+  become: yes
+  become_method: sudo
+  vars_files:
+    - vars/{{env}}.yml
+  tasks:
+    - name: download latest database dump
+      get_url:
+        url: https://s3.amazonaws.com/image-annotator-assets/db/current
+        dest: /tmp/current
+
+    - name: restore database dump
+      become: yes
+      become_user: postgres
+      shell: |
+        dropdb {{env_vars.PGNAME}}
+        createdb {{env_vars.PGNAME}} -O {{env_vars.PGUSER}}
+        pg_restore -d {{env_vars.PGNAME}} current
+      args:
+        chdir: /tmp

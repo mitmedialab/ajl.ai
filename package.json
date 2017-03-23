@@ -28,7 +28,14 @@
     "test:dev": "node jest/run.js --watch",
     "test": "npm run lint && node jest/run.js",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "edit-secrets": "ansible-vault edit ansible/vars/secrets.yml",
+    "provision:vagrant": "ansible-playbook -i ansible/inventory/vagrant ansible/provision.yml",
+    "deploy:vagrant": "ansible-playbook -i ansible/inventory/vagrant ansible/deploy.yml",
+    "restore-db:vagrant": "ansible-playbook -i ansible/inventory/vagrant ansible/database-restore.yml",
+    "provision:production": "ansible-playbook --ask-sudo-pass -i ansible/inventory/production ansible/provision.yml",
+    "deploy:production": "ansible-playbook --ask-sudo-pass -i ansible/inventory/production ansible/deploy.yml",
+    "restore-db:production": "ansible-playbook --ask-sudo-pass -i ansible/inventory/vagrant ansible/database-restore.yml"
   },
   "jest": {
     "moduleFileExtensions": [

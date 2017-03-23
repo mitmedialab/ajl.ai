@@ -56,8 +56,11 @@
       shell: yarn run build:{{env}}
       args:
         chdir: "{{clone_path}}"
-      environment:
-        NODE_ENV: "{{env}}"
+
+    - name: ensure database has been migrated
+      shell: yarn run migrate:up
+      args:
+        chdir: "{{clone_path}}"
     # End build tasks.
 
     # Start moving into production.

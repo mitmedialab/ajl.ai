@@ -1,0 +1,7 @@
+env_vars:
+  PGHOST: localhost
+  PGNAME: image-annotator
+  PGUSER: image-annotator
+  PGPASS: "{{vault.PGPASS}}"
+  NODE_ENV: production
+  HTTP_PORT: 8000

@@ -1,0 +1,79 @@
+# The domain for the site
+fqdn: ajl.bocoup.org
+
+# The commit to deploy.
+commit: master
+
+# The git repository to clone when deploying
+git_repo: https://github.com/bocoup/image-annotator.git
+
+# Parent directory for cloned repository directories. The clone_path and
+# site_path should be children of this directory.
+base_path: /mnt
+
+# Temporary location where git_repo will be cloned and the build scripts
+# will be run before going live.
+clone_path: "{{base_path}}/temp"
+
+# Where the production site symlink will exist.
+site_path: "{{base_path}}/site"
+
+# The directory that nginx will serve as the production site.
+public_path: "{{site_path}}/dist"
+
+# Ownership for the running application and code.
+user: www-data
+group: www-data
+
+# The hostname of the server this is deployed to.
+hostname: image-annotator
+
+# Keep this many previous deploys so we can roll back quickly if needed.
+keep_n_most_recent: 3
+
+# Specified users will be added to the remote server, along with all specified
+# public keys. Removing a user from this list does NOT remove them from the
+# remote server! You need to set their state to "absent", remove all the other
+# properties for that user, and re-run the provision playbook.
+#
+# Also, the shadow password (that user's sudo password) should be a hash, NOT
+# plain text! Generate a shadow password hash using the following command:
+#
+# openssl passwd -1 -salt $(openssl rand -base64 6) yourpassword
+#
+users:
+  - name: boazsender
+    real_name: Boaz Sender
+    state: present
+    shadow_pass: $6$rMhiByCX$puboEMF.49LIjlCjwvYHRQQHHYkUelUboX4eovgHV2uhNrBYCu21GYGENhrKx3btXor7HuGWXT/SsNEzGkZf01
+    keys:
+      - state: present
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDUaxbaJJekt7yXzGqJeLnluNmuL/wAcU80UNgb5HfZomwInzL+cMKSSZ/I4tdyBE7q/ldz/lHzCIRFLPjuCWGDCyH0r2ZrP0HhL/WJYbi1iFkEN8+vce+4Hg9zgDGP/y6ytl8zO1EshHHL6Ezori9KNl8haiWi1vjDSnK8zzxQwAXDuOcitotzaFn7OPLe4ckeGxgPSAQ2NTvAQKUuWVv/8YW2UtyTIi5nXl/DjEF+xT8YxGyk5qQxZrzOux73o+4wmTZKGGlUYjEb8PJwq2a+n1U2JVmhjQlmQJJ55u6mtcSqTadsKVIOiYIogL75Xv6U8s9Ikfeb27i3mSltLTedHfWij6wfHxQ/FunHc9ewRjiZ+VUMvRVzEUGcDVylQQbLpSgWCd16lQN4mOebKgAxVboBImjHsJFbgd+d7YMn0zGUB+g1hIXCVlIap+02StKIlfKzT3xNTNmrQq5/qokFyYH18HUDAMMh5ZyOL6J+BKZ1aForqfFIH8mPN1O2fNElct7xDCLeafVA60EqHPXBNkyl8HYSvIC8bpu9cEuYNbZvp+zHfB571tsuWc5NW3P/z+RMYlSfqd3ez3gQBM+yR3rXl9M9/WqUlZQ0L/DCs2M8iM8Fkp9b+G/NhYl24cgJzofc0tG24Wpzg30hmPCahxwOTYQ4lnZEqsQEOSL3Rw==
+
+  - name: kadam
+    real_name: K.Adam Wite
+    state: present
+    shadow_pass: $1$FIGURATI$ZxULjuk/JpxEkYyqnVv1U1
+    keys:
+      - state: present
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC88ktCXReliGNJ/uv7+3m/3oB9Q3DQhOahpG17RKH6266XiENPN2YUjivKKiDM2+1Wntzw7T3Ofo236jRTuJjb6LP54pQgtZ0u/xKY3OdO5safISclWgxzu+rbphTBOt0EjFli7mpBXC6QrHRxB5z1PJSEJxxNNokyhKUGwMsVpsuJLk8OP0DqwXijoJD1y1X2t5b5wXnlOQrpb9N4e27PpmXVMDN2iSfddBNhCRfbNWP61XuVjFZq+Ptjife31/C6hmuuja1vrsZvb+4cE9e1bJWC/VCIcQZOkZjGEHjosnPfVaPvF3FxSs0mK4RMnROnn5nlKd7ewyNCHcjYCHl3 kadamwhite@gmail.com
+      - state: present
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDBVSVTzjdM/Iq/xMGCdd0Z8aRZL8RUdbIQXqmkmfx3cHT3I3TTIimC9X5+Li53U4BWu6oGRrm5n6Xe3ksx/6CRYKnIDPuSxEOmojGL+Jzt0Zh6SHd4FwackYFKIcJC1R14hdj34yh73sdcYpukg5ok4d+ddvyZTi3szlomuP4rA4ANMMJell8Mssaf4mYGghey19SsvJt8YcyVl2CkkuxZO+i2+4kBT/CFO8baUkyntAvEvR23TjCYCk+RL3HKjk2HxisMRaQZuAUfjkeg8yBa5VBMKHw4FAPr879Zbd+PrfU8yOsR0jlSk+L26oLxul8Sxy68602hXuCBBtskpvcdy3fCpNocbp4VoUNm3oNgC6MRUKsjUn+rZ7+bzm4PjFTiiyRRyGwE7DqRlr6bcQYidf93hYokH1zWXJNthFVcx5LIozjsaOoK1+lkF4wb3EDprQ3oVRU9M18I82i/WNM5AHybx6xCgX83yam7G8euD8m6ovtYb6MGCT/oTDPJF9OasGlwLBbI/fIjqgp3rGHepsEcIA3fcjiZiCg8i1rStWQ3CQCOHvpN9ooySladYnjDD8cJhhJiqFpepVKER4724Aaac0dgK9h2JmNsGYZIJ9S3ctaRyNZsNNiLlzpP0o20Y2EUqE3R+p2ZdeYAoDz4qoP48nA1YrmBSNCKcBh1pQ== kadamwhite@gmail.com
+
+  - name: gnarf
+    real_name: Corey Frang
+    state: present
+    shadow_pass: $6$xxiEpGcp$aZxv0.vQ5cxSo/kyxyxmqZt5bWg8qGp68HWdka6iiNYbjlLwJD1ZvTKwilHYcW/MzlHdojDKIYdYGXoZTx0be0
+    keys:
+      - state: present
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA1r3UZVe33a79OuDgz5KJXjC94qj/9dgTfbmiMUL5jQaj75l2VnNT8Lk04m5cHSYcYj7C/MHyiu1XgFni7fu1nZE9KVGLDvDijycR6j+F4oTZcIjM1PDf1g8ddokGx5MfFuigq1h/PXSxUnnmqDc6pzKXJ/1GLXToAeeR3iThre/uuUUdmpF0Ha4d2N3MZRAdcMtvvmzwK/AE1+WFl61f7s8bFY6k0MdHKwYajSqv8VKkIE91LKh6Tm46LtqLC8gpSaUP2Ikn8zIg55wCGqx6fvnVQA2RIIf+a2noElyq1yDlwhVr+FSZ1MLrLYUQbSBa+R9N6+2SwseI1wsTFOBLlw==
+
+  - name: tkellen
+    real_name: Tyler Kellen
+    state: present
+    shadow_pass: $1$SLUJWFxu$Zrq6t39fbas7duavaPLKb.
+    keys:
+      - state: present
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDASWvJsFUg1ONxaV64PSaZg9dM5xhml+oeSfetRHMeO+JtzLodFgLu+wc5UED29xYf0I7/jDPaQQFu8gEs7x6A91unjR2mZzpx4du+NrNpwj+TGTNEdf6VmbneKu/RqCxTLXvkga4DJ4uXpUfL97u6sEMZDKr1uDYjH1CXR9yhGmRnsVw0UDIbOUD9rw5ociqMSwlW362XDNJh+yRSeG80cyAYDU0YXopMc8jIzoJ8j6qVdawvnBoVUswGvjRHQbTaKNqp+tyhGKFQGdPzoSubtJ8pt6g7tldkLuxphqQ5/m5q/rb74BU48laGvl5ssigEfY2tuqN9jG35zIVJxo3J tyler@sleekcode.net
+      - state: present
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCUpQGw83rF9wV3/0H7TJAmADHJEFJcUhvveYhflvnvBY+aunLj2hYEwdtzI/Zf4sZgDn+IdEbk5QAdmxAURPrT0rTF3SFvs/86aLaBR/UZK3ABRqqGBhP6HqaEOwGv5AnHkByMd6KB9tzpFmpmI+tkSvw0flKIA38lNO2ULd0Y+MGFvAcJ5EvLfK0fiEXyj4dh9t2gsG4cL/QPa5IydTbCmhsJkzpFxMBnghNrvoqN7r1T14meFb/PWSC2LTTR5kh5F6y4GaDBljLkwReFHr2KhzNEG3EgexzhZtDxfWR5jMXZbkkyLJZLkz/BT4EFxQe3yl0Ps0oNgFGkXNkNrvyV tyler@sleekcode.net

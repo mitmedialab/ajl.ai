@@ -1,3 +1,6 @@
+# Install all system dependencies, manage users (to grant deployment access),
+# configure nginx, node, postgresql and systemd to run application.
+
 - hosts: all
   become: yes
   become_method: sudo
@@ -36,15 +39,16 @@
         state: latest
         update_cache: yes
       with_items:
-        - build-essential
-        - unattended-upgrades
-        - nginx
-        - git
-        - yarn
-        - nodejs
-        - postgresql-9.6
-        - postgresql-client-9.6
-        - awscli
+        - build-essential # for building native deps in node
+        - unattended-upgrades # for keeping system up to date
+        - nginx # for serving files
+        - git # for checking out code
+        - yarn # for managing node dependencies
+        - nodejs # for running server side javascript
+        - postgresql-9.6 # for data persistence
+        - postgresql-client-9.6 # for connecting to database
+        - awscli # for backing up database to s3
+        - python-psycopg2 # for managing databse with ansible
 
     - name: ensure unattended upgrades are configured
       copy:
@@ -108,13 +112,7 @@
     # End managing nginx.
 
     # Start managing PostgreSQL.
-    - name: ensure postgresql is running and will start at boot
-      systemd:
-        name: postgresql
-        state: started
-        enabled: yes
-
-    - name: ensure postgresql security is entirely disabled in development
+    - name: ensure postgresql security is disabled in development
       copy:
         dest: /etc/postgresql/9.6/main/pg_hba.conf
         content: |
@@ -124,6 +122,26 @@
           host all all ::1/128 trust
         force: yes
       when: "{{env == 'development'}}"
+
+    - name: ensure postgresql is running and will start at boot
+      systemd:
+        name: postgresql
+        state: restarted
+        enabled: yes
+
+    - name: ensure database user exists
+      become: yes
+      become_user: postgres
+      postgresql_user:
+        name: "{{env_vars.PGUSER}}"
+        password: "{{env_vars.PGPASS}}"
+
+    - name: ensure database exists
+      become: yes
+      become_user: postgres
+      postgresql_db:
+        name: "{{env_vars.PGNAME}}"
+        owner: "{{env_vars.PGUSER}}"
     # End managing PostgreSQL.
 
     # Start managing API service.
