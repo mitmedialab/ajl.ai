@@ -40,4 +40,4 @@ dist
 .vagrant
 
 # ansible .retry files
-.retry
+**.retry
