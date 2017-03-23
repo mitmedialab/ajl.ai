@@ -1,13 +1,14 @@
 - hosts: all
+  vars_files:
+    - vars/main.yml
+    - vars/{{env}}.yml
   become: yes
   become_method: sudo
-  vars_files:
-    - vars/{{env}}.yml
   tasks:
     - name: download latest database dump
-      get_url:
-        url: https://s3.amazonaws.com/image-annotator-assets/db/current
-        dest: /tmp/current
+      command: aws s3 cp s3://{{backup_bucket}}/current /tmp
+      args:
+        creates: /tmp/current
 
     - name: restore database dump
       become: yes

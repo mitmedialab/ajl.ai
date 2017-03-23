@@ -1,6 +1,8 @@
 - hosts: all
   become: yes
   become_method: sudo
+  vars_files:
+    - vars/secrets.yml
   tasks:
     - name: ensure local user has a matching account on the host
       user:
@@ -22,3 +24,18 @@
         regexp: "^%sudo"
         line: "%sudo\tALL=(ALL:ALL) NOPASSWD:ALL"
         validate: "visudo -cf %s"
+
+    - name: ensure aws configuration directory is present
+      file:
+        dest: /root/.aws
+        state: directory
+
+    - name: ensure aws creds are on machine so database dumps can be downloaded
+      copy:
+        dest: /root/.aws/credentials
+        content: |
+          [default]
+          aws_access_key_id = {{vault.AWS_ACCESS_KEY_ID}}
+          aws_secret_access_key = {{vault.AWS_SECRET_ACCESS_KEY}}
+          region=us-east-1
+        force: yes

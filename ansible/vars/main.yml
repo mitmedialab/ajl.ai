@@ -31,6 +31,9 @@ hostname: image-annotator
 # Keep this many previous deploys so we can roll back quickly if needed.
 keep_n_most_recent: 3
 
+# The bucket for database backups
+backup_bucket: image-annotator-backup
+
 # Specified users will be added to the remote server, along with all specified
 # public keys. Removing a user from this list does NOT remove them from the
 # remote server! You need to set their state to "absent", remove all the other

@@ -142,6 +142,27 @@
       postgresql_db:
         name: "{{env_vars.PGNAME}}"
         owner: "{{env_vars.PGUSER}}"
+
+    - name: ensure .pgpass is in place for backup authentication
+      template:
+        src: .pgpass.j2
+        dest: /root/.pgpass
+        mode: 0600
+
+    - name: ensure database backup script is in place
+      template:
+        src: backup.sh.j2
+        dest: /root/backup.sh
+        mode: 0700
+
+    - name: ensure database is backed up hourly
+      cron:
+        name: backup
+        minute: 0
+        job: /root/backup.sh
+        cron_file: backup
+        user: root
+      when: "{{env == 'production'}}"
     # End managing PostgreSQL.
 
     # Start managing API service.

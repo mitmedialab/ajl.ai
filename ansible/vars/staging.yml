@@ -1,5 +1,6 @@
 env_vars:
   PGHOST: localhost
+  PGPORT: 5432
   PGNAME: image-annotator
   PGUSER: image-annotator
   PGPASS: "{{vault.PGPASS}}"
