@@ -8,14 +8,6 @@ import Modal from './Modal';
 import '../App.styl';
 
 storiesOf('Overlays', module)
-  .add('Basic Overlay Covers Page', () => (
-    <div style={{ padding: '0 10px' }}>
-      <p>Content should be occluded by the overlay</p>
-      <Overlay>
-        <div />
-      </Overlay>
-    </div>
-  ))
   .add('Loading Spinner', () => (
     <Loading isLoading />
   ))
@@ -53,4 +45,12 @@ storiesOf('Overlays', module)
       <p>Paragraph content of some sort or another</p>
       <p>Paragraph content of some sort or another</p>
     </Modal>
+  ))
+  .add('Basic Overlay Covers Page', () => (
+    <div style={{ padding: '0 10px' }}>
+      <p>Content should be occluded by the overlay</p>
+      <Overlay>
+        <div />
+      </Overlay>
+    </div>
   ));

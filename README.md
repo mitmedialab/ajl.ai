@@ -36,7 +36,7 @@ These commands are available after installation within the `image-annotator/` di
 - `npm test`: run unit tests with Jest, then lint on exit
 - `npm run lint`: run ESLint to identify syntax & style issues in the code
 - `npm run build`: generate a static build into `image-annotator/dist`
-
+- `npm run storybook`: launch [React Storybook](https://getstorybook.io) for component development (accessible at [localhost:6006](http://localhost:6006) by default)
 
 ### backend
 The backend is running node, Postgres and an express based set of middlewares for the REST API we expose.
