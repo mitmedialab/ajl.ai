@@ -1,0 +1,31 @@
+@import '../shared/mixins';
+
+.modal {
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 2px;
+  width: 500px;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 1em;
+  background: white;
+  margin: auto;
+  overflow: auto;
+}
+
+.button {
+  button();
+}
+
+.confirm {
+  background: lightblue;
+}
+
+.cancel {
+  margin-right: 1em;
+  +respond-above($xs-screen) { margin-right: 0; }
+}
+
+.cancel + .confirm {
+  +respond-above($xs-screen) { float: right; }
+}

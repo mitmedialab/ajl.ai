@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 
 import { isLoading } from '../redux/selectors';
 
-import LoadingIndicator from './LoadingIndicator';
+import LoadingOverlay from './Overlays/Loading';
 
 const LoadingContainer = props => (
-  <LoadingIndicator isLoading={props.isLoading} />
+  <LoadingOverlay isLoading={props.isLoading} />
 );
 
 LoadingContainer.propTypes = {

@@ -30,4 +30,44 @@ button() {
     border-color: #666;
     outline: 0;
   }
+
+  &:active {
+    background: #ddd;
+  }
+}
+
+// Responsive Mixins
+// ==============================================
+
+// Larger than small-mobile
+$xs-screen = 400px;
+// Larger than phablet
+$sm-screen = 550px;
+// Larger than average tablet
+$md-screen = 750px;
+// Larger than windowed browser on desktop
+$lg-screen = 1030px;
+// Larger than desktop HD
+$xl-screen = 1200px;
+
+respond-below($width) {
+  media = 'all and (max-width: %s)' % $width;
+  @media media {
+    {block}
+  }
+}
+
+respond-above($width) {
+  media = 'all and (min-width: %s)' % $width;
+  @media media {
+    {block}
+  }
+}
+
+respond-between($min-width, $max-width) {
+  $max-width = $max-width - 1;
+  media = 'all and (min-width: %s) and (max-width: %s)' % ($min-width $max-width);
+  @media media {
+    {block}
+  }
 }
