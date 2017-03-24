@@ -7,7 +7,7 @@ import Overlay from './Overlay';
 
 const Modal = props => (
   <Overlay>
-    <div className={styles.modal}>
+    <div className={styles.modal} role="alert">
       {props.children}
 
       {typeof props.onCancel === 'function' ? (
