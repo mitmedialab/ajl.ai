@@ -36,7 +36,7 @@ annotator as (
   GROUP BY image_id
 ),
 -- Look for images, calculate if we can use them as knowns
--- restrict the images we've annotated, and randomize order
+-- sort the images we've alread annotated to be last, and randomize order
 truth_table as (
   SELECT
     image.id,
@@ -49,9 +49,8 @@ truth_table as (
     LEFT JOIN known_count known on image.id = known.image_id
     LEFT JOIN annotator on image.id = annotator.image_id,
     attributes
-  WHERE
-    annotator.count is null
-  ORDER BY RANDOM()
+  ORDER BY annotator.count NULLS FIRST,
+    RANDOM()
 ),
 -- Select the first "8" (2/3's of the limit) known images
 truths as (
