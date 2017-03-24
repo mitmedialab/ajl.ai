@@ -8,13 +8,19 @@
   vars_files:
     - vars/main.yml
     - vars/users.yml
-    - vars/secrets.yml
+    # - vars/secrets.yml (included below, but only for staging/production)
   handlers:
     - name: restart postgresql
       systemd:
         name: postgresql
         state: restarted
   tasks:
+    # Start decrypting secrets (if we need them).
+    - include_vars:
+        file: vars/secrets.yml
+      when: "{{env != 'development'}}"
+    # End decrypting secrets.
+
     # Start managing system packages and updates.
     - name: ensure python is installed
       raw: apt-get update && apt-get install -y python

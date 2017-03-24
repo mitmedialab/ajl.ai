@@ -7,8 +7,14 @@
   become_user: "{{user}}"
   vars_files:
     - vars/main.yml
-    - vars/secrets.yml
+    # - vars/secrets.yml (included below, but only for staging/production)
   tasks:
+    # Start decrypting secrets (if we need them).
+    - include_vars:
+        file: vars/secrets.yml
+      when: "{{env != 'development'}}"
+    # End decrypting secrets.
+
     # Start cloning desired commit.
     - name: ensure temp directory is absent
       file:
