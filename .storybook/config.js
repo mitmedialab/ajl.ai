@@ -1,4 +1,7 @@
-import { configure } from '@kadira/storybook';
+import { configure, addDecorator } from '@kadira/storybook';
+import { withRouterContext } from './decorators';
+
+addDecorator(withRouterContext);
 
 // We write our stories as *.stories.jsx files that live alongside the
 // component that they exercise. The logic in this function finds all

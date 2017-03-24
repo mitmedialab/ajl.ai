@@ -2,12 +2,12 @@ import React, { PropTypes } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { isLoading, appErrors } from '../redux/selectors';
 
+import Header from './Header/Header';
 import Modal from './Overlays/Modal';
 import LoadingIndicator from './Overlays/Loading';
 
@@ -18,12 +18,7 @@ import './App.styl';
 const App = props => (
   <Router>
     <div>
-      <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/PerceivedDemographics">Demographics</Link>
-        </nav>
-      </header>
+      <Header />
 
       {/* Overlays & Modal Dialogs */}
       {props.isLoading ? <LoadingIndicator /> : null}
