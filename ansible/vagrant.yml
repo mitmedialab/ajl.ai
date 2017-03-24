@@ -1,7 +1,11 @@
+# Prep VM with local user account so developers can run Ansible against it
+# like any other server.
+
 - hosts: all
   become: yes
   become_method: sudo
   vars_files:
+    - vars/main.yml
     - vars/secrets.yml
   tasks:
     - name: ensure local user has a matching account on the host
@@ -31,11 +35,6 @@
         state: directory
 
     - name: ensure aws creds are on machine so database dumps can be downloaded
-      copy:
+      template:
+        src: credentials.j2
         dest: /root/.aws/credentials
-        content: |
-          [default]
-          aws_access_key_id = {{vault.AWS_ACCESS_KEY_ID}}
-          aws_secret_access_key = {{vault.AWS_SECRET_ACCESS_KEY}}
-          region=us-east-1
-        force: yes

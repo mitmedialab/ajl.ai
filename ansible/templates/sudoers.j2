@@ -1,0 +1,8 @@
+%{{group}} ALL= NOPASSWD: /bin/systemctl start api
+%{{group}} ALL= NOPASSWD: /bin/systemctl stop api
+%{{group}} ALL= NOPASSWD: /bin/systemctl restart api
+
+# allow administrative users to sudo to application user without password
+{% for item in users %}
+{{item.name}} ALL=({{user}}) NOPASSWD: ALL
+{% endfor %}

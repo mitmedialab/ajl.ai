@@ -1,7 +1,6 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "bento/ubuntu-16.04"
-  config.vm.network :private_network, ip: "10.10.0.100"
-  config.vm.network "forwarded_port", guest: 5432, host: 5433
+  config.vm.network :private_network, ip: '10.10.0.100'
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "ansible/vagrant.yml"
     ansible.raw_arguments = "--ask-vault-pass"

@@ -1,1 +1,1 @@
-10.10.0.100 env=development
+10.10.0.100 env=development fqdn=10.10.0.100

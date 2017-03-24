@@ -4,10 +4,10 @@
 
 - hosts: all
   become: yes
-  become_method: sudo
+  become_user: "{{user}}"
   vars_files:
     - vars/main.yml
-    - "vars/{{env}}.yml"
+    - vars/secrets.yml
   tasks:
     # Start cloning desired commit.
     - name: ensure temp directory is absent
@@ -35,7 +35,7 @@
         get_md5: no
       register: sha_dir
 
-    - name: refuse to continue if commit is already deployed.
+    - name: refuse to continue if commit is already deployed
       fail:
         msg: "{{sha.stdout}} has been deployed already, aborting."
       when: "{{sha_dir.stat.exists}}"
@@ -74,12 +74,11 @@
         src: "{{base_path}}/{{sha.stdout | default(commit)}}"
         force: yes
 
-    - name: ensure api service is restarted and will run at boot
-      systemd:
-        name: api
-        enabled: yes
-        state: restarted
-      become: yes
+    # see https://gist.github.com/nanobeep/3b3d614a709086ff832a
+    # to understand why raw is needed here
+    - name: ensure api service is restarted
+      raw: sudo systemctl restart api
+      become: no
     # End moving into production.
 
     # Start cleanup.

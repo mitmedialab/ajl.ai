@@ -1,7 +1,8 @@
+# Download most recent production database dump and restore it.
+
 - hosts: all
   vars_files:
     - vars/main.yml
-    - vars/{{env}}.yml
   become: yes
   become_method: sudo
   tasks:
@@ -14,8 +15,8 @@
       become: yes
       become_user: postgres
       shell: |
-        dropdb {{env_vars.PGNAME}}
-        createdb {{env_vars.PGNAME}} -O {{env_vars.PGUSER}}
-        pg_restore -d {{env_vars.PGNAME}} current
+        dropdb {{env_vars[env].PGNAME}}
+        createdb {{env_vars[env].PGNAME}} -O {{env_vars[env].PGUSER}}
+        pg_restore -d {{env_vars[env].PGNAME}} current
       args:
         chdir: /tmp

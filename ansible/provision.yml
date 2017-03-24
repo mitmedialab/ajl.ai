@@ -7,7 +7,7 @@
   gather_facts: no
   vars_files:
     - vars/main.yml
-    - "vars/{{env}}.yml"
+    - vars/secrets.yml
   tasks:
     # Start managing system packages and updates.
     - name: ensure python is installed
@@ -60,8 +60,31 @@
         dest: /etc/apt/apt.conf.d/10periodic
     # End managing system packages and updates.
 
-    # Start managing users.
-    - name: ensure users are synced
+    # Start managing users and permissions.
+    - name: ensure application group exists
+      group:
+        name: "{{group}}"
+        state: present
+
+    - name: ensure application user exists
+      user:
+        name: "{{user}}"
+        group: "{{group}}"
+        state: present
+
+    - name: ensure application group members can manage site without sudo pass
+      template:
+        src: sudoers.j2
+        dest: /etc/sudoers.d/api
+
+    - name: ensure base path is owned by application user/group
+      file:
+        path: "{{base_path}}"
+        owner: "{{user}}"
+        group: "{{group}}"
+        state: directory
+
+    - name: ensure administrative users are synced
       user:
         name: "{{item.name}}"
         force: yes
@@ -72,7 +95,7 @@
         groups: "{{item.groups | default('sudo')}}"
       with_items: "{{users}}"
 
-    - name: ensure user public keys are synced
+    - name: ensure administrative user public keys are synced
       authorized_key:
         user: "{{item.name}}"
         key: "{{item.public_keys | join('\n')}}"
@@ -80,7 +103,7 @@
         exclusive: yes
       with_items: "{{users}}"
       when: "{{item.public_keys is defined and item.public_keys | length > 0}}"
-    # End managing users.
+    # End managing users and permissions.
 
     # Start managing networking.
     - name: ensure hostname is set
@@ -105,6 +128,12 @@
         src: nginx.conf.j2
         dest: /etc/nginx/sites-enabled/site.conf
 
+    - name: ensure htpasswd is configured
+      template:
+        src: htpasswd.j2
+        dest: /etc/nginx/htpasswd
+      when: "{{basic_auth}}"
+
     - name: ensure nginx is restarted
       systemd:
         name: nginx
@@ -126,22 +155,22 @@
     - name: ensure postgresql is running and will start at boot
       systemd:
         name: postgresql
-        state: restarted
+        state: started
         enabled: yes
 
     - name: ensure database user exists
       become: yes
       become_user: postgres
       postgresql_user:
-        name: "{{env_vars.PGUSER}}"
-        password: "{{env_vars.PGPASS}}"
+        name: "{{env_vars[env].PGUSER}}"
+        password: "{{env_vars[env].PGPASS}}"
 
     - name: ensure database exists
       become: yes
       become_user: postgres
       postgresql_db:
-        name: "{{env_vars.PGNAME}}"
-        owner: "{{env_vars.PGUSER}}"
+        name: "{{env_vars[env].PGNAME}}"
+        owner: "{{env_vars[env].PGUSER}}"
 
     - name: ensure .pgpass is in place for backup authentication
       template:
@@ -170,4 +199,9 @@
       template:
         src: systemd.service.j2
         dest: /etc/systemd/system/api.service
+
+    - name: ensure api service will start at boot
+      systemd:
+        name: api
+        enabled: yes
     # End managing API service.
