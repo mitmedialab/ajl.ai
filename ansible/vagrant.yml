@@ -4,8 +4,6 @@
 - hosts: all
   become: yes
   become_method: sudo
-  vars_files:
-    - vars/main.yml
   tasks:
     - name: ensure local user has a matching account on the host
       user:
