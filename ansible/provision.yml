@@ -164,8 +164,8 @@
     - name: ensure postgresql is listening on all interfaces in development
       lineinfile:
         dest: /etc/postgresql/9.6/main/postgresql.conf
-        regexp: listen_addresses = 'localhost'
-        line: listen_addresses = 'localhost'
+        regexp: ^listen_addresses
+        line: listen_addresses = '*'
       notify: restart postgresql
       when: "{{env == 'development'}}"
 
