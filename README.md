@@ -34,10 +34,10 @@ by Ansible Vault. All secrets are stored in `ansible/vars/secrets.yml`.
 
 If you are just getting started on the project, this is the first command
 you should run. You'll need to add yourself as a user in the secrets file,
-submit a PR, and ask someone who already has access to run this for any
-server you wish to have deployment access to.
+submit a PR, and ask someone who already has access to run a provision on
+any server you wish to have deployment access to.
 
-### npm run provision:[production|staging|vagrant
+### npm run provision:[production|staging|vagrant]
 This will prepare a target machine with all system dependencies needed to
 run Image Annotator and grant collaborators access to run deployments. You
 will be prompted for both a Vault password and a SUDO password during this
