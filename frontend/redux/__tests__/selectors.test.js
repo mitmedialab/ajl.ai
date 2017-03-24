@@ -207,4 +207,21 @@ describe('selector functions', () => {
 
   });
 
+  describe('appErrors', () => {
+    const { appErrors } = selectors;
+
+    it('is a function', () => {
+      expect(appErrors).toBeDefined();
+      expect(appErrors).toBeInstanceOf(Function);
+    });
+
+    it('returns the annotations property from the state', () => {
+      const errorsState = [{ error: 'hi', retryAction: {} }];
+      const result = appErrors({
+        errors: errorsState,
+      });
+      expect(result).toBe(errorsState);
+    });
+  });
+
 });

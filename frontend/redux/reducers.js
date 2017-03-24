@@ -4,6 +4,7 @@ import loading from './reducers/loading';
 import demographicAttributes from './reducers/demographic-attributes';
 import workload from './reducers/workload';
 import annotations from './reducers/annotations';
+import errors from './reducers/errors';
 
 /*
  * Combine reducers to produce single reducer for state.
@@ -19,4 +20,7 @@ export default combineReducers({
   workload,
   // The image annotations to be submitted to the server
   annotations,
+  // The error reducer stores API errors and any viable actions
+  // a user could take to resolve the error
+  errors,
 });

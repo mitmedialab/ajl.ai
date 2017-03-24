@@ -61,12 +61,13 @@ describe('sagas', () => {
     });
 
     it('handles errors', () => {
-      const saga = testSaga(requestAttributes);
+      const action = {};
+      const saga = testSaga(requestAttributes, action);
       const error = new Error('Test Error');
       saga.next()
         .call(getAttributes)
         .throw(error)
-        .put(actions.requestAttributesFailed(error))
+        .put(actions.requestAttributesFailed(error, action))
         .next()
         .isDone();
     });
@@ -89,12 +90,13 @@ describe('sagas', () => {
     });
 
     it('handles errors', () => {
-      const saga = testSaga(requestWorkload);
+      const action = {};
+      const saga = testSaga(requestWorkload, action);
       const error = new Error('Test Error');
       saga.next()
         .call(getWorkload)
         .throw(error)
-        .put(actions.requestWorkloadFailed(error))
+        .put(actions.requestWorkloadFailed(error, action))
         .next()
         .isDone();
     });
@@ -120,14 +122,15 @@ describe('sagas', () => {
     });
 
     it('handles errors', () => {
-      const saga = testSaga(completeWorkload);
+      const action = {};
+      const saga = testSaga(completeWorkload, action);
       const error = new Error('Test Error');
       saga.next()
         .select(imageAnnotations)
         .next({})
         .call(postWorkload, {})
         .throw(error)
-        .put(actions.completeWorkloadFailed(error))
+        .put(actions.completeWorkloadFailed(error, action))
         .next()
         .isDone();
     });

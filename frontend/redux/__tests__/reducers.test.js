@@ -42,6 +42,11 @@ describe('rootReducer', () => {
       expect(state.workload).toBeDefined();
     });
 
+    it('returns a state object with an errors store property', () => {
+      const state = rootReducer(undefined, {});
+      expect(state.errors).toBeDefined();
+    });
+
   });
 
 });

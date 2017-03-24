@@ -23,3 +23,5 @@ export const demographicAttributes = state => state.demographicAttributes.byName
 export const demographicAttributesOrder = state => state.demographicAttributes.order;
 
 export const imageAnnotations = state => state.annotations;
+
+export const appErrors = state => state.errors;

@@ -9,7 +9,7 @@ import '../App.styl';
 
 storiesOf('Overlays', module)
   .add('Loading Spinner', () => (
-    <Loading isLoading />
+    <Loading />
   ))
   .add('Modal', () => (
     <Modal

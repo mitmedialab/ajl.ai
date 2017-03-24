@@ -24,9 +24,12 @@ export const receiveWorkload = workload => ({
 
 /** @prop {string} Action to signal a data request failed */
 export const REQUEST_WORKLOAD_FAILED = 'REQUEST_WORKLOAD_FAILED';
-export const requestWorkloadFailed = error => ({
+export const requestWorkloadFailed = (error, retryAction) => ({
   type: REQUEST_WORKLOAD_FAILED,
-  payload: error,
+  payload: {
+    error,
+    retryAction,
+  },
   error: true,
 });
 
@@ -45,9 +48,12 @@ export const receiveAttributes = annotations => ({
 
 /** @prop {string} Action to signal a data request failed */
 export const REQUEST_ATTRIBUTES_FAILED = 'REQUEST_ATTRIBUTES_FAILED';
-export const requestAttributesFailed = error => ({
+export const requestAttributesFailed = (error, retryAction) => ({
   type: REQUEST_ATTRIBUTES_FAILED,
-  payload: error,
+  payload: {
+    error,
+    retryAction,
+  },
   error: true,
 });
 
@@ -67,8 +73,11 @@ export const completeWorkload = workload => ({
 });
 
 export const COMPLETE_WORKLOAD_FAILED = 'COMPLETE_WORKLOAD_FAILED';
-export const completeWorkloadFailed = error => ({
+export const completeWorkloadFailed = (error, retryAction) => ({
   type: COMPLETE_WORKLOAD_FAILED,
-  payload: error,
+  payload: {
+    error,
+    retryAction,
+  },
   error: true,
 });

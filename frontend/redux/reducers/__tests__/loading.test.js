@@ -13,7 +13,7 @@ describe('loading reducer', () => {
   it('initializes a default state object', () => {
     const initialState = loadingReducer(undefined, {});
     expect(initialState).toEqual({
-      faces: false,
+      workload: false,
       attributes: false,
     });
   });

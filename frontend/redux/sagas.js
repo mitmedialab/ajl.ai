@@ -8,32 +8,32 @@ import {
 import { imageAnnotations } from './selectors';
 
 // worker Saga: will be fired on REQUEST_ATTRIBUTES actions
-export function* requestAttributes() {
+export function* requestAttributes(action) {
   try {
     const anotatableAttributes = yield call(getAttributes);
     yield put(receiveAttributes(anotatableAttributes));
   } catch (e) {
-    yield put(requestAttributesFailed(e));
+    yield put(requestAttributesFailed(e, action));
   }
 }
 
 // worker Saga: will be fired on REQUEST_WORKLOAD actions
-export function* requestWorkload() {
+export function* requestWorkload(action) {
   try {
     const workload = yield call(getWorkload);
     yield put(receiveWorkload(workload));
   } catch (e) {
-    yield put(requestWorkloadFailed(e));
+    yield put(requestWorkloadFailed(e, action));
   }
 }
 
-export function* completeWorkload() {
+export function* completeWorkload(action) {
   try {
     const workloadToSend = yield select(imageAnnotations);
     const workloadPostResponse = yield call(postWorkload, workloadToSend);
     yield put(receiveWorkload(workloadPostResponse));
   } catch (e) {
-    yield put(completeWorkloadFailed(e));
+    yield put(completeWorkloadFailed(e, action));
   }
 }
 
