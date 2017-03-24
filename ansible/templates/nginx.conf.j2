@@ -1,0 +1,29 @@
+upstream api {
+  server localhost:{{env_vars[env].HTTP_PORT}};
+}
+
+server {
+  listen 80;
+  server_name {{fqdn}};
+  root {{public_path}};
+  index index.html;
+  location / {
+    try_files $uri /index.html;
+{% if basic_auth %}
+    auth_basic 'Image Annotator';
+    auth_basic_user_file htpasswd;
+{% endif %}
+  }
+  location /api {
+    include proxy_params;
+    proxy_pass http://api;
+  }
+}
+
+{% if env == 'production' %}
+server {
+  listen 80 default_server;
+  server_name _;
+  return 301 https://{{fqdn}}$request_uri;
+}
+{% endif %}

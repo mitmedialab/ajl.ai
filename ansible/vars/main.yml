@@ -1,0 +1,67 @@
+# The commit to deploy.
+commit: master
+
+# The git repository to clone when deploying.
+git_repo: https://github.com/bocoup/image-annotator.git
+
+# Control environment variables for each supported environment.
+env_vars:
+  development:
+    PGHOST: localhost
+    PGPORT: 5432
+    PGNAME: image-annotator
+    PGUSER: image-annotator
+    PGPASS:
+    NODE_ENV: development
+    HTTP_HOST: 0.0.0.0
+    HTTP_PORT: 8000
+  staging:
+    PGHOST: localhost
+    PGPORT: 5432
+    PGNAME: image-annotator
+    PGUSER: image-annotator
+    PGPASS: "{{vault.PGPASS}}"
+    NODE_ENV: staging
+    HTTP_HOST: localhost
+    HTTP_PORT: 8000
+  production:
+    PGHOST: localhost
+    PGPORT: 5432
+    PGNAME: image-annotator
+    PGUSER: image-annotator
+    PGPASS: "{{vault.PGPASS}}"
+    NODE_ENV: production
+    HTTP_HOST: localhost
+    HTTP_PORT: 8000
+
+# Parent directory for cloned repository directories. The clone_path and
+# site_path should be children of this directory.
+base_path: /mnt
+
+# Temporary location where git_repo will be cloned and the build scripts
+# will be run before going live.
+clone_path: "{{base_path}}/temp"
+
+# Where the production site symlink will exist.
+site_path: "{{base_path}}/site"
+
+# The directory that nginx will serve as the production site.
+public_path: "{{site_path}}/dist"
+
+# Ownership for application and code.
+user: ia
+group: ia
+
+# The hostname of the server this is deployed to.
+hostname: image-annotator
+
+# Keep this many previous deploys so we can roll back quickly if needed.
+keep_n_most_recent: 3
+
+# The s3 bucket for database backups.
+backup_bucket: image-annotator-backup
+
+# Manage authentication.
+basic_auth: "{{env != 'development'}}"
+basic_auth_user: ia
+basic_auth_pass: kp7NlHvLFraLQ

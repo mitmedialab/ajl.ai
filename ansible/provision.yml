@@ -1,0 +1,230 @@
+# Install all system dependencies, manage users (to grant deployment access),
+# configure nginx, node, postgresql and systemd to run application.
+
+- hosts: all
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  vars_files:
+    - vars/main.yml
+    - vars/users.yml
+    - vars/secrets.yml
+  handlers:
+    - name: restart postgresql
+      systemd:
+        name: postgresql
+        state: restarted
+  tasks:
+    # Start managing system packages and updates.
+    - name: ensure python is installed
+      raw: apt-get update && apt-get install -y python
+
+    - name: ensure apt keys have been added
+      apt_key:
+        url: "{{item}}"
+        state: present
+      with_items:
+        - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        - https://www.postgresql.org/media/keys/ACCC4CF8.asc
+        - https://dl.yarnpkg.com/debian/pubkey.gpg
+
+    - name: ensure apt repositories have been added
+      apt_repository:
+        repo: "{{item}}"
+        state: present
+        update_cache: yes
+      with_items:
+        - ppa:git-core/ppa
+        - deb https://deb.nodesource.com/node_6.x trusty main
+        - deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
+        - deb https://dl.yarnpkg.com/debian/ stable main
+
+    - name: ensure apt packages have been installed
+      apt:
+        name: "{{item}}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - build-essential # for building native deps in node
+        - unattended-upgrades # for keeping system up to date
+        - nginx # for serving files
+        - git # for checking out code
+        - yarn # for managing node dependencies
+        - nodejs # for running server side javascript
+        - postgresql-9.6 # for data persistence
+        - postgresql-client-9.6 # for connecting to database
+        - awscli # for backing up database to s3
+        - python-psycopg2 # for managing databse with ansible
+
+    - name: ensure unattended upgrades are configured
+      copy:
+        content: |
+          APT::Periodic::Update-Package-Lists "1";
+          APT::Periodic::Download-Upgradeable-Packages "1";
+          APT::Periodic::AutocleanInterval "7";
+          APT::Periodic::Unattended-Upgrade "1";
+        dest: /etc/apt/apt.conf.d/10periodic
+    # End managing system packages and updates.
+
+    # Start managing users and permissions.
+    - name: ensure application group exists
+      group:
+        name: "{{group}}"
+        state: present
+
+    - name: ensure application user exists
+      user:
+        name: "{{user}}"
+        group: "{{group}}"
+        state: present
+
+    - name: ensure application group members can manage site without sudo pass
+      template:
+        src: sudoers.j2
+        dest: /etc/sudoers.d/api
+
+    - name: ensure base path is owned by application user/group
+      file:
+        path: "{{base_path}}"
+        owner: "{{user}}"
+        group: "{{group}}"
+        state: directory
+
+    - name: ensure administrative users are synced
+      user:
+        name: "{{item.name}}"
+        force: yes
+        remove: yes
+        password: "{{item.shadow_pass | default(omit)}}"
+        state: "{{item.state | default(omit)}}"
+        shell: "{{item.shell | default('/bin/bash')}}"
+        groups: "{{item.groups | default('sudo')}}"
+      with_items: "{{users}}"
+
+    - name: ensure administrative user public keys are synced
+      authorized_key:
+        user: "{{item.name}}"
+        key: "{{item.public_keys | join('\n')}}"
+        state: present
+        exclusive: yes
+      with_items: "{{users}}"
+      when: "{{item.public_keys is defined and item.public_keys | length > 0}}"
+    # End managing users and permissions.
+
+    # Start managing networking.
+    - name: ensure hostname is set
+      hostname:
+        name: "{{hostname}}"
+
+    - name: ensure loopback references have been created in /etc/hosts
+      lineinfile:
+        dest: /etc/hosts
+        state: present
+        line: "127.0.0.1 {{hostname}} {{fqdn}}"
+    # End managing networking.
+
+    # Start managing nginx.
+    - name: ensure default nginx config is absent
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: ensure nginx is configured
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/sites-enabled/site.conf
+
+    - name: ensure htpasswd is configured
+      template:
+        src: htpasswd.j2
+        dest: /etc/nginx/htpasswd
+      when: "{{basic_auth}}"
+
+    # todo verify nginx config here
+
+    - name: ensure nginx is restarted
+      systemd:
+        name: nginx
+        state: restarted
+    # End managing nginx.
+
+    # Start managing PostgreSQL.
+    - name: ensure postgresql security is disabled in development
+      copy:
+        dest: /etc/postgresql/9.6/main/pg_hba.conf
+        content: |
+          local all postgres trust
+          local all all trust
+          host all all 0.0.0.0/0 trust
+          host all all 127.0.0.1/32 trust
+          host all all ::1/128 trust
+        force: yes
+      notify: restart postgresql
+      when: "{{env == 'development'}}"
+
+    - name: ensure postgresql is listening on all interfaces in development
+      lineinfile:
+        dest: /etc/postgresql/9.6/main/postgresql.conf
+        regexp: ^listen_addresses
+        line: listen_addresses = '*'
+      notify: restart postgresql
+      when: "{{env == 'development'}}"
+
+    # todo: move to systemd module when this is fixed:
+    # https://github.com/ansible/ansible-modules-core/issues/3764
+    - name: ensure postgresql is running and will start at boot
+      service:
+        name: postgresql
+        state: started
+        enabled: yes
+        use: service
+
+    - name: ensure database user exists
+      become: yes
+      become_user: postgres
+      postgresql_user:
+        name: "{{env_vars[env].PGUSER}}"
+        password: "{{env_vars[env].PGPASS}}"
+
+    - name: ensure database exists
+      become: yes
+      become_user: postgres
+      postgresql_db:
+        name: "{{env_vars[env].PGNAME}}"
+        owner: "{{env_vars[env].PGUSER}}"
+
+    - name: ensure .pgpass is in place for backup authentication
+      template:
+        src: .pgpass.j2
+        dest: /root/.pgpass
+        mode: 0600
+      when: "{{env == 'production'}}"
+
+    - name: ensure database backup script is in place
+      template:
+        src: backup.sh.j2
+        dest: /root/backup.sh
+        mode: 0700
+      when: "{{env == 'production'}}"
+
+    - name: ensure database is backed up hourly
+      cron:
+        name: backup
+        minute: 0
+        job: /root/backup.sh
+        cron_file: backup
+        user: root
+      when: "{{env == 'production'}}"
+    # End managing PostgreSQL.
+
+    # Start managing API service.
+    - name: ensure api service has been installed
+      template:
+        src: systemd.service.j2
+        dest: /etc/systemd/system/api.service
+
+    - name: ensure api service will start at boot
+      systemd:
+        name: api
+        enabled: yes
+    # End managing API service.

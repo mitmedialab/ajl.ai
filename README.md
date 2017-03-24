@@ -21,6 +21,39 @@ This project exposes a REST API with the following endpoints:
 
 More information available in [api.md](blob/master/api.md).
 
+## Deployment
+Image Annotator is configured to be deployable on any Ubuntu 16 server. All
+you need is Ansible 2.2x and root access to your desired target machine.
+
+When orchestrating the official production or staging environments you will need
+to submit a PR adding configuration for yourself to `ansible/vars/users.yml`.
+Someone who already has access can provision your account and supply you with
+the needed "Vault password" to enable deployment.
+
+The following commands are available:
+
+### npm run edit-secrets
+This will open the secrets file in your default editor. Secret data is managed
+by Ansible Vault. All secrets are stored in `ansible/vars/secrets.yml`.
+
+### npm run provision:[production|staging|vagrant]
+This will prepare a target machine with all system dependencies needed to
+run Image Annotator and grant collaborators access to run deployments. You
+will be prompted for both a Vault password and a SUDO password during this
+task. You will have configured your sudo password at the beginning of the
+project when you added yourself to `ansible/vars/users.yml`.
+
+### npm run deploy:[production|staging|vagrant] -- -e commit=master
+This will clone your desired commit to the target machine, install all node
+dependencies, compile the site with webpack, apply any outstanding migrations
+to the database and restart the API server.
+
+### npm run database-restore:[production|staging|vagrant]
+The database residing on the production server is backed up to S3 hourly.
+Running this for any target server will completely replace the database
+with the most recent backup. Take care not to do this for production
+unless you know what you are doing!
+
 ## Installation
 ### Frontend
 The front end is running React, Redux, Webpack.
