@@ -8,6 +8,11 @@
   vars_files:
     - vars/main.yml
     - vars/secrets.yml
+  handlers:
+    - name: restart postgresql
+      systemd:
+        name: postgresql
+        state: restarted
   tasks:
     # Start managing system packages and updates.
     - name: ensure python is installed
@@ -153,6 +158,15 @@
           host all all 127.0.0.1/32 trust
           host all all ::1/128 trust
         force: yes
+      notify: restart postgresql
+      when: "{{env == 'development'}}"
+
+    - name: ensure postgresql is listening on all interfaces in development
+      lineinfile:
+        dest: /etc/postgresql/9.6/main/postgresql.conf
+        regexp: listen_addresses = 'localhost'
+        line: listen_addresses = 'localhost'
+      notify: restart postgresql
       when: "{{env == 'development'}}"
 
     - name: ensure postgresql is running and will start at boot
