@@ -22,9 +22,13 @@ This project exposes a REST API with the following endpoints:
 More information available in [api.md](blob/master/api.md).
 
 ## Deployment
-In order to deploy the site, ensure you have Ansible 2.2x installed. You will
-be prompted for a "Vault password" when running most of these commands. Look
-in the "Image Annotator" note in LastPass for the password.
+Image Annotator is configured to be deployable on any Ubuntu 16 server. All
+you need is Ansible 2.2x and root access to your desired target machine.
+
+When orchestrating the official production or staging environments you will need
+to submit a PR adding configuration for yourself to `ansible/vars/users.yml`.
+Someone who already has access can provision your account and supply you with
+the needed "Vault password" to enable deployment.
 
 The following commands are available:
 
@@ -32,22 +36,17 @@ The following commands are available:
 This will open the secrets file in your default editor. Secret data is managed
 by Ansible Vault. All secrets are stored in `ansible/vars/secrets.yml`.
 
-If you are just getting started on the project, this is the first command
-you should run. You'll need to add yourself as a user in the secrets file,
-submit a PR, and ask someone who already has access to run a provision on
-any server you wish to have deployment access to.
-
 ### npm run provision:[production|staging|vagrant]
 This will prepare a target machine with all system dependencies needed to
 run Image Annotator and grant collaborators access to run deployments. You
 will be prompted for both a Vault password and a SUDO password during this
 task. You will have configured your sudo password at the beginning of the
-project when you added yourself as a user to the secrets file.
+project when you added yourself to `ansible/vars/users.yml`.
 
 ### npm run deploy:[production|staging|vagrant] -- -e commit=master
 This will clone your desired commit to the target machine, install all node
-dependencies, compile the site with webpack, apply any outstanding
-migrations to the database and restart the API server.
+dependencies, compile the site with webpack, apply any outstanding migrations
+to the database and restart the API server.
 
 ### npm run database-restore:[production|staging|vagrant]
 The database residing on the production server is backed up to S3 hourly.

@@ -3,6 +3,5 @@ Vagrant.configure(2) do |config|
   config.vm.network :private_network, ip: '10.10.0.100'
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "ansible/vagrant.yml"
-    ansible.raw_arguments = "--ask-vault-pass"
   end
 end

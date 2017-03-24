@@ -63,8 +63,5 @@ backup_bucket: image-annotator-backup
 
 # Manage authentication.
 basic_auth: "{{env != 'development'}}"
-basic_auth_user: "{{vault.basic_auth_user}}"
-basic_auth_pass: "{{vault.basic_auth_pass}}"
-
-# Manage users who can deploy.
-users: "{{vault.users}}"
+basic_auth_user: ia
+basic_auth_pass: kp7NlHvLFraLQ

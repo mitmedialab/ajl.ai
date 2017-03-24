@@ -7,6 +7,7 @@
   gather_facts: no
   vars_files:
     - vars/main.yml
+    - vars/users.yml
     - vars/secrets.yml
   handlers:
     - name: restart postgresql
@@ -197,12 +198,14 @@
         src: .pgpass.j2
         dest: /root/.pgpass
         mode: 0600
+      when: "{{env == 'production'}}"
 
     - name: ensure database backup script is in place
       template:
         src: backup.sh.j2
         dest: /root/backup.sh
         mode: 0700
+      when: "{{env == 'production'}}"
 
     - name: ensure database is backed up hourly
       cron:

@@ -6,7 +6,6 @@
   become_method: sudo
   vars_files:
     - vars/main.yml
-    - vars/secrets.yml
   tasks:
     - name: ensure local user has a matching account on the host
       user:
@@ -28,13 +27,3 @@
         regexp: "^%sudo"
         line: "%sudo\tALL=(ALL:ALL) NOPASSWD:ALL"
         validate: "visudo -cf %s"
-
-    - name: ensure aws configuration directory is present
-      file:
-        dest: /root/.aws
-        state: directory
-
-    - name: ensure aws creds are on machine so database dumps can be downloaded
-      template:
-        src: credentials.j2
-        dest: /root/.aws/credentials
