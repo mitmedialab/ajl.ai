@@ -169,11 +169,14 @@
       notify: restart postgresql
       when: "{{env == 'development'}}"
 
+    # todo: move to systemd module when this is fixed:
+    # https://github.com/ansible/ansible-modules-core/issues/3764
     - name: ensure postgresql is running and will start at boot
-      systemd:
+      service:
         name: postgresql
         state: started
         enabled: yes
+        use: service
 
     - name: ensure database user exists
       become: yes
