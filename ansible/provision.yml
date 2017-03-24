@@ -110,7 +110,7 @@
       hostname:
         name: "{{hostname}}"
 
-    - name: ensure loopback references have ben created in /etc/hosts
+    - name: ensure loopback references have been created in /etc/hosts
       lineinfile:
         dest: /etc/hosts
         state: present
@@ -134,6 +134,8 @@
         dest: /etc/nginx/htpasswd
       when: "{{basic_auth}}"
 
+    # todo verify nginx config here
+    
     - name: ensure nginx is restarted
       systemd:
         name: nginx
