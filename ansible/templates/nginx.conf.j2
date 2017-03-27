@@ -48,6 +48,6 @@ server {
 server {
   listen 80 default_server;
   server_name _;
-  return 301 https://{{fqdn}}$request_uri;
+  return 301 http://{{fqdn}}$request_uri;
 }
 {% endif %}
