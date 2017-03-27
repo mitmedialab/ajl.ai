@@ -18,6 +18,10 @@ server {
     include proxy_params;
     proxy_pass http://api;
   }
+  location ~* \.(css|js) {
+    expires max;
+    break;
+  }
 }
 
 {% if env == 'production' %}
