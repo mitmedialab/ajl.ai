@@ -16,7 +16,7 @@ module.exports = {
 
   output: {
     // the output bundle
-    filename: 'bundle.min.js',
+    filename: '[name]-[hash].min.js',
 
     path: resolve(__dirname, 'dist'),
   },
@@ -88,7 +88,7 @@ module.exports = {
     }),
 
     // Extract css into bundle.css
-    new ExtractTextPlugin('bundle.css'),
+    new ExtractTextPlugin('[name]-[contenthash].css'),
 
     // Minify with UglifyJS
     new webpack.optimize.UglifyJsPlugin({
