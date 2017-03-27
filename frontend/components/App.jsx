@@ -1,37 +1,23 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-import { isLoading, appErrors } from '../redux/selectors';
 
 import Header from './Header/Header';
-import Modal from './Overlays/Modal';
-import LoadingIndicator from './Overlays/Loading';
+import ModalContainer from './ModalContainer';
 
 import Home from './Home';
 import PerceivedDemographicsContainer from './PerceivedDemographicsContainer';
 import './App.styl';
 
-const App = props => (
+const App = () => (
   <Router>
     <div>
       <Header />
 
       {/* Overlays & Modal Dialogs */}
-      {props.isLoading ? <LoadingIndicator /> : null}
-      {props.errors.map(error => (
-        <Modal
-          key={`error_modal_${error.retryAction.type}`}
-          onConfirm={() => props.dispatch(error.retryAction)}
-          confirmText="Retry"
-        >
-          <h2>Error</h2>
-          <p>{error.error.message}</p>
-        </Modal>
-      ))}
+      <ModalContainer />
 
       <Route exact path="/" component={Home} />
       <Route path="/PerceivedDemographics" component={PerceivedDemographicsContainer} />
@@ -44,20 +30,4 @@ const App = props => (
   </Router>
 );
 
-App.propTypes = {
-  errors: PropTypes.arrayOf(PropTypes.shape({
-    error: PropTypes.instanceOf(Error).isRequired,
-    retryAction: PropTypes.shape({
-      type: PropTypes.string.isRequired,
-      payload: PropTypes.any,
-    }),
-  })).isRequired,
-  isLoading: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = state => ({
-  errors: appErrors(state),
-  isLoading: isLoading(state),
-});
-
-export default connect(mapStateToProps)(App);
+export default App;
