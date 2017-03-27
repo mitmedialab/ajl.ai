@@ -44,7 +44,7 @@ server {
       image/svg+xml;
 }
 
-{% if env == 'production' %}
+{% if env != 'development' %}
 server {
   listen 80 default_server;
   server_name _;
