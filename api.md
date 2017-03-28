@@ -22,8 +22,8 @@ returns a JSON list of possible annotation types, eg:
 ### get /api/annotations/workload
 Prior to session enrollment this endpoint returns a JSON workload of 12 random images to be annotated (with 8 known and 4 unknown images randomly interspersed), eg:
 
-```
-"[{
+```js
+[{
   "id":2,
   "images":[
     {
@@ -38,9 +38,11 @@ Prior to session enrollment this endpoint returns a JSON workload of 12 random i
       "width":250,
       "height":250
     }
-    ... {12th image object}
-  ]
-}]"
+    // ... {12th image object}
+  ],
+  // The user has completed 2 previous workloads
+  "completeCount": 2
+}]
 ```
 Session enrollment occurs when an active session successfully annotates 12 images, and gets the 8 hidden known ground truths right. Once a session has successfully posted 12 annotated images back to the api and gotten the 8 hidden known ground truths correct, the session is considered enrolled, and all future requests from that session receive a response with a workload of 3 images containing 2 known and 1 unknown image.  The images will be the "least annotated" by the current user, meaning it will not reuse any image until you've completed all the knowns.
 
