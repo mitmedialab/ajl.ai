@@ -224,4 +224,51 @@ describe('selector functions', () => {
     });
   });
 
+  describe('completedWorkloadCount', () => {
+    const { completedWorkloadCount } = selectors;
+
+    it('is a function', () => {
+      expect(completedWorkloadCount).toBeDefined();
+      expect(completedWorkloadCount).toBeInstanceOf(Function);
+    });
+
+    it('returns a count of workloads a user has completed in their session', () => {
+      expect(completedWorkloadCount({
+        workload: {
+          faces: true,
+          completeCount: 4,
+        },
+      })).toBe(4);
+    });
+
+  });
+
+  describe('onFirstImage', () => {
+    const { onFirstImage } = selectors;
+
+    it('is a function', () => {
+      expect(onFirstImage).toBeDefined();
+      expect(onFirstImage).toBeInstanceOf(Function);
+    });
+
+    it('returns true when on the first image in a workload', () => {
+      expect(onFirstImage({
+        workload: {
+          todo: [ 1, 2 ],
+          complete: [],
+        },
+      })).toBe(true);
+    });
+
+    it('returns false on subsequent workload steps', () => {
+      expect(onFirstImage({
+        workload: {
+          todo: [ 2 ],
+          complete: [ 1 ],
+        },
+      })).toBe(false);
+    });
+
+  });
+
 });

@@ -62,9 +62,20 @@ function complete(state = [], action) {
   }
 }
 
+function completeCount(state = 0, action) {
+  switch (action.type) {
+  case RECEIVE_WORKLOAD:
+    return action.payload[0].completeCount;
+
+  default:
+    return state;
+  }
+}
+
 export default combineReducers({
   id,
   todo,
   byId,
   complete,
+  completeCount,
 });

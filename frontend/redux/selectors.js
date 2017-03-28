@@ -25,3 +25,8 @@ export const demographicAttributesOrder = state => state.demographicAttributes.o
 export const imageAnnotations = state => state.annotations;
 
 export const appErrors = state => state.errors;
+
+export const completedWorkloadCount = state => state.workload.completeCount;
+
+export const onFirstImage = state =>
+  state.workload.todo.length && ! state.workload.complete.length;
