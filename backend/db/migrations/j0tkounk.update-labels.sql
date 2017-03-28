@@ -23,7 +23,7 @@ UPDATE annotation_option
 
 UPDATE annotation_option
   SET name = 'Hispanic', sort_order = 3
-  WHERE name = 'lantino/a';
+  WHERE name = 'latino/a';
 
 INSERT INTO annotation_option (annotation_attribute_id, name, sort_order)
   VALUES (3, 'Middle Eastern', 4);
