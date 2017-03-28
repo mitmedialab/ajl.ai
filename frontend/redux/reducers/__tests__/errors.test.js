@@ -34,7 +34,7 @@ describe('errors reducer', () => {
 
     describe(`on ${REQUEST_ATTRIBUTES_FAILED}`, () => {
 
-      it(`stores the error with a ${REQUEST_ATTRIBUTES} retry action`, () => {
+      it(`stores a ${REQUEST_ATTRIBUTES_FAILED} error`, () => {
         const error = new Error('something went wrong');
         const retryAction = { type: REQUEST_ATTRIBUTES };
         const initialState = [];
@@ -47,6 +47,7 @@ describe('errors reducer', () => {
           error: true,
         });
         expect(nextState).toEqual([{
+          type: REQUEST_ATTRIBUTES_FAILED,
           error,
           retryAction,
         }]);
@@ -56,9 +57,10 @@ describe('errors reducer', () => {
 
     describe(`on ${REQUEST_ATTRIBUTES}`, () => {
 
-      it(`removes any existing error with a ${REQUEST_ATTRIBUTES} retry`, () => {
+      it(`removes any existing ${REQUEST_ATTRIBUTES_FAILED} error`, () => {
         const initialState = [
           {
+            type: REQUEST_ATTRIBUTES_FAILED,
             error: new Error('something went wrong'),
             retryAction: { type: REQUEST_ATTRIBUTES },
           },
@@ -74,9 +76,10 @@ describe('errors reducer', () => {
 
     describe(`on ${RECEIVE_ATTRIBUTES}`, () => {
 
-      it(`removes any existing error with a ${REQUEST_ATTRIBUTES} retry`, () => {
+      it(`removes any existing ${REQUEST_ATTRIBUTES_FAILED} error`, () => {
         const initialState = [
           {
+            type: REQUEST_ATTRIBUTES_FAILED,
             error: new Error('something went wrong'),
             retryAction: { type: REQUEST_ATTRIBUTES },
           },
@@ -103,7 +106,7 @@ describe('errors reducer', () => {
 
     describe(`on ${REQUEST_WORKLOAD_FAILED}`, () => {
 
-      it(`stores the error with a ${REQUEST_WORKLOAD} retry action`, () => {
+      it(`stores a ${REQUEST_WORKLOAD_FAILED} error`, () => {
         const error = new Error('something went wrong');
         const retryAction = { type: REQUEST_WORKLOAD };
         const initialState = [];
@@ -116,6 +119,7 @@ describe('errors reducer', () => {
           error: true,
         });
         expect(nextState).toEqual([{
+          type: REQUEST_WORKLOAD_FAILED,
           error,
           retryAction,
         }]);
@@ -125,9 +129,10 @@ describe('errors reducer', () => {
 
     describe(`on ${REQUEST_WORKLOAD}`, () => {
 
-      it(`removes any existing error with a ${REQUEST_WORKLOAD} retry`, () => {
+      it(`removes any existing ${REQUEST_WORKLOAD_FAILED} error`, () => {
         const initialState = [
           {
+            type: REQUEST_WORKLOAD_FAILED,
             error: new Error('something went wrong'),
             retryAction: { type: REQUEST_WORKLOAD },
           },
@@ -143,7 +148,7 @@ describe('errors reducer', () => {
 
     describe(`on ${COMPLETE_WORKLOAD_FAILED}`, () => {
 
-      it(`stores the error with a ${COMPLETE_WORKLOAD} retry action`, () => {
+      it(`stores a ${COMPLETE_WORKLOAD_FAILED} error`, () => {
         const error = new Error('something went wrong');
         const retryAction = { type: COMPLETE_WORKLOAD };
         const initialState = [];
@@ -156,6 +161,7 @@ describe('errors reducer', () => {
           error: true,
         });
         expect(nextState).toEqual([{
+          type: COMPLETE_WORKLOAD_FAILED,
           error,
           retryAction,
         }]);
@@ -165,16 +171,17 @@ describe('errors reducer', () => {
 
     describe(`on ${COMPLETE_WORKLOAD}`, () => {
 
-      it(`removes any existing error with a ${COMPLETE_WORKLOAD} retry`, () => {
+      it(`removes any existing ${COMPLETE_WORKLOAD_FAILED} error`, () => {
         const initialState = [
           unrelatedError,
           {
+            type: COMPLETE_WORKLOAD_FAILED,
             error: new Error('something went wrong'),
             retryAction: { type: COMPLETE_WORKLOAD },
           },
         ];
         const nextState = errors(initialState, {
-          type: RECEIVE_WORKLOAD,
+          type: COMPLETE_WORKLOAD,
         });
         expect(nextState).toEqual([unrelatedError]);
       });
@@ -183,9 +190,10 @@ describe('errors reducer', () => {
 
     describe(`on ${RECEIVE_WORKLOAD}`, () => {
 
-      it(`removes any existing error with a ${REQUEST_WORKLOAD} retry`, () => {
+      it(`removes any existing ${REQUEST_WORKLOAD_FAILED} error`, () => {
         const initialState = [
           {
+            type: REQUEST_WORKLOAD_FAILED,
             error: new Error('something went wrong'),
             retryAction: { type: REQUEST_WORKLOAD },
           },
@@ -197,9 +205,10 @@ describe('errors reducer', () => {
         expect(nextState).toEqual([unrelatedError]);
       });
 
-      it(`removes any existing error with a ${COMPLETE_WORKLOAD} retry`, () => {
+      it(`removes any existing ${COMPLETE_WORKLOAD_FAILED} error`, () => {
         const initialState = [
           {
+            type: COMPLETE_WORKLOAD_FAILED,
             error: new Error('something went wrong'),
             retryAction: { type: COMPLETE_WORKLOAD },
           },
