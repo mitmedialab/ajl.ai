@@ -87,6 +87,13 @@ module.exports = {
       template: './index.html',
     }),
 
+    // Set NODE_ENV to production so that Uglify can strip out dev-only code
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production'),
+      },
+    }),
+
     // Extract css into bundle.css
     new ExtractTextPlugin('[name]-[contenthash].css'),
 
