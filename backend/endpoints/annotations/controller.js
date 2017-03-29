@@ -10,8 +10,10 @@ export function getAttributes(req, res) {
 }
 
 export function getWorkload(req, res) {
-  const numTruths = req.session.enrolled ? 2 : 8;
-  const limit = req.session.enrolled ? 3 : 12;
+  // First time users see 8 truths, 4 new images.
+  // Every workload after the first should get 2 truths, 1 new image.
+  const numTruths = req.session.repeatAnnotator ? 2 : 8;
+  const limit = req.session.repeatAnnotator ? 3 : 12;
   const annotatorId = req.session.annotatorId;
 
   // get a set of images from the db
@@ -111,8 +113,8 @@ export function postAnnotations(req, res) {
       });
     });
 
-    console.log('annotationMap: ', annotationMap);
-    console.log('knownImageIds:', knownImageIds);
+    // console.log('annotationMap: ', annotationMap);
+    // console.log('knownImageIds:', knownImageIds);
 
     if (! knownImageIds.length) {
       // if they worked through every known image in the database, give them a score of -1
@@ -138,11 +140,8 @@ export function postAnnotations(req, res) {
       console.log('workload #', storedWorkload[0].id);
       db.query(queries.scoreWorkload, { id: storedWorkload[0].id, score });
 
-      if (score === 1) {
-        // if they didn't have any errors with the comparisons
-        // now they are enrolled
-        session.enrolled = true;
-      }
+      // now they are a repeatAnnotator and can submit 3 more instead of 12
+      session.repeatAnnotator = true;
 
       // TODO query annotations table to see if there are 3+ annotations
       // that agree with each of the new annotations, and if so, store a new
