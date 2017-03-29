@@ -30,10 +30,11 @@ export function getWorkload(req, res) {
   // prior storeWorload query
   .then((workloads) => {
     const response = workloads.map((workload) => {
+      const { id, complete_count: completeCount } = workload;
       const images = workload.images.map(
         image => omit(image, 'is_known')
       );
-      return { ...workload, images };
+      return { id, images, completeCount };
     });
 
     res.send(response);

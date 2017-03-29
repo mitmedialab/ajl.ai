@@ -17,6 +17,7 @@ describe('workload reducer', () => {
       todo: [],
       byId: {},
       complete: [],
+      completeCount: 0,
     });
   });
 
@@ -54,6 +55,7 @@ describe('workload reducer', () => {
         { id: 1998, url: '0003.jpg', width: 250, height: 250 },
         { id: 991, url: '0004.jpg', width: 250, height: 250 },
       ],
+      completeCount: 3,
     }];
 
     it('populates the workload ID', () => {
@@ -65,6 +67,17 @@ describe('workload reducer', () => {
       expect(nextState.id).toBeDefined();
       expect(nextState.id).not.toBe(initialState.id);
       expect(nextState.id).toBe(121);
+    });
+
+    it('updates the workload completeCount', () => {
+      const nextState = workloadReducer(initialState, {
+        type: RECEIVE_WORKLOAD,
+        payload,
+      });
+      expect(nextState).not.toBe(initialState);
+      expect(nextState.completeCount).toBeDefined();
+      expect(nextState.completeCount).not.toBe(initialState.completeCount);
+      expect(nextState.completeCount).toBe(3);
     });
 
     it('populates the byId dictionary', () => {
