@@ -1,0 +1,134 @@
+- hosts: all
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  vars_files:
+    - vars/main.yml
+  handlers:
+    - name: restart nginx
+      systemd:
+        name: nginx
+        state: restarted
+    - name: letsencrypt initial run
+      command: "dehydrated --cron"
+  tasks:
+    # Start managing system packages and updates.
+    - name: ensure python is installed
+      raw: apt-get update && apt-get install -y python
+
+    - name: ensure apt keys have been added
+      apt_key:
+        url: "{{item}}"
+        state: present
+      with_items:
+        - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        - https://www.postgresql.org/media/keys/ACCC4CF8.asc
+        - https://dl.yarnpkg.com/debian/pubkey.gpg
+
+    - name: ensure apt repositories have been added
+      apt_repository:
+        repo: "{{item}}"
+        state: present
+        update_cache: yes
+      with_items:
+        - ppa:git-core/ppa
+        - deb https://deb.nodesource.com/node_6.x trusty main
+        - deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
+        - deb https://dl.yarnpkg.com/debian/ stable main
+
+    - name: ensure apt packages have been installed
+      apt:
+        name: "{{item}}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - build-essential # for building native deps in node
+        - nginx # for serving files
+
+    # Start managing networking.
+    - name: ensure hostname is set
+      hostname:
+        name: "{{hostname}}"
+
+    - name: ensure loopback references have been created in /etc/hosts
+      lineinfile:
+        dest: /etc/hosts
+        state: present
+        line: "127.0.0.1 {{hostname}} {{fqdn}}"
+    # End managing networking.
+
+    # Start managing nginx.
+    - name: ensure default nginx config is absent
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+      notify: restart nginx
+
+    - name: ensure nginx config knows about certs
+      stat:
+        path: "/etc/dehydrated/certs/{{fqdn}}/{{item}}"
+      register: cert_files
+      with_items:
+        - privkey.pem
+        - fullchain.pem
+    - set_fact:
+        has_ssl: "{{cert_files.results.0.stat.exists and cert_files.results.1.stat.exists}}"
+
+    - name: ensure nginx is configured
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/sites-enabled/site.conf
+      notify: restart nginx
+
+    - name: ensure htpasswd is configured
+      template:
+        src: htpasswd.j2
+        dest: /etc/nginx/htpasswd
+      when: "{{basic_auth}}"
+      notify: restart nginx
+    # End managing nginx.
+
+    # Start managing dehydrated.
+    - name: ensure dehydrated dirs exist
+      file:
+        path: "{{item}}"
+        state: directory
+      with_items:
+        - "{{base_path}}/dehydrated"
+        - "/etc/dehydrated"
+
+    - name: ensure dehydrated is configured
+      template:
+        src: "{{item.src}}"
+        dest: "{{item.dest}}"
+      with_items:
+        - { src: dehydrated.j2, dest: /etc/dehydrated/config }
+        - { src: domains.txt.j2, dest: /etc/dehydrated/domains.txt }
+
+    - name: ensure dehydrated bin is in path
+      copy:
+        src: ./vendor/dehydrated-0.4.0/dehydrated
+        dest: /usr/local/bin/dehydrated
+        mode: 0555
+        force: true
+
+    - name: ensure letsencrypt account is registered
+      command: dehydrated --register --accept-terms
+      register: dehydrated
+      changed_when: "'Done!' in dehydrated.stdout"
+
+    - name: ensure letsencrypt certs get created
+      stat:
+        path: /etc/dehydrated/certs
+      register: certs
+      changed_when: "not certs.stat.exists"
+      # This happens via notify because nginx may need to be restarted first
+      notify: letsencrypt initial run
+
+    - name: ensure dehydrated cron job is configured
+      cron:
+        name: renew changed or expiring letsencrypt certificates
+        minute: 0
+        hour: 0
+        job: "dehydrated --cron"
+    # End managing dehydrated.

@@ -3,7 +3,13 @@ upstream api {
 }
 
 server {
+{% if env != 'development' and has_ssl %}
+  listen 443 ssl;
+  ssl_certificate_key /etc/dehydrated/certs/{{fqdn}}/privkey.pem;
+  ssl_certificate /etc/dehydrated/certs/{{fqdn}}/fullchain.pem;
+{% else %}
   listen 80;
+{% endif %}
   server_name {{fqdn}};
   root {{public_path}};
   index index.html;
@@ -13,6 +19,9 @@ server {
     auth_basic 'Image Annotator';
     auth_basic_user_file htpasswd;
 {% endif %}
+  }
+  location /.well-known/acme-challenge {
+    alias {{base_path}}/dehydrated;
   }
   location /api {
     include proxy_params;
@@ -48,6 +57,10 @@ server {
 server {
   listen 80 default_server;
   server_name _;
+{% if has_ssl %}
+  return 301 https://{{fqdn}}$request_uri;
+{% else %}
   return 301 http://{{fqdn}}$request_uri;
+{% endif %}
 }
 {% endif %}
