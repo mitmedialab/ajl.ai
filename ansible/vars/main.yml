@@ -15,18 +15,6 @@ env_vars:
     NODE_ENV: development
     HTTP_HOST: 0.0.0.0
     HTTP_PORT: 8000
-  staging:
-    PGHOST: localhost
-    PGPORT: 5432
-    PGNAME: image-annotator
-    PGUSER: image-annotator
-    # this complex variable assignment makes it so ansible's head doesn't
-    # explode when a vault variable isn't defined (e.g. when provisioning
-    # a local vagrant machine where vault isn't needed)
-    PGPASS: "{{(vault | default({})).PGPASS | default(None)}}"
-    NODE_ENV: staging
-    HTTP_HOST: localhost
-    HTTP_PORT: 8000
   production:
     PGHOST: localhost
     PGPORT: 5432

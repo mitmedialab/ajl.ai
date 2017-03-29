@@ -14,7 +14,6 @@
   "scripts": {
     "build": "webpack",
     "build:development": "NODE_ENV=development webpack",
-    "build:staging": "NODE_ENV=staging webpack",
     "build:production": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "migrate": "careen -c backend/db/migrations/careen",
     "migrate:up": "careen -A -e -c backend/db/migrations/careen",
