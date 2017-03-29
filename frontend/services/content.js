@@ -7,7 +7,7 @@
  */
 import * as actions from '../redux/actions';
 
-export default function(type) {
+export function errorProps(type) {
   switch (type) {
   case actions.REQUEST_ATTRIBUTES_FAILED:
     return {
@@ -35,4 +35,23 @@ export default function(type) {
       confirmText: 'OK',
     };
   }
+}
+
+export function workloadFeedback(count) {
+  if (count === 0) {
+    return 'Welcome! This is your first batch of images.';
+  }
+  if (count === 1) {
+    return 'You\'ve completed your first batch—great!';
+  }
+  if (count === 2) {
+    return 'You\'re a champ!';
+  }
+  if (count === 3) {
+    return 'You\'re on fire!';
+  }
+  if (count % 10) {
+    return '';
+  }
+  return `You've completed ${count} batches! Amazing!`;
 }

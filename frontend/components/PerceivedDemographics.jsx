@@ -9,6 +9,7 @@ import * as propShapes from '../prop-shapes';
 import PerceivedDemographicQuestion from './PerceivedDemographicQuestion';
 import ProgressBar from './ProgressBar';
 import ProportionalContainer from './ProportionalContainer';
+import ProgressFeedbackContainer from './ProgressFeedback/ProgressFeedback';
 
 import styles from './PerceivedDemographics.styl';
 
@@ -120,6 +121,7 @@ class PerceivedDemographics extends Component {
           current={currentStep + 1}
           total={questionOrder.length}
         />
+        <ProgressFeedbackContainer show={currentStep === 0} />
         <form onSubmit={this.handleSubmit}>
           {questionOrder.map((questionName, idx) => {
             const { id, name, options } = demographicAttributes[questionName];

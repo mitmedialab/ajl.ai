@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { isLoading, appErrors } from '../redux/selectors';
-import errorPropsService from '../services/error-props';
+import { errorProps } from '../services/content';
 
 import LoadingIndicator from './Overlays/Loading';
 import Modal from './Overlays/Modal';
@@ -16,7 +16,7 @@ const getErrorProps = (errors) => {
   const err = errors[0];
 
   return {
-    ...errorPropsService(err.type),
+    ...errorProps(err.type),
     errorMessage: err.error && err.error.message,
     retryAction: err.retryAction,
   };

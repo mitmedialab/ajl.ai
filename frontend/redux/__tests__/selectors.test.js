@@ -254,7 +254,7 @@ describe('selector functions', () => {
     it('returns true when on the first image in a workload', () => {
       expect(onFirstImage({
         workload: {
-          todo: [ 1, 2 ],
+          todo: [1, 2],
           complete: [],
         },
       })).toBe(true);
@@ -263,8 +263,8 @@ describe('selector functions', () => {
     it('returns false on subsequent workload steps', () => {
       expect(onFirstImage({
         workload: {
-          todo: [ 2 ],
-          complete: [ 1 ],
+          todo: [2],
+          complete: [1],
         },
       })).toBe(false);
     });
