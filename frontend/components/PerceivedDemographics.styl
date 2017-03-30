@@ -1,7 +1,18 @@
 @import './shared/mixins.styl';
 
-.progressBar {
-  margin: 0.5em 0;
+.imageContainer {
+  position: relative;
+
+  .progressBarContainer {
+    rounded()
+    background: white;
+    position: absolute;
+    z-index: 1;
+    margin-top: .75em;
+    right: .75em;
+    left: .75em;
+    padding: .25em .5em;
+  }
 }
 
 .prev,
