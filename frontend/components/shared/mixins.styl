@@ -1,3 +1,4 @@
+
 visually-hidden() {
   position: absolute !important;
   height: 1px; width: 1px;
@@ -7,34 +8,45 @@ visually-hidden() {
 }
 
 button() {
-  display: inline-block;
   height: 3em;
-  padding: 0 20px;
-  color: #333;
-  font-size: 0.8em;
   text-align: center;
   line-height: 3em;
   font-weight: 600;
   text-transform: capitalize;
-  text-decoration: none;
-  white-space: nowrap;
-  background-color: transparent;
-  border-radius: 4px;
-  border: 1px solid #bbb;
+  background-color: $light-blue;
+  border-radius: 2em;
   cursor: pointer;
-  box-sizing: border-box;
 
   &:hover,
   &:focus {
-    color: black;
     border-color: #666;
     outline: 0;
+    background-color: $medium-blue;
   }
 
   &:active {
     background: #ddd;
   }
 }
+
+rounded() {
+  border-radius: 5px;
+}
+
+top-rounded() {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+// Colors
+// ==============================================
+
+$light-blue = #d5e1e8
+$medium-blue = #c1d2dc
+$aqua = #62747E
+$font-dark-blue = #62747E
+$font-light-blue = #62747E
+
 
 // Responsive Mixins
 // ==============================================
