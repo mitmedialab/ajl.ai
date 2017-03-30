@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import KnownOverallProgressContainer from './KnownOverallProgressContainer';
+
 export default () => (
   <div>
     <h1>The Computer Vision Benchmarking Project</h1>
@@ -18,5 +20,6 @@ export default () => (
       <Link to="/Landmarks">outlining features</Link> of the faces in our curated
       database of pictures of public domain faces.
     </p>
+    <KnownOverallProgressContainer />
   </div>
 );
