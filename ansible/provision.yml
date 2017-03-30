@@ -18,6 +18,11 @@
       systemd:
         name: nginx
         state: reloaded
+    - name: letsencrypt initial run
+      command: "dehydrated --cron"
+      register: dehydrated
+      changed_when: "'Done!' in dehydrated.stdout"
+      notify: reload nginx
   tasks:
     # Start decrypting secrets (if we need them).
     - include_vars:
@@ -134,6 +139,23 @@
     # End managing networking.
 
     # Start managing nginx.
+    - name: ensure ssl cert paths exist
+      file:
+        path: "{{cert_path}}/{{item}}"
+        state: directory
+      with_items: "{{ [fqdn] + alias_domains }}"
+
+    - name: create self-signed ssl certs/keys if no certs exist
+      command: >
+        openssl req -new -nodes -x509 -extensions v3_ca -days 3650
+        -subj "/C=US/ST=Massachusetts/L=Boston/O=IT/CN={{item}}"
+        -keyout {{cert_path}}/{{item}}/{{ssl_key_file}}
+        -out {{cert_path}}/{{item}}/{{ssl_cert_file}}
+      args:
+        creates: "{{cert_path}}/{{item}}/{{ssl_cert_file}}"
+      with_items: "{{ [fqdn] + alias_domains }}"
+      notify: reload nginx
+
     - name: ensure default nginx config is absent
       file:
         path: /etc/nginx/sites-enabled/default
@@ -152,6 +174,9 @@
         dest: /etc/nginx/htpasswd
       when: "{{basic_auth}}"
       notify: reload nginx
+
+    - include: ssl.yml
+      when: "{{env == 'production'}}"
     # End managing nginx.
 
     # Start managing PostgreSQL.

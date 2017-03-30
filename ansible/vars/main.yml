@@ -62,8 +62,9 @@ basic_auth_pass: kp7NlHvLFraLQ
 
 # Other domains (than the fqdn) that also alias to this server.
 alias_domains:
-  - ssltest2.bocoup.com
-  - ssltest3.bocoup.com
+  - fightbias.org
+  - fightbias.io
+  - ajl.ai
 
 # SSL cert location.
 cert_path: "/etc/dehydrated/certs"
