@@ -12,6 +12,9 @@ export const routes = {
       session.ensureSession,
       controller.getWorkload,
     ],
+    '/overall-stats': [
+      controller.getOverallStats,
+    ],
   },
   post: {
     '/': [
