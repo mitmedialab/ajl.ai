@@ -38,4 +38,4 @@
     name: renew changed or expiring letsencrypt certificates
     minute: 0
     hour: 0
-    job: "dehydrated --cron"
+    job: "dehydrated --cron | grep 'Done!' >/dev/null && systemctl reload nginx"
