@@ -5,15 +5,15 @@
   vars_files:
     - vars/main.yml
   handlers:
-    - name: restart nginx
+    - name: reload nginx
       systemd:
         name: nginx
-        state: restarted
+        state: reloaded
     - name: letsencrypt initial run
       command: "dehydrated --cron"
       register: dehydrated
       changed_when: "'Done!' in dehydrated.stdout"
-      notify: restart nginx
+      notify: reload nginx
   tasks:
     # Start managing system packages and updates.
     - name: ensure python is installed
@@ -76,26 +76,26 @@
       args:
         creates: "{{cert_path}}/{{item}}/{{ssl_cert_file}}"
       with_items: "{{ [fqdn] + alias_domains }}"
-      notify: restart nginx
+      notify: reload nginx
 
     - name: ensure default nginx config is absent
       file:
         path: /etc/nginx/sites-enabled/default
         state: absent
-      notify: restart nginx
+      notify: reload nginx
 
     - name: ensure nginx is configured
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/sites-enabled/site.conf
-      notify: restart nginx
+      notify: reload nginx
 
     - name: ensure htpasswd is configured
       template:
         src: htpasswd.j2
         dest: /etc/nginx/htpasswd
       when: "{{basic_auth}}"
-      notify: restart nginx
+      notify: reload nginx
 
     - include: ssl.yml
       when: "{{env == 'production'}}"

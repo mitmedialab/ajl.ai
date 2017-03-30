@@ -14,10 +14,10 @@
       systemd:
         name: postgresql
         state: restarted
-    - name: restart nginx
+    - name: reload nginx
       systemd:
         name: nginx
-        state: restarted
+        state: reloaded
   tasks:
     # Start decrypting secrets (if we need them).
     - include_vars:
@@ -138,20 +138,20 @@
       file:
         path: /etc/nginx/sites-enabled/default
         state: absent
-      notify: restart nginx
+      notify: reload nginx
 
     - name: ensure nginx is configured
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/sites-enabled/site.conf
-      notify: restart nginx
+      notify: reload nginx
 
     - name: ensure htpasswd is configured
       template:
         src: htpasswd.j2
         dest: /etc/nginx/htpasswd
       when: "{{basic_auth}}"
-      notify: restart nginx
+      notify: reload nginx
     # End managing nginx.
 
     # Start managing PostgreSQL.
