@@ -11,6 +11,9 @@
         state: restarted
     - name: letsencrypt initial run
       command: "dehydrated --cron"
+      register: dehydrated
+      changed_when: "'Done!' in dehydrated.stdout"
+      notify: restart nginx
   tasks:
     # Start managing system packages and updates.
     - name: ensure python is installed
@@ -58,21 +61,28 @@
     # End managing networking.
 
     # Start managing nginx.
+    - name: ensure ssl cert paths exist
+      file:
+        path: "{{cert_path}}/{{item}}"
+        state: directory
+      with_items: "{{ [fqdn] + alias_domains }}"
+
+    - name: create self-signed ssl cert/key for initial run
+      command: >
+        openssl req -new -nodes -x509 -extensions v3_ca -days 3650
+        -subj "/C=US/ST=Massachusetts/L=Boston/O=IT/CN={{item}}"
+        -keyout {{cert_path}}/{{item}}/{{ssl_key_file}}
+        -out {{cert_path}}/{{item}}/{{ssl_cert_file}}
+      args:
+        creates: "{{cert_path}}/{{item}}/{{ssl_cert_file}}"
+      with_items: "{{ [fqdn] + alias_domains }}"
+      notify: restart nginx
+
     - name: ensure default nginx config is absent
       file:
         path: /etc/nginx/sites-enabled/default
         state: absent
       notify: restart nginx
-
-    - name: ensure nginx config knows about certs
-      stat:
-        path: "/etc/dehydrated/certs/{{fqdn}}/{{item}}"
-      register: cert_files
-      with_items:
-        - privkey.pem
-        - fullchain.pem
-    - set_fact:
-        has_ssl: "{{cert_files.results.0.stat.exists and cert_files.results.1.stat.exists}}"
 
     - name: ensure nginx is configured
       template:
@@ -88,14 +98,11 @@
       notify: restart nginx
     # End managing nginx.
 
-    # Start managing dehydrated.
-    - name: ensure dehydrated dirs exist
+    # # Start managing dehydrated.
+    - name: ensure dehydrated well-known path exists
       file:
-        path: "{{item}}"
+        path: "{{base_path}}/dehydrated"
         state: directory
-      with_items:
-        - "{{base_path}}/dehydrated"
-        - "/etc/dehydrated"
 
     - name: ensure dehydrated is configured
       template:
@@ -119,9 +126,9 @@
 
     - name: ensure letsencrypt certs get created
       stat:
-        path: /etc/dehydrated/certs
-      register: certs
-      changed_when: "not certs.stat.exists"
+        path: "{{cert_path}}/{{fqdn}}/cert.pem"
+      register: cert
+      changed_when: "not cert.stat.exists"
       # This happens via notify because nginx may need to be restarted first
       notify: letsencrypt initial run
 

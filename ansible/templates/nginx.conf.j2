@@ -1,16 +1,16 @@
 upstream api {
   server localhost:{{env_vars[env].HTTP_PORT}};
 }
+{% for domain in [fqdn] + alias_domains %}
 
 server {
-{% if env != 'development' and has_ssl %}
-  listen 443 ssl;
-  ssl_certificate_key /etc/dehydrated/certs/{{fqdn}}/privkey.pem;
-  ssl_certificate /etc/dehydrated/certs/{{fqdn}}/fullchain.pem;
-{% else %}
+  server_name {{domain}};
+{% if env == 'development' %}
   listen 80;
 {% endif %}
-  server_name {{fqdn}};
+  listen 443 ssl;
+  ssl_certificate_key {{cert_path}}/{{domain}}/{{ssl_key_file}};
+  ssl_certificate {{cert_path}}/{{domain}}/{{ssl_cert_file}};
   root {{public_path}};
   index index.html;
   location / {
@@ -52,15 +52,12 @@ server {
       application/rss+xml
       image/svg+xml;
 }
-
 {% if env != 'development' %}
+
 server {
-  listen 80 default_server;
-  server_name _;
-{% if has_ssl %}
+  server_name {{domain}};
+  listen 80;
   return 301 https://{{fqdn}}$request_uri;
-{% else %}
-  return 301 http://{{fqdn}}$request_uri;
-{% endif %}
 }
 {% endif %}
+{% endfor %}
