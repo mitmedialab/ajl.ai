@@ -16,7 +16,7 @@ const PerceivedDemographicQuestion = ({
   selected,
 }) => (
   <fieldset className={classNames(className, styles.fieldset)}>
-    <legend>{name}</legend>
+    <h4 className="PerceivedDemographicTitle">{name}</h4>
     {options.map((option) => {
       const optionKey = `${strToId(name)}_${strToId(option)}`;
       return (

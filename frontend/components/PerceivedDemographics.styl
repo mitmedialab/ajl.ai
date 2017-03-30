@@ -1,7 +1,18 @@
 @import './shared/mixins.styl';
 
-.progressBar {
-  margin: 0.5em 0;
+.imageContainer {
+  position: relative;
+
+  .progressBarContainer {
+    rounded()
+    background: white;
+    position: absolute;
+    z-index: 1;
+    margin-top: .75em;
+    right: .75em;
+    left: .75em;
+    padding: .25em .5em;
+  }
 }
 
 .prev,
@@ -17,4 +28,22 @@
 
 .hidden {
   visually-hidden();
+}
+
+fieldset {
+  rounded()
+  background: white;
+  border: none;
+  margin: .75em;
+  padding: 0 0 .25em;
+  
+  h4 {
+    top-rounded()
+    text-transform: uppercase;
+    font-weight: 700;
+    background: #ccc;
+    padding: .75em 0;
+    margin: 0 0 1em;
+    text-align: center
+  }
 }
