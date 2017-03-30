@@ -67,7 +67,7 @@
         state: directory
       with_items: "{{ [fqdn] + alias_domains }}"
 
-    - name: create self-signed ssl cert/key for initial run
+    - name: create self-signed ssl certs/keys if no certs exist
       command: >
         openssl req -new -nodes -x509 -extensions v3_ca -days 3650
         -subj "/C=US/ST=Massachusetts/L=Boston/O=IT/CN={{item}}"
@@ -96,46 +96,7 @@
         dest: /etc/nginx/htpasswd
       when: "{{basic_auth}}"
       notify: restart nginx
+
+    - include: ssl.yml
+      when: "{{env == 'production'}}"
     # End managing nginx.
-
-    # # Start managing dehydrated.
-    - name: ensure dehydrated well-known path exists
-      file:
-        path: "{{base_path}}/dehydrated"
-        state: directory
-
-    - name: ensure dehydrated is configured
-      template:
-        src: "{{item.src}}"
-        dest: "{{item.dest}}"
-      with_items:
-        - { src: dehydrated.j2, dest: /etc/dehydrated/config }
-        - { src: domains.txt.j2, dest: /etc/dehydrated/domains.txt }
-
-    - name: ensure dehydrated bin is in path
-      copy:
-        src: ./vendor/dehydrated-0.4.0/dehydrated
-        dest: /usr/local/bin/dehydrated
-        mode: 0555
-        force: true
-
-    - name: ensure letsencrypt account is registered
-      command: dehydrated --register --accept-terms
-      register: dehydrated
-      changed_when: "'Done!' in dehydrated.stdout"
-
-    - name: ensure letsencrypt certs get created
-      stat:
-        path: "{{cert_path}}/{{fqdn}}/cert.pem"
-      register: cert
-      changed_when: "not cert.stat.exists"
-      # This happens via notify because nginx may need to be restarted first
-      notify: letsencrypt initial run
-
-    - name: ensure dehydrated cron job is configured
-      cron:
-        name: renew changed or expiring letsencrypt certificates
-        minute: 0
-        hour: 0
-        job: "dehydrated --cron"
-    # End managing dehydrated.

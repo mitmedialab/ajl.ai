@@ -20,9 +20,11 @@ server {
     auth_basic_user_file htpasswd;
 {% endif %}
   }
+{% if env != 'development' %}
   location /.well-known/acme-challenge {
     alias {{base_path}}/dehydrated;
   }
+{% endif %}
   location /api {
     include proxy_params;
     proxy_pass http://api;
