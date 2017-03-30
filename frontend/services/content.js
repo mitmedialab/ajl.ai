@@ -15,6 +15,12 @@ export function errorProps(type) {
       confirmText: 'Retry',
     };
 
+  case actions.REQUEST_OVERALL_STATS_FAILED:
+    return {
+      errorTitle: 'Global Statistics Load Error',
+      confirmText: 'Retry',
+    };
+
   case actions.REQUEST_WORKLOAD_FAILED:
     return {
       errorTitle: 'Data Load Error',

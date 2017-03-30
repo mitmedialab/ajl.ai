@@ -57,6 +57,30 @@ export const requestAttributesFailed = (error, retryAction) => ({
   error: true,
 });
 
+/** @prop {string} Action to start a simple request for the global "overall" stats */
+export const REQUEST_OVERALL_STATS = 'REQUEST_OVERALL_STATS';
+export const requestOverallStats = () => ({
+  type: REQUEST_OVERALL_STATS,
+});
+
+/** @prop {string} Action to place received global "overall" statistics in the store */
+export const RECEIVE_OVERALL_STATS = 'RECEIVE_OVERALL_STATS';
+export const receiveOverallStats = stats => ({
+  type: RECEIVE_OVERALL_STATS,
+  payload: stats,
+});
+
+/** @prop {string} Action to signal the overall stats data request failed */
+export const REQUEST_OVERALL_STATS_FAILED = 'REQUEST_OVERALL_STATS_FAILED';
+export const requestOverallStatsFailed = (error, retryAction) => ({
+  type: REQUEST_OVERALL_STATS_FAILED,
+  payload: {
+    error,
+    retryAction,
+  },
+  error: true,
+});
+
 export const SAVE_DEMOGRAPHIC_ANNOTATIONS = 'SAVE_DEMOGRAPHIC_ANNOTATIONS';
 export const saveDemographicAnnotations = ({ id, annotations }) => ({
   type: SAVE_DEMOGRAPHIC_ANNOTATIONS,

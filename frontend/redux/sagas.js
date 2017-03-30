@@ -1,7 +1,13 @@
 import { call, fork, put, takeLatest, select } from 'redux-saga/effects';
-import { getAttributes, getWorkload, postWorkload } from '../services/api';
+import {
+  getAttributes,
+  getOverallStats,
+  getWorkload,
+  postWorkload,
+} from '../services/api';
 import {
   REQUEST_ATTRIBUTES, receiveAttributes, requestAttributesFailed,
+  REQUEST_OVERALL_STATS, receiveOverallStats, requestOverallStatsFailed,
   REQUEST_WORKLOAD, receiveWorkload, requestWorkloadFailed,
   COMPLETE_WORKLOAD, completeWorkloadFailed,
 } from './actions';
@@ -14,6 +20,16 @@ export function* requestAttributes(action) {
     yield put(receiveAttributes(anotatableAttributes));
   } catch (e) {
     yield put(requestAttributesFailed(e, action));
+  }
+}
+
+// worker Saga: will be fired on REQUEST_OVERALL_STATS actions
+export function* requestOverallStats(action) {
+  try {
+    const overallStats = yield call(getOverallStats);
+    yield put(receiveOverallStats(overallStats[0]));
+  } catch (e) {
+    yield put(requestOverallStatsFailed(e, action));
   }
 }
 
@@ -41,6 +57,7 @@ export function* completeWorkload(action) {
 export default function* rootSaga() {
   yield [
     fork(takeLatest, REQUEST_ATTRIBUTES, requestAttributes),
+    fork(takeLatest, REQUEST_OVERALL_STATS, requestOverallStats),
     fork(takeLatest, REQUEST_WORKLOAD, requestWorkload),
     fork(takeLatest, COMPLETE_WORKLOAD, completeWorkload),
   ];

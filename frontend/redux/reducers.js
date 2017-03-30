@@ -4,6 +4,7 @@ import loading from './reducers/loading';
 import demographicAttributes from './reducers/demographic-attributes';
 import workload from './reducers/workload';
 import annotations from './reducers/annotations';
+import overallStats from './reducers/overall-stats';
 import errors from './reducers/errors';
 
 /*
@@ -20,6 +21,9 @@ export default combineReducers({
   workload,
   // The image annotations to be submitted to the server
   annotations,
+  // Global "overall" statistics so users can see global contribution to the
+  // project
+  overallStats,
   // The error reducer stores API errors and any viable actions
   // a user could take to resolve the error
   errors,

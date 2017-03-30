@@ -17,3 +17,9 @@ export function getAttributes() {
     // Axios exposes JSON response body as .data property
     .then(result => result.data);
 }
+
+export function getOverallStats() {
+  return axios.get('/api/annotations/overall-stats')
+    // Axios exposes JSON response body as .data property
+    .then(result => result.data);
+}
