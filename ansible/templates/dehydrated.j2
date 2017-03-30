@@ -4,12 +4,12 @@
 ##########################################################################
 
 # Production cert server (DO NOT use these for testing!)
-#CA="https://acme-v01.api.letsencrypt.org/directory"
-#CA_TERMS="https://acme-v01.api.letsencrypt.org/terms"
+CA="https://acme-v01.api.letsencrypt.org/directory"
+CA_TERMS="https://acme-v01.api.letsencrypt.org/terms"
 
 # Staging cert server, for testing
-CA="https://acme-staging.api.letsencrypt.org/directory"
-CA_TERMS="https://acme-staging.api.letsencrypt.org/terms"
+# CA="https://acme-staging.api.letsencrypt.org/directory"
+# CA_TERMS="https://acme-staging.api.letsencrypt.org/terms"
 
 # Output directory for challenge-tokens to be served by webserver or deployed in HOOK (default: /var/www/dehydrated)
 WELLKNOWN="{{base_path}}/dehydrated"
