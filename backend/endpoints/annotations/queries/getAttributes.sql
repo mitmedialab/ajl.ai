@@ -1,9 +1,9 @@
 SELECT
   attr.id,
   attr.name,
-  jsonb_agg(option.name) as options
+  jsonb_agg(option.name ORDER BY option.sort_order) as options
 FROM
   annotation_attribute attr
   LEFT JOIN annotation_option option ON attr.id = option.annotation_attribute_id
 GROUP BY
-  1,2
+  attr.id, attr.name
