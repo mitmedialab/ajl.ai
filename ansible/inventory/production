@@ -1,1 +1,1 @@
-ajl.bocoup.org env=production domain_list="['ajl.bocoup.org',''fightbias.org',''fightbias.io','ajl.ai']"
+ajl.bocoup.org env=production domain_list='["ajl.bocoup.org","fightbias.org","fightbias.io","ajl.ai"]'
