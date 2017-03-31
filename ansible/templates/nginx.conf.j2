@@ -1,10 +1,16 @@
 upstream api {
   server localhost:{{env_vars[env].HTTP_PORT}};
 }
+{% for domain in [fqdn] + alias_domains %}
 
 server {
+  server_name {{domain}};
+{% if env == 'development' %}
   listen 80;
-  server_name {{fqdn}};
+{% endif %}
+  listen 443 ssl;
+  ssl_certificate_key {{cert_path}}/{{domain}}/{{ssl_key_file}};
+  ssl_certificate {{cert_path}}/{{domain}}/{{ssl_cert_file}};
   root {{public_path}};
   index index.html;
   location / {
@@ -14,6 +20,11 @@ server {
     auth_basic_user_file htpasswd;
 {% endif %}
   }
+{% if env != 'development' %}
+  location /.well-known/acme-challenge {
+    alias {{base_path}}/dehydrated;
+  }
+{% endif %}
   location /api {
     include proxy_params;
     proxy_pass http://api;
@@ -43,11 +54,12 @@ server {
       application/rss+xml
       image/svg+xml;
 }
-
 {% if env != 'development' %}
+
 server {
-  listen 80 default_server;
-  server_name _;
-  return 301 http://{{fqdn}}$request_uri;
+  server_name {{domain}};
+  listen 80;
+  return 301 https://{{fqdn}}$request_uri;
 }
 {% endif %}
+{% endfor %}

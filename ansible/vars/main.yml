@@ -59,3 +59,14 @@ backup_bucket: image-annotator-backup
 basic_auth: "{{env != 'development'}}"
 basic_auth_user: ia
 basic_auth_pass: kp7NlHvLFraLQ
+
+# Other domains (than the fqdn) that also alias to this server.
+alias_domains:
+  - fightbias.org
+  - fightbias.io
+  - ajl.ai
+
+# SSL cert location.
+cert_path: "/etc/dehydrated/certs"
+ssl_key_file: "privkey.pem"
+ssl_cert_file: "fullchain.pem"
