@@ -8,7 +8,6 @@ visually-hidden() {
 }
 
 button() {
-  height: 3em;
   text-align: center;
   line-height: 3em;
   font-weight: 600;
@@ -19,7 +18,6 @@ button() {
 
   &:hover,
   &:focus {
-    border-color: #666;
     outline: 0;
     background-color: $medium-blue;
   }
@@ -33,6 +31,10 @@ rounded() {
   border-radius: 3px;
 }
 
+very-rounded() {
+  border-radius: 5px;
+}
+
 top-rounded() {
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
@@ -43,9 +45,10 @@ top-rounded() {
 
 $light-blue = #d5e1e8
 $medium-blue = #c1d2dc
+$dark-blue = #abbdc7
 $aqua = #00AF9B
+
 $font-dark-blue = #62747E
-$font-light-blue = #62747E
 
 
 // Responsive Mixins

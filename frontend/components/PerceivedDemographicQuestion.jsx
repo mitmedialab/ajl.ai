@@ -14,9 +14,11 @@ const PerceivedDemographicQuestion = ({
   options,
   onChange,
   selected,
+  questionProgress,
 }) => (
   <fieldset className={classNames(className, styles.fieldset)}>
     <h4 className="PerceivedDemographicTitle">{name}</h4>
+    {questionProgress}
     {options.map((option) => {
       const optionKey = `${strToId(name)}_${strToId(option)}`;
       return (
@@ -40,6 +42,7 @@ PerceivedDemographicQuestion.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   selected: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  questionProgress: PropTypes.element.isRequired,
 };
 
 PerceivedDemographicQuestion.defaultProps = {
