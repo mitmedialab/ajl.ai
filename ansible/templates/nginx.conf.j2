@@ -1,16 +1,15 @@
 upstream api {
   server localhost:{{env_vars[env].HTTP_PORT}};
 }
-{% for domain in domains %}
 
 server {
-  server_name {{domain}};
+  server_name {{canonical_domain}};
 {% if env == 'development' %}
   listen 80;
 {% endif %}
   listen 443 ssl;
-  ssl_certificate_key {{cert_path}}/{{domain}}/{{ssl_key_file}};
-  ssl_certificate {{cert_path}}/{{domain}}/{{ssl_cert_file}};
+  ssl_certificate_key {{cert_path}}/{{canonical_domain}}/{{ssl_key_file}};
+  ssl_certificate {{cert_path}}/{{canonical_domain}}/{{ssl_cert_file}};
   root {{public_path}};
   index index.html;
   location / {
@@ -54,12 +53,21 @@ server {
       application/rss+xml
       image/svg+xml;
 }
-{% if env != 'development' %}
 
+{% for domain in domains if domain != canonical_domain %}
 server {
   server_name {{domain}};
+  listen 443 ssl;
+  ssl_certificate_key {{cert_path}}/{{domain}}/{{ssl_key_file}};
+  ssl_certificate {{cert_path}}/{{domain}}/{{ssl_cert_file}};
+  return 301 https://{{canonical_domain}}$request_uri;
+}
+{% endfor %}
+
+{% if env != 'development' %}
+server {
+  server_name _;
   listen 80;
   return 301 https://{{canonical_domain}}$request_uri;
 }
 {% endif %}
-{% endfor %}
