@@ -102,7 +102,8 @@ class PerceivedDemographics extends Component {
       total: totalImages,
     } = this.props;
     return (
-      <div>
+      <div className={styles.wrapper}>
+        <ProgressFeedbackContainer show={currentStep === 0} />
         <div className={styles.imageContainer}>
           <div className={styles.progressBarContainer}>
             <ProgressBar
@@ -120,15 +121,15 @@ class PerceivedDemographics extends Component {
           </ProportionalContainer>
         </div>
 
-        <div>
-          <ProgressBar
-            className={styles.progressBar}
-            incrementName="Step"
-            current={currentStep + 1}
-            total={questionOrder.length}
-          />
-          <ProgressFeedbackContainer show={currentStep === 0} />
+        <div className={styles.questionsContainer}>
           <form onSubmit={this.handleSubmit}>
+            {currentStep !== 0 ? (
+              <button
+                className={styles.prev}
+                type="button"
+                onClick={this.prevStep}
+              >◀</button>
+            ) : null}
             {questionOrder.map((questionName, idx) => {
               const { id, name, options } = demographicAttributes[questionName];
               return (
@@ -139,13 +140,23 @@ class PerceivedDemographics extends Component {
                   options={options}
                   selected={this.state[name]}
                   onChange={this.handleInputChange}
+                  questionProgress={<div className={styles.progressBarContainer}>
+                    <div className={styles.demographicLabels}>
+                      <span>Age</span><span>Gender</span><span>Ethnicity</span>
+                    </div>
+                    <ProgressBar
+                      className={styles.progressBar}
+                      incrementName="Step"
+                      current={currentStep + 1}
+                      total={questionOrder.length}
+                    />
+                  </div>}
                 />
-
               );
             })}
             {currentStep >= questionOrder.length ? (
-              <div role="alert">
-                <p>Review your annotations</p>
+              <div className={styles.reviewAnnotations} role="alert">
+                <h4>Review your annotations</h4>
                 <ul>{questionOrder.map((questionName) => {
                   const { name } = demographicAttributes[questionName];
                   const value = this.state[name];
@@ -156,14 +167,6 @@ class PerceivedDemographics extends Component {
                   );
                 })}</ul>
               </div>
-            ) : null}
-
-            {currentStep !== 0 ? (
-              <button
-                className={styles.prev}
-                type="button"
-                onClick={this.prevStep}
-              >Back</button>
             ) : null}
 
             <button
