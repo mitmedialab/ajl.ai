@@ -1,7 +1,7 @@
 upstream api {
   server localhost:{{env_vars[env].HTTP_PORT}};
 }
-{% for domain in [fqdn] + alias_domains %}
+{% for domain in domains[env] %}
 
 server {
   server_name {{domain}};
@@ -59,7 +59,7 @@ server {
 server {
   server_name {{domain}};
   listen 80;
-  return 301 https://{{fqdn}}$request_uri;
+  return 301 https://{{canonical_domain}}$request_uri;
 }
 {% endif %}
 {% endfor %}

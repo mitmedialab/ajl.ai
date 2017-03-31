@@ -27,7 +27,7 @@
 
 - name: ensure letsencrypt certs get created
   stat:
-    path: "{{cert_path}}/{{fqdn}}/cert.pem"
+    path: "{{cert_path}}/{{canonical_domain}}/cert.pem"
   register: cert
   changed_when: "not cert.stat.exists"
   # This happens via notify because nginx may need to be restarted first

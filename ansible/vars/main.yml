@@ -27,6 +27,18 @@ env_vars:
     NODE_ENV: production
     HTTP_HOST: localhost
     HTTP_PORT: 8000
+  staging:
+    PGHOST: localhost
+    PGPORT: 5432
+    PGNAME: image-annotator
+    PGUSER: image-annotator
+    # this complex variable assignment makes it so ansible's head doesn't
+    # explode when a vault variable isn't defined (e.g. when provisioning
+    # a local vagrant machine where vault isn't needed)
+    PGPASS: "{{(vault | default({})).PGPASS | default(None)}}"
+    NODE_ENV: production
+    HTTP_HOST: localhost
+    HTTP_PORT: 8000
 
 # Parent directory for cloned repository directories. The clone_path and
 # site_path should be children of this directory.
@@ -60,11 +72,20 @@ basic_auth: "{{env != 'development'}}"
 basic_auth_user: ia
 basic_auth_pass: kp7NlHvLFraLQ
 
-# Other domains (than the fqdn) that also alias to this server.
-alias_domains:
-  - fightbias.org
-  - fightbias.io
-  - ajl.ai
+# Control which domains nginx listens to, depending on environment.
+domains:
+  production:
+    - ajl.bocoup.org
+    - fightbias.org
+    - fightbias.io
+    - ajl.ai
+  staging:
+    - ajl-staging.bocoup.org
+  development:
+    - 10.10.0.100
+
+# Control which domain will be preferred by nginx.
+canonical_domain: "{{domains[env].0}}"
 
 # SSL cert location.
 cert_path: "/etc/dehydrated/certs"
