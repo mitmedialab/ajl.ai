@@ -140,17 +140,19 @@ class PerceivedDemographics extends Component {
                   options={options}
                   selected={this.state[name]}
                   onChange={this.handleInputChange}
-                  questionProgress={<div className={styles.progressBarContainer}>
-                    <div className={styles.demographicLabels}>
-                      <span>Age</span><span>Gender</span><span>Ethnicity</span>
+                  questionProgress={(
+                    <div className={styles.progressBarContainer}>
+                      <div className={styles.demographicLabels}>
+                        <span>Age</span><span>Gender</span><span>Ethnicity</span>
+                      </div>
+                      <ProgressBar
+                        className={styles.progressBar}
+                        incrementName="Step"
+                        current={currentStep + 1}
+                        total={questionOrder.length}
+                      />
                     </div>
-                    <ProgressBar
-                      className={styles.progressBar}
-                      incrementName="Step"
-                      current={currentStep + 1}
-                      total={questionOrder.length}
-                    />
-                  </div>}
+                  )}
                 />
               );
             })}
