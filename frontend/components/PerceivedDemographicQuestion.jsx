@@ -42,7 +42,7 @@ PerceivedDemographicQuestion.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   selected: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  questionProgress: PropTypes.object,
+  questionProgress: PropTypes.element.isRequired,
 };
 
 PerceivedDemographicQuestion.defaultProps = {
