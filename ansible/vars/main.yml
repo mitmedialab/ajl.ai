@@ -72,20 +72,13 @@ basic_auth: "{{env != 'development'}}"
 basic_auth_user: ia
 basic_auth_pass: kp7NlHvLFraLQ
 
-# Control which domains nginx listens to, depending on environment.
-domains:
-  production:
-    - ajl.bocoup.org
-    - fightbias.org
-    - fightbias.io
-    - ajl.ai
-  staging:
-    - ajl-staging.bocoup.org
-  development:
-    - 10.10.0.100
-
-# Control which domain will be preferred by nginx.
-canonical_domain: "{{domains[env].0}}"
+# These variables control which domains nginx responds to.
+# If a domain list is provided in an inventory file, nginx will
+# use the first entry as the canonical and redirect all others
+# to it. If no domain listing is provided it is assumed that the
+# provided hostname in the inventory file is the only domain.
+domains: "{{domain_list | default([inventory_hostname])}}"
+canonical_domain: "{{domains.0}}"
 
 # SSL cert location.
 cert_path: "/etc/dehydrated/certs"
