@@ -1,5 +1,10 @@
 @import '../shared/mixins.styl';
 
+.nav {
+  max-width: 1000px;
+  margin: auto;
+}
+
 .nav a {
   display: inline-block;
   padding: 1em;
@@ -17,4 +22,14 @@
   width: 100%;
   background: white;
   text-align: center;
+}
+
+@media only screen and (min-width: 45em) {  
+  .nav {
+    text-align: left;
+  }
+  
+  .nav a {
+    width: inherit;
+  }
 }
