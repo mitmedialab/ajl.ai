@@ -102,83 +102,85 @@ class PerceivedDemographics extends Component {
       total: totalImages,
     } = this.props;
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.mainContainer}>
-          <ProgressFeedbackContainer show={currentStep === 0} />
-          <div className={styles.imageContainer}>
-            <div className={styles.progressBarContainer}>
-              <ProgressBar
-                className={styles.progressBar}
-                incrementName="Image"
-                current={currentImage}
-                total={totalImages}
-              />
+      <div>
+        <ProgressFeedbackContainer show={currentStep === 0} />
+        <div className={styles.wrapper}>
+          <div className={styles.mainContainer}>
+            <div className={styles.imageContainer}>
+              <div className={styles.progressBarContainer}>
+                <ProgressBar
+                  className={styles.progressBar}
+                  incrementName="Image"
+                  current={currentImage}
+                  total={totalImages}
+                />
+              </div>
+              <ProportionalContainer maxWidth="500px" widthHeightRatio={1}>
+                <img
+                  src={this.props.image && this.props.image.url}
+                  alt="A face to label with perceived demographic information"
+                />
+              </ProportionalContainer>
             </div>
-            <ProportionalContainer maxWidth="500px" widthHeightRatio={1}>
-              <img
-                src={this.props.image && this.props.image.url}
-                alt="A face to label with perceived demographic information"
-              />
-            </ProportionalContainer>
-          </div>
 
-          <div className={styles.questionsContainer}>
-            <form onSubmit={this.handleSubmit}>
-              {currentStep !== 0 ? (
-                <button
-                  className={styles.prev}
-                  type="button"
-                  onClick={this.prevStep}
-                >◀</button>
-              ) : null}
-              {questionOrder.map((questionName, idx) => {
-                const { id, name, options } = demographicAttributes[questionName];
-                return (
-                  <PerceivedDemographicQuestion
-                    key={`question_${strToId(name)}_${id}`}
-                    className={currentStep !== idx ? styles.hidden : ''}
-                    name={name}
-                    options={options}
-                    selected={this.state[name]}
-                    onChange={this.handleInputChange}
-                    questionProgress={(
-                      <div className={styles.progressBarContainer}>
-                        <div className={styles.demographicLabels}>
-                          <span>Age</span><span>Gender</span><span>Ethnicity</span>
+            <div className={styles.questionsContainer}>
+              <form onSubmit={this.handleSubmit}>
+                {currentStep !== 0 ? (
+                  <button
+                    className={styles.prev}
+                    type="button"
+                    onClick={this.prevStep}
+                  >◀</button>
+                ) : null}
+                {questionOrder.map((questionName, idx) => {
+                  const { id, name, options } = demographicAttributes[questionName];
+                  return (
+                    <PerceivedDemographicQuestion
+                      key={`question_${strToId(name)}_${id}`}
+                      className={currentStep !== idx ? styles.hidden : ''}
+                      name={name}
+                      options={options}
+                      selected={this.state[name]}
+                      onChange={this.handleInputChange}
+                      questionProgress={(
+                        <div className={styles.progressBarContainer}>
+                          <div className={styles.demographicLabels}>
+                            <span>Age</span><span>Gender</span><span>Ethnicity</span>
+                          </div>
+                          <ProgressBar
+                            className={styles.progressBar}
+                            incrementName="Step"
+                            current={currentStep + 1}
+                            total={questionOrder.length}
+                          />
                         </div>
-                        <ProgressBar
-                          className={styles.progressBar}
-                          incrementName="Step"
-                          current={currentStep + 1}
-                          total={questionOrder.length}
-                        />
-                      </div>
-                    )}
-                  />
-                );
-              })}
-              {currentStep >= questionOrder.length ? (
-                <div className={styles.reviewAnnotations} role="alert">
-                  <h4>Review your annotations</h4>
-                  <ul>{questionOrder.map((questionName) => {
-                    const { name } = demographicAttributes[questionName];
-                    const value = this.state[name];
-                    return (
-                      <li key={`confirmation_${name}`}>
-                        {name}: <strong>{value}</strong>
-                      </li>
-                    );
-                  })}</ul>
-                </div>
-              ) : null}
-
-              <button
-                className={classNames(styles.save, {
-                  [styles.hidden]: currentStep < questionOrder.length,
+                      )}
+                    />
+                  );
                 })}
-                type="submit"
-              >Submit Annotations</button>
-            </form>
+                {currentStep >= questionOrder.length ? (
+                  <div className={styles.reviewAnnotations} role="alert">
+                    <h4>Review your annotations</h4>
+                    <ul>{questionOrder.map((questionName) => {
+                      const { name } = demographicAttributes[questionName];
+                      const value = this.state[name];
+                      return (
+                        <li key={`confirmation_${name}`}>
+                          {name}: <strong>{value}</strong>
+                        </li>
+                      );
+                    })}</ul>
+                  </div>
+                ) : null}
+
+                <button
+                  className={classNames(styles.save, {
+                    [styles.hidden]: currentStep < questionOrder.length,
+                  })}
+                  type="submit"
+                >Submit Annotations</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
