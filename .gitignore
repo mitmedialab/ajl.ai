@@ -41,3 +41,5 @@ dist
 
 # ansible .retry files
 **.retry
+
+responses.csv
