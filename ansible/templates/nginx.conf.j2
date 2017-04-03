@@ -26,6 +26,7 @@ server {
 {% endif %}
   location /api {
     include proxy_params;
+    proxy_set_header REMOTE_USER $remote_user;
     proxy_pass http://api;
   }
   location ~* \.(css|js) {
