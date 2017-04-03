@@ -23,7 +23,7 @@ UPDATE annotation_option
 
 UPDATE annotation_option
   SET name = 'Hispanic', sort_order = 3
-  WHERE name = 'latino/a';
+  WHERE name = 'lantino/a';
 
 INSERT INTO annotation_option (annotation_attribute_id, name, sort_order)
   VALUES (3, 'Middle Eastern', 4);
@@ -85,8 +85,11 @@ UPDATE annotation_option
   WHERE name = 'Black';
 
 UPDATE annotation_option
-  SET name = 'latino/a'
+  SET name = 'lantino/a'
   WHERE name = 'Hispanic';
+
+DELETE FROM image_annotation
+  WHERE annotation_option_id = (SELECT id FROM annotation_option WHERE name = 'Middle Eastern');
 
 DELETE FROM annotation_option
   WHERE name = 'Middle Eastern';
