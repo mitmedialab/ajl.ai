@@ -9,6 +9,11 @@ export function getAttributes(req, res) {
     .then(data => res.send(data));
 }
 
+export function getOverallStats(req, res) {
+  db.query(queries.getOverallStats)
+    .then(data => res.send(data));
+}
+
 export function getWorkload(req, res) {
   // First time users see 8 truths, 4 new images.
   // Every workload after the first should get 2 truths, 1 new image.

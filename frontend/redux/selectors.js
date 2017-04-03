@@ -30,3 +30,6 @@ export const completedWorkloadCount = state => state.workload.completeCount;
 
 export const onFirstImage = state =>
   state.workload.todo.length && ! state.workload.complete.length;
+
+export const overallAnnotated = state => Number(state.overallStats.annotated_count);
+export const overallImages = state => Number(state.overallStats.total_count);
