@@ -1,37 +1,70 @@
 @import './shared/mixins.styl';
 
 .wrapper {
+  margin: auto;
+  background-color: $gray-1;
+  overflow: auto;
+  padding: .75em;
+}
+
+@media only screen and (min-width: 33em) { 
+  .wrapper {
+    padding: 3em;
+  }
+}
+
+.mainContainer {
+  position: relative;
   max-width: 500px;
   margin: auto;
 }
 
 .imageContainer {
   position: relative;
+  padding: 0.75em 0.75em 3.6em;
+  border: 1px solid $gray-2;
+  background-color: white;
 
   .progressBarContainer {
-    rounded()
-    background: white;
-    position: absolute;
-    z-index: 1;
-    margin-top: .75em;
-    right: .75em;
-    left: .75em;
-    padding: .25em .5em;
+    margin-bottom: .75em;
   }
 }
 
 .questionsContainer {
   position: relative;
-  margin-top: -51px;
+  margin-top: -52px;
 
   h4 {
     top-rounded()
     text-transform: uppercase;
     font-weight: 700;
-    background: $light-blue;
     padding: .75em 0;
     margin: 0 0 1em;
-    text-align: center
+    text-align: center;
+    border-bottom: 1px solid $gray-2;
+  }
+}
+
+@media only screen and (min-width: 45em) { 
+  
+  .mainContainer {
+    max-width: 1000px;
+    margin: auto;
+    padding: 0 .75em;
+  }
+  
+  .imageContainer, .questionsContainer {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  .questionsContainer {
+    margin-top: 0;
+    
+    form {
+      margin-top: 0;
+    }
   }
 }
 
@@ -51,7 +84,7 @@
 fieldset {
   rounded()
   background: white;
-  border: none;
+  border: 1px solid $gray-2;
   padding: 0 0 .25em;
   margin: 0;
   
