@@ -160,7 +160,7 @@ class PerceivedDemographics extends Component {
                 })}
                 {currentStep >= questionOrder.length ? (
                   <div className={styles.reviewAnnotations} role="alert">
-                    <h4>Review your annotations</h4>
+                    <h4 className={styles.PerceivedDemographicTitle}>Review your annotations</h4>
                     <ul>{questionOrder.map((questionName) => {
                       const { name } = demographicAttributes[questionName];
                       const value = this.state[name];

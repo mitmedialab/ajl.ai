@@ -1,0 +1,89 @@
+@import './App.styl';
+@import './shared/mixins.styl';
+
+.hompageContainer {
+  border: 1px solid $gray-2;
+  background-color: white;
+}
+
+// h1, h2 {
+//   font-weight: 100;
+// }
+
+.homeSubHeader {
+  padding: 1.5em;
+}
+
+section {
+  padding: 0 1.5em;
+}
+
+.homeSubHeader {
+  border-bottom: 1px solid $gray-2;
+  margin-bottom: 2em;
+  position: relative;
+  
+  h1 {
+    margin: 0 0 0.25em 0;
+  }
+  
+  h5 {
+    font-size: 1em;
+    margin: 0;
+  }
+}
+
+.homeSubHeader h1:after {
+  content: '';
+  position: absolute;
+  background-color: $aqua;
+  widht: 50px;
+  height: 10px;
+  bottom: 0;
+  
+}
+
+section {
+  margin-bottom: 2em;
+  
+  h2 {
+    margin-bottom: .25em;
+  }
+}
+
+.homepageProgressBar {
+  padding-top: 1em;
+  border-top: 1px solid $gray-2;
+  
+  p {
+    font-weight: 600;
+  }
+}
+
+@media only screen and (min-width: 33em) { 
+  
+  .homeSubHeader {
+    padding: 2em;
+  }
+
+  section {
+    padding: 0 2em;
+  }
+  
+  .homepageProgressBar {
+    padding-top: 2em;
+  }
+}
+
+@media only screen and (min-width: 45em) { 
+  
+  .homeSubHeader {
+    margin-bottom: 3em;
+    padding: 3em;
+  }
+
+  section {
+    margin-bottom: 3em;
+    padding: 0 3em;
+  }
+}

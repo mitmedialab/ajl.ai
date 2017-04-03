@@ -1,23 +1,5 @@
+@import './App.styl';
 @import './shared/mixins.styl';
-
-.wrapper {
-  margin: auto;
-  background-color: $gray-1;
-  overflow: auto;
-  padding: .75em;
-}
-
-@media only screen and (min-width: 33em) { 
-  .wrapper {
-    padding: 3em;
-  }
-}
-
-.mainContainer {
-  position: relative;
-  max-width: 500px;
-  margin: auto;
-}
 
 .imageContainer {
   position: relative;
@@ -34,7 +16,7 @@
   position: relative;
   margin-top: -52px;
 
-  h4 {
+  h4.PerceivedDemographicTitle {
     top-rounded()
     text-transform: uppercase;
     font-weight: 700;
@@ -46,12 +28,6 @@
 }
 
 @media only screen and (min-width: 45em) { 
-  
-  .mainContainer {
-    max-width: 1000px;
-    margin: auto;
-    padding: 0 .75em;
-  }
   
   .imageContainer, .questionsContainer {
     width: 50%;
