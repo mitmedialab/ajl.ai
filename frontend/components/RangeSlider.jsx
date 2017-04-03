@@ -4,7 +4,7 @@ export default class RangeSlider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: Math.floor((props.min+props.max) / 2),
+      value: Math.floor((props.min + props.max) / 2),
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -20,13 +20,13 @@ export default class RangeSlider extends Component {
     const { name } = this.props;
     const { value } = this.state;
 
-    this.props.onChange({ target: { name, value: String(value) }})
+    this.props.onChange({ target: { name, value: String(value) } });
   }
 
   render() {
     const {
-      props: {min, max},
-      state: {value},
+      props: { min, max },
+      state: { value },
     } = this;
     return (
       <div>
@@ -40,13 +40,13 @@ export default class RangeSlider extends Component {
         {value}
         <button onClick={this.handleClick}>Next</button>
       </div>
-    )
+    );
   }
 }
 
 RangeSlider.propTypes = {
-  name: PropTypes.string,
-  min: PropTypes.number,
-  max: PropTypes.number,
+  name: PropTypes.string.isRequired,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
