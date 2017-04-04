@@ -3,12 +3,13 @@ ALTER TABLE annotation_attribute
 
 UPDATE annotation_attribute
   SET type = 'select-one'
-  WHERE NOT(name = 'Perceived Age');
+  WHERE name != 'Perceived Age';
 
 UPDATE annotation_attribute
   SET type = 'range'
   WHERE name = 'Perceived Age';
 
+-- need to delete the image_annotation records that might point at our old options
 DELETE FROM image_annotation
   WHERE annotation_option_id = any(
     SELECT id from annotation_option
@@ -30,6 +31,13 @@ INSERT INTO annotation_option (annotation_attribute_id, name, sort_order)
 ALTER TABLE annotation_attribute
   DROP type;
 
+-- need to delete the image_annotation records that might point at our old options
+DELETE FROM image_annotation
+  WHERE annotation_option_id = any(
+    SELECT id from annotation_option
+      WHERE annotation_attribute_id =
+        (SELECT id FROM annotation_attribute WHERE name='Perceived Age')
+  );
 
 DELETE FROM annotation_option
   WHERE annotation_attribute_id = (SELECT id FROM annotation_attribute WHERE name='Perceived Age');
