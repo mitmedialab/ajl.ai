@@ -24,7 +24,7 @@ ProgressFeedback.propTypes = {
 
 const mapStateToProps = (state, props) => ({
   message: workloadFeedback(completedWorkloadCount(state)),
-  show: props.show && onFirstImage(state),
+  show: Boolean(props.show && onFirstImage(state)),
 });
 
 export default connect(mapStateToProps)(ProgressFeedback);
