@@ -17,7 +17,7 @@ const PerceivedDemographicQuestion = ({
   questionProgress,
 }) => (
   <fieldset className={classNames(className, styles.fieldset)}>
-    <h4 className="PerceivedDemographicTitle">{name}</h4>
+    <h4 className={styles.PerceivedDemographicTitle}>{name}</h4>
     {questionProgress}
     {options.map((option) => {
       const optionKey = `${strToId(name)}_${strToId(option)}`;

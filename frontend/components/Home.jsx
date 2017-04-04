@@ -1,25 +1,49 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import KnownOverallProgressContainer from './KnownOverallProgressContainer';
 
+import styles from './Home.styl';
+
 export default () => (
-  <div>
-    <h1>The Computer Vision Benchmarking Project</h1>
-    <h5>From the Algorithmic Justice League</h5>
-    <h2>Help us to measure bias in computer vision systems</h2>
-    <p>
-      The <acronym title="Algorithmic Justice League">AJL</acronym> is
-      building the first annotated data set of diverse faces to benchmark
-      bias in facial recognition systems.
-    </p>
-    <p>
-      You can help by labeling images
-      with <Link to="/PerceivedDemographics">perceived demographics</Link>,
-      identifying specific <Link to="/Regions">regions</Link> and
-      <Link to="/Landmarks">outlining features</Link> of the faces in our curated
-      database of pictures of public domain faces.
-    </p>
-    <KnownOverallProgressContainer />
+  <div className={styles.wrapper}>
+    <div className={styles.mainContainer}>
+      <div className={styles.hompageContainer}>
+        <div className={styles.homeSubHeader}>
+          <h1>The Computer Vision Benchmarking Project</h1>
+          <h5>From the Algorithmic Justice League</h5>
+        </div>
+        <section>
+          <h2>Make a Difference</h2>
+          <p>
+            Algorithms are trained and tested with data sets.
+            A lack of diversity in these data sets can lead
+            to biased systems. Help us check for bias by tagging
+            influential data sets.
+          </p>
+        </section>
+        <section>
+          <h2>Simple Actions Matter</h2>
+          <p>
+            The simple action of tagging face images with perceived
+            age, gender, and ethnicity will generate bias busting
+            information that will inform the creation of inclusive technology.
+          </p>
+        </section>
+        <section>
+          <h2>Be Heard</h2>
+          <p>
+            As algorithms increasingly influence more aspects of our lives,
+            we need ways to keep coded systems accountable. Please be in
+            touch with questions, comments, concerns, and experiences relating
+            to algorithmic bias.
+          </p>
+          <a className={styles.homepageContactUs} href="https://docs.google.com/a/bocoup.com/forms/d/1UsW1hGalLGVQ8xSdCpDp_tq2So24tdiq084n8wUiWic/edit">Contact Us</a>
+        </section>
+        <section className={styles.homepageProgressBar}>
+          <KnownOverallProgressContainer />
+        </section>
+      </div>
+    </div>
   </div>
 );

@@ -1,23 +1,5 @@
+@import './App.styl';
 @import './shared/mixins.styl';
-
-.wrapper {
-  margin: auto;
-  background-color: $gray-1;
-  overflow: auto;
-  padding: .75em;
-}
-
-@media only screen and (min-width: 33em) { 
-  .wrapper {
-    padding: 3em;
-  }
-}
-
-.mainContainer {
-  position: relative;
-  max-width: 500px;
-  margin: auto;
-}
 
 .imageContainer {
   position: relative;
@@ -34,8 +16,7 @@
   position: relative;
   margin-top: -52px;
 
-  h4 {
-    top-rounded()
+  h4.PerceivedDemographicTitle {
     text-transform: uppercase;
     font-weight: 700;
     padding: .75em 0;
@@ -45,12 +26,81 @@
   }
 }
 
+fieldset, .reviewAnnotations {
+  background: white;
+  border: 1px solid $gray-2;
+  padding: 0 0 .25em;
+  margin: 0;
+  
+  .progressBarContainer {
+    padding: 0 1em;
+  }
+  .demographicLabels span {
+    width: 33.33%;
+    text-align: center;
+    display: inline-block;
+  }
+}
+
+.reviewAnnotations {
+  
+  ul {
+    list-style: none;
+    padding: 0 1em 1em;
+    margin: 0;
+    line-height: 2em;
+  }
+}
+
+.prev,
+.save {
+  font-family: 'Open Sans', sans-serif;
+  border: none;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.prev {
+  position: absolute;
+  background-color: $light-blue;
+  color: $font-dark-blue;
+  margin: 0;
+  height: 42px;
+  padding: 0 1em;
+  
+  &:hover {
+    background-color: $medium-blue;
+  }
+}
+
+.save {
+  button-aqua()
+  margin: 0 1em 1em;
+}
+
+.hidden {
+  visually-hidden();
+}
+
+@media only screen and (min-width: 26em) { 
+   
+  fieldset .progressBarContainer {
+    padding: 0 1.5em;
+  }
+  
+  .reviewAnnotations ul {
+    padding: .5em 1.5em 1em 1.5em;
+  }
+  
+  .save {
+    margin: 0 1.5em 1.5em;
+  }
+}
+
 @media only screen and (min-width: 45em) { 
   
-  .mainContainer {
-    max-width: 1000px;
-    margin: auto;
-    padding: 0 .75em;
+  .imageContainer{
+    padding-bottom: .75em;
   }
   
   .imageContainer, .questionsContainer {
@@ -68,62 +118,17 @@
   }
 }
 
-.reviewAnnotations {
-  rounded()
-  background-color: white;
-  overflow: auto;
-  margin-bottom: .75em;
+@media only screen and (min-width: 63em) {  
   
-  ul {
-    list-style: none;
-    padding: 0 1em;
-    line-height: 2em;
+  fieldset .progressBarContainer {
+    padding: 0 2.5em;
   }
-}
-
-fieldset {
-  rounded()
-  background: white;
-  border: 1px solid $gray-2;
-  padding: 0 0 .25em;
-  margin: 0;
   
-  .progressBarContainer {
-    padding: 0 1em;
+  .reviewAnnotations ul {
+    padding: 1.5em 2.5em 1.5em 2.5em;
   }
-  .demographicLabels span {
-    width: 33.33%;
-    text-align: center;
-    display: inline-block;
+  
+  .save {
+    margin: 0 2.5em 2.5em;
   }
-}
-
-.prev,
-.save {
-  font-family: 'Open Sans', sans-serif;
-  border: none;
-  font-size: 1em;
-  font-weight: 600;
-}
-
-.prev {
-  position: absolute;
-  background-color: $dark-blue;
-  color: $font-dark-blue;
-  border-top-left-radius: 3px;
-  margin: 0;
-  height: 40px;
-  padding: 0 1em;
-}
-
-.save {
-  rounded()
-  line-height: 2.5em;
-  background-color: $aqua;
-  color: white;
-  width: 100%;
-}
-
-.hidden {
-  visually-hidden();
 }
