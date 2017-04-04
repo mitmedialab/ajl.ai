@@ -1,0 +1,15 @@
+- hosts: all
+  vars_files:
+    - vars/main.yml
+    - vars/secrets.yml
+  tasks:
+    - name: export responses
+      shell: psql -c "COPY (SELECT email,response,created_at FROM feedback) TO STDOUT WITH CSV"
+      environment: "{{env_vars[env]}}"
+      register: responses
+
+    - name: write responses to current directory
+      copy:
+        dest: "{{lookup('env','PWD')}}/responses.csv"
+        content: "{{responses.stdout}}"
+      delegate_to: localhost

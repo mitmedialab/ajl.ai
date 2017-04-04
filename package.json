@@ -40,7 +40,8 @@
     "database-restore:staging": "ansible-playbook --ask-sudo-pass -i ansible/inventory/staging ansible/database-restore.yml",
     "provision:production": "ansible-playbook --ask-vault-pass --ask-sudo-pass -i ansible/inventory/production ansible/provision.yml",
     "deploy:production": "ansible-playbook --ask-vault-pass -i ansible/inventory/production ansible/deploy.yml",
-    "database-restore:production": "ansible-playbook --ask-sudo-pass -i ansible/inventory/production ansible/database-restore.yml"
+    "database-restore:production": "ansible-playbook --ask-sudo-pass -i ansible/inventory/production ansible/database-restore.yml",
+    "download-feedback": "ansible-playbook --ask-vault-pass -i ansible/inventory/production ansible/download-feedback.yml"
   },
   "jest": {
     "moduleFileExtensions": [

@@ -4,6 +4,9 @@ commit: master
 # The git repository to clone when deploying.
 git_repo: https://github.com/bocoup/image-annotator.git
 
+# Get secrets from vault, or an empty dictonary if we don't need them.
+secrets: "{{vault | default({})}}"
+
 # Control environment variables for each supported environment.
 env_vars:
   development:
@@ -11,7 +14,7 @@ env_vars:
     PGPORT: 5432
     PGNAME: image-annotator
     PGUSER: image-annotator
-    PGPASS:
+    PGPASSWORD:
     NODE_ENV: development
     HTTP_HOST: 0.0.0.0
     HTTP_PORT: 8000
@@ -20,10 +23,7 @@ env_vars:
     PGPORT: 5432
     PGNAME: image-annotator
     PGUSER: image-annotator
-    # this complex variable assignment makes it so ansible's head doesn't
-    # explode when a vault variable isn't defined (e.g. when provisioning
-    # a local vagrant machine where vault isn't needed)
-    PGPASS: "{{(vault | default({})).PGPASS | default(None)}}"
+    PGPASSWORD: "{{secrets.PGPASSWORD | default(None)}}"
     NODE_ENV: production
     HTTP_HOST: localhost
     HTTP_PORT: 8000
@@ -35,7 +35,7 @@ env_vars:
     # this complex variable assignment makes it so ansible's head doesn't
     # explode when a vault variable isn't defined (e.g. when provisioning
     # a local vagrant machine where vault isn't needed)
-    PGPASS: "{{(vault | default({})).PGPASS | default(None)}}"
+    PGPASSWORD: "{{secrets.PGPASSWORD | default(None)}}"
     NODE_ENV: production
     HTTP_HOST: localhost
     HTTP_PORT: 8000
@@ -69,8 +69,8 @@ backup_bucket: image-annotator-backup
 
 # Manage authentication.
 basic_auth: "{{env != 'development'}}"
-basic_auth_user: ia
-basic_auth_pass: kp7NlHvLFraLQ
+basic_auth_users: "{{secrets.users | default([])}}"
+basic_auth_password: kp7NlHvLFraLQ
 
 # These variables control which domains nginx responds to.
 # If a domain list is provided in an inventory file, nginx will

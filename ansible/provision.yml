@@ -215,7 +215,7 @@
       become_user: postgres
       postgresql_user:
         name: "{{env_vars[env].PGUSER}}"
-        password: "{{env_vars[env].PGPASS}}"
+        password: "{{env_vars[env].PGPASSWORD}}"
 
     - name: ensure database exists
       become: yes
