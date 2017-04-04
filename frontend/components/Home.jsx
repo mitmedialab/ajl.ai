@@ -38,6 +38,7 @@ export default () => (
             touch with questions, comments, concerns, and experiences relating
             to algorithmic bias.
           </p>
+          <button className={styles.homepageContactUs}>Contact Us</button>
         </section>
         <section className={styles.homepageProgressBar}>
           <KnownOverallProgressContainer />

@@ -170,15 +170,14 @@ class PerceivedDemographics extends Component {
                         </li>
                       );
                     })}</ul>
+                    <button
+                      className={classNames(styles.save, {
+                        [styles.hidden]: currentStep < questionOrder.length,
+                      })}
+                      type="submit"
+                    >Submit Annotations</button>
                   </div>
                 ) : null}
-
-                <button
-                  className={classNames(styles.save, {
-                    [styles.hidden]: currentStep < questionOrder.length,
-                  })}
-                  type="submit"
-                >Submit Annotations</button>
               </form>
             </div>
           </div>

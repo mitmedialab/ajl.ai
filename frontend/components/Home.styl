@@ -6,19 +6,8 @@
   background-color: white;
 }
 
-// h1, h2 {
-//   font-weight: 100;
-// }
-
 .homeSubHeader {
   padding: 1.5em;
-}
-
-section {
-  padding: 0 1.5em;
-}
-
-.homeSubHeader {
   border-bottom: 1px solid $gray-2;
   margin-bottom: 2em;
   position: relative;
@@ -44,6 +33,7 @@ section {
 }
 
 section {
+  padding: 0 1.5em;
   margin-bottom: 2em;
   
   h2 {
@@ -58,6 +48,10 @@ section {
   p {
     font-weight: 600;
   }
+}
+
+.homepageContactUs {
+  button-aqua()
 }
 
 @media only screen and (min-width: 33em) { 
@@ -85,5 +79,18 @@ section {
   section {
     margin-bottom: 3em;
     padding: 0 3em;
+  }
+}
+
+@media only screen and (min-width: 63em) { 
+  
+  .homeSubHeader {
+    margin-bottom: 4em;
+    padding: 4em;
+  }
+
+  section {
+    margin-bottom: 4em;
+    padding: 0 4em;
   }
 }

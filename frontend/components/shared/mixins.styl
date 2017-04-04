@@ -21,9 +21,22 @@ button() {
     outline: 0;
     background-color: $medium-blue;
   }
+}
 
-  &:active {
-    background: #ddd;
+button-aqua() {
+  button()
+  background-color: $aqua;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: white;
+  border: none;
+  font-size: 1em;
+  padding: 0 2em;
+  margin-top: 1em;
+  
+  &:hover, 
+  &:focus {
+    background-color: $aqua-dark;
   }
 }
 
@@ -56,6 +69,7 @@ $light-blue = #d5e1e8
 $medium-blue = #c1d2dc
 $dark-blue = #abbdc7
 $aqua = #00AF9B
+$aqua-dark = #019e8c
 
 $font-dark-blue = #3f4b61
 
