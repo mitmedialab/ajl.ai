@@ -11,8 +11,15 @@ export default () => (
       <div className={styles.hompageContainer}>
         <div className={styles.homeSubHeader}>
           <h1>The Computer Vision Benchmarking Project</h1>
-          <h5>From the Algorithmic Justice League</h5>
+          <h5>
+            From the <a href="http://ajlunited.org">
+              Algorithmic Justice League
+            </a>
+          </h5>
         </div>
+        <section className={styles.homepageProgressBar}>
+          <KnownOverallProgressContainer />
+        </section>
         <section>
           <h2>Make a Difference</h2>
           <p>
@@ -39,9 +46,6 @@ export default () => (
             to algorithmic bias.
           </p>
           <a className={styles.homepageContactUs} href="https://docs.google.com/a/bocoup.com/forms/d/1UsW1hGalLGVQ8xSdCpDp_tq2So24tdiq084n8wUiWic/edit">Contact Us</a>
-        </section>
-        <section className={styles.homepageProgressBar}>
-          <KnownOverallProgressContainer />
         </section>
       </div>
     </div>

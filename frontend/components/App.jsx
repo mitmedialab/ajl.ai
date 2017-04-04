@@ -20,7 +20,7 @@ const App = () => (
       <ModalContainer />
 
       <Route exact path="/" component={Home} />
-      <Route path="/PerceivedDemographics" component={PerceivedDemographicsContainer} />
+      <Route path="/annotate" component={PerceivedDemographicsContainer} />
 
       <footer>
         footer controls

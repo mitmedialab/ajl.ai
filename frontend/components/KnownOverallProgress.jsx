@@ -21,8 +21,11 @@ const KnownOverallProgress = ({
   }
   return (<div>
     <p>
-      We currently have {hasImages ? images : LOADING_IMAGES} images with data
-      on {hasAnnontated ? annotated : LOADING_ANNOTATED} of them.
+      We have <b>{hasAnnontated ?
+        annotated : LOADING_ANNOTATED}</b> of {hasImages ?
+        images : LOADING_IMAGES} images
+      annotated, help us get to our goal so that we can create a face
+      recognition benchmark with diverse faces!
     </p>
     <progress className={styles.progress} value={progress} min="0" max="100" />
   </div>);
