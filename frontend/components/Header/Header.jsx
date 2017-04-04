@@ -7,7 +7,7 @@ export default () => (
   <header className={styles.header}>
     <nav className={styles.nav}>
       <Link to="/">Home</Link>
-      <Link to="/PerceivedDemographics">Demographics</Link>
+      <Link to="/annotate">Annotate</Link>
     </nav>
   </header>
 );
