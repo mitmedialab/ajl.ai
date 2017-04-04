@@ -1,5 +1,5 @@
 SELECT
-  id, images, score
+  id, images, created_at, submitted_at
 FROM
   workload
 WHERE

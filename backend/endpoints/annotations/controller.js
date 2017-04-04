@@ -93,69 +93,18 @@ export function postAnnotations(req, res) {
       });
     });
 
-    return Promise.all(allQueries)
-    // return the storedWorkload through the chain
-      .then(() => storedWorkload);
+    allQueries.push(
+      db.query(queries.completeWorkload, { id: workloadId })
+    );
+
+    return Promise.all(allQueries);
   })
+  .then(() => {
+    session.repeatAnnotator = true;
 
-  // check if they got the 8 ground truths correct
-  // if they didn't get 8 right then have them start over
-  // if they did, then check if the 4 unknown images have 4 agreeing submissions
-  // and make a new ground truth
-  .then((storedWorkload) => {
-    const images = req.body.images;
-
-    const knownImageIds = storedWorkload[0].images
-      .filter(({ is_known: known }) => known)
-      .map(({ id }) => id);
-
-    const annotationMap = {};
-    images.forEach((image) => {
-      const annotations = {};
-      annotationMap[image.id] = annotations;
-
-      image.annotations.forEach((annotation) => {
-        annotations[annotation.name] = annotation;
-      });
-    });
-
-    // console.log('annotationMap: ', annotationMap);
-    // console.log('knownImageIds:', knownImageIds);
-
-    if (! knownImageIds.length) {
-      // if they worked through every known image in the database, give them a score of -1
-      return db.query(queries.scoreWorkload, { id: storedWorkload[0].id, score: -1 });
-    }
-
-    return db.query(queries.getKnownAnnotations, {
-      imageIds: knownImageIds,
-    }).then((knownAnnotations) => {
-
-      const correctKnowns = knownAnnotations.reduce((memo, known) => {
-        if (annotationMap[known.image_id][known.name].value === known.data.value) {
-          return memo + 1;
-        }
-        console.log('>>> Got one wrong', known, 'vs', annotationMap[known.image_id][known.name]);
-        return memo;
-      }, 0);
-
-      // Basically a percent for now...
-      const score = correctKnowns / knownAnnotations.length;
-
-      console.log('>>> final score: ', correctKnowns, 'of', knownAnnotations.length, score);
-      console.log('workload #', storedWorkload[0].id);
-      db.query(queries.scoreWorkload, { id: storedWorkload[0].id, score });
-
-      // now they are a repeatAnnotator and can submit 3 more instead of 12
-      session.repeatAnnotator = true;
-
-      // TODO query annotations table to see if there are 3+ annotations
-      // that agree with each of the new annotations, and if so, store a new
-      // known annotation in the known db
-    });
+    // the reply to submitting a workload should be getting a new one
+    return getWorkload(req, res);
   })
-  // the reply to submitting a workload should be getting a new one
-  .then(() => getWorkload(req, res))
   // Respond with an error if it doesn't work
   .catch(e => apiDatabaseError(e, req, res));
 }
