@@ -133,12 +133,13 @@ class PerceivedDemographics extends Component {
                   >◀</button>
                 ) : null}
                 {questionOrder.map((questionName, idx) => {
-                  const { id, name, options } = demographicAttributes[questionName];
+                  const { id, name, type, options } = demographicAttributes[questionName];
                   return (
                     <PerceivedDemographicQuestion
                       key={`question_${strToId(name)}_${id}`}
                       className={currentStep !== idx ? styles.hidden : ''}
                       name={name}
+                      annotationType={type}
                       options={options}
                       selected={this.state[name]}
                       onChange={this.handleInputChange}

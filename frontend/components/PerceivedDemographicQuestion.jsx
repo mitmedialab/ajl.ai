@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import strToId from '../utils/str-to-id';
 
 import RadioButtonOption from './RadioButtonOption';
+import RangeSlider from './RangeSlider';
 
 import styles from './PerceivedDemographics.styl';
 
@@ -11,15 +12,15 @@ import styles from './PerceivedDemographics.styl';
 const PerceivedDemographicQuestion = ({
   className,
   name,
+  annotationType,
   options,
   onChange,
   selected,
   questionProgress,
-}) => (
-  <fieldset className={classNames(className, styles.fieldset)}>
-    <h4 className={styles.PerceivedDemographicTitle}>{name}</h4>
-    {questionProgress}
-    {options.map((option) => {
+}) => {
+  let field = 'Unknown Attribute Type Error';
+  if (annotationType === 'select-one') {
+    field = options.map((option) => {
       const optionKey = `${strToId(name)}_${strToId(option)}`;
       return (
         <RadioButtonOption
@@ -32,12 +33,29 @@ const PerceivedDemographicQuestion = ({
           required
         />
       );
-    })}
-  </fieldset>
-);
+    });
+  } else if (annotationType === 'range') {
+    field = (
+      <RangeSlider
+        min={Math.min(...options.map(Number))}
+        max={Math.max(...options.map(Number))}
+        name={name}
+        onChange={onChange}
+      />
+    );
+  }
+  return (
+    <fieldset className={classNames(className, styles.fieldset)}>
+      <h4 className={styles.PerceivedDemographicTitle}>{name}</h4>
+      {questionProgress}
+      {field}
+    </fieldset>
+  );
+};
 
 PerceivedDemographicQuestion.propTypes = {
   className: PropTypes.string,
+  annotationType: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   selected: PropTypes.string,
