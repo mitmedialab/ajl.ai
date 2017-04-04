@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
+import styles from './PerceivedDemographics.styl';
+
 export default class RangeSlider extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +31,8 @@ export default class RangeSlider extends Component {
       state: { value },
     } = this;
     return (
-      <div>
+      <div className={styles.rangeSlider}>
+        <div className={styles.rangeSliderValue}>{value} years old</div>
         <input
           type="range"
           min={min}
@@ -37,8 +40,7 @@ export default class RangeSlider extends Component {
           value={value}
           onChange={this.handleInputChange}
         />
-        {value}
-        <button onClick={this.handleClick}>Next</button>
+        <button className={styles.nextButton} onClick={this.handleClick}>Next</button>
       </div>
     );
   }
