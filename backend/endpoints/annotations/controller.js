@@ -73,12 +73,10 @@ export function postAnnotations(req, res) {
     if (! isEqual(storedIds.sort(), submittedIds.sort())) {
       throw new Error(`unknown workload: session workload of #s ${submittedIds} did not match stored workload #s ${storedIds}`);
     }
-
-    return storedWorkload;
   })
 
   // then if the workload is valid, store the annotations in the db
-  .then((storedWorkload) => {
+  .then(() => {
     const workloadId = req.body.workloadId;
     req.body.images.forEach(({ id: imageId, annotations }) => {
       annotations.forEach(({ name, value }) => {
