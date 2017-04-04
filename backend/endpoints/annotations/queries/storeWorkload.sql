@@ -2,7 +2,7 @@ WITH previous_work AS (
   SELECT count(*) as complete_count
     FROM workload
   WHERE annotator_id = ${annotatorId}
-    AND NOT(score IS NULL)
+    AND NOT(submitted_at IS NULL)
 )
 INSERT INTO workload (annotator_id, images, complete_count)
 SELECT
