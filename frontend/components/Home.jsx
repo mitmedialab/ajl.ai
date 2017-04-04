@@ -38,7 +38,7 @@ export default () => (
             touch with questions, comments, concerns, and experiences relating
             to algorithmic bias.
           </p>
-          <button className={styles.homepageContactUs}>Contact Us</button>
+          <a className={styles.homepageContactUs} href="https://docs.google.com/a/bocoup.com/forms/d/1UsW1hGalLGVQ8xSdCpDp_tq2So24tdiq084n8wUiWic/edit">Contact Us</a>
         </section>
         <section className={styles.homepageProgressBar}>
           <KnownOverallProgressContainer />
