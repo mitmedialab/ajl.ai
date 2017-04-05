@@ -9,19 +9,20 @@ const Modal = props => (
   <Overlay>
     <div className={styles.modal} role="alert">
       {props.children}
-
-      {typeof props.onCancel === 'function' ? (
+      <div className={styles.modalButtons}>
+        {typeof props.onCancel === 'function' ? (
+          <button
+            type="button"
+            onClick={props.onCancel}
+            className={classNames(styles.button, styles.cancel)}
+          >{props.cancelText}</button>
+        ) : null}
         <button
           type="button"
-          onClick={props.onCancel}
-          className={classNames(styles.button, styles.cancel)}
-        >{props.cancelText}</button>
-      ) : null}
-      <button
-        type="button"
-        onClick={props.onConfirm}
-        className={classNames(styles.button, styles.confirm)}
-      >{props.confirmText}</button>
+          onClick={props.onConfirm}
+          className={classNames(styles.button, styles.confirm)}
+        >{props.confirmText}</button>
+      </div>
     </div>
   </Overlay>
 );

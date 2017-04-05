@@ -7,21 +7,33 @@
   width: 500px;
   max-width: 100%;
   max-height: 100%;
-  padding: 1em;
   background: white;
   margin: auto;
   overflow: auto;
+  
+  h2 {
+    margin: 0;
+    padding: .7em 1em;
+    border-bottom: 1px solid $gray-2;
+  }
+  
+  p {
+    margin: 0;
+    padding: 1em 1.2em;
+  }
+  
+  .modalButtons {
+    padding: 0 1em 1em;
+  }
 }
 
 .button {
-  button();
-}
-
-.confirm {
-  background: lightblue;
+  button-aqua()
 }
 
 .cancel {
+  color: $font-dark-blue
+  background: lightblue;
   margin-right: 1em;
   +respond-above($xs-screen) { margin-right: 0; }
 }
