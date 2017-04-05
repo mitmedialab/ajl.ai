@@ -37,7 +37,7 @@ export default class RangeSlider extends Component {
           <span className={styles.rangeSliderMiddleValue}>55</span>
           <span className={styles.rangeSliderLastValue}>100</span>
         </div>
-        <div className={styles.rangeSliderLines}></div>
+        <div className={styles.rangeSliderLines} />
         <input
           type="range"
           min={min}
