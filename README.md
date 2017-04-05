@@ -84,6 +84,12 @@ docker run --name ia-pg -d -p 5432:5432 -i postgres
 docker exec -it ia-pg su postgres -c 'CREATEDB image-annotator'
 npm run migrate:up
 npm start
+
+# stop postgres
+docker stop ia-pg
+
+# start postgres
+docker start ia-pg
 ```
 
 **If you have VirtualBox and Vagrant on your machine, do the following:**
@@ -93,6 +99,12 @@ vagrant up
 npm run provision:vagrant
 npm run migrate:up
 npm start
+
+# stop postgres
+vagrant halt
+
+# start postgres
+vagrant up
 ```
 
 **If you want to install PostgreSQL locally on Ubuntu, do the following:**
@@ -104,6 +116,12 @@ sudo service postgresql start
 createdb -U postgres image-annotator
 npm run migrate:up
 npm start
+
+# stop postgres
+sudo service postgresql stop
+
+# start postgres
+sudo service postgresql start
 ```
 
 **If you want to install PostgreSQL locally on OSX, do the following:**
@@ -117,6 +135,12 @@ brew services start postgresql
 createdb image-annotator
 npm run migrate:up
 npm start
+
+# stop postgres
+brew services stop postgresql
+
+# start postgres
+brew services start postgresql
 ```
 
 ### Running the prototypes
