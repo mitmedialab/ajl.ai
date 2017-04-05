@@ -4,7 +4,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Header from './Header/Header';
+import HeaderContainer from './HeaderContainer';
 import ModalContainer from './ModalContainer';
 
 import Home from './Home';
@@ -14,7 +14,7 @@ import './App.styl';
 const App = () => (
   <Router>
     <div>
-      <Header />
+      <HeaderContainer />
 
       {/* Overlays & Modal Dialogs */}
       <ModalContainer />
