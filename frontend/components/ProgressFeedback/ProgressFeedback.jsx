@@ -10,10 +10,21 @@ const ProgressFeedback = ({ message, show }) => {
   if (! show || ! message) {
     return null;
   }
+  if (message.cta) {
+    return (
+      <section className={styles.uxFeedback}>
+        <p>
+          {message.text}
+        </p>
+        <a className={styles.feedbackButton} href="https://goo.gl/forms/jBwH8fuMqZwLf6Mr2">Submit Feedback</a>
+      </section>
+    );
+
+  }
   return (
-    <p className={styles.uxFeedback}>
-      {message}
-    </p>
+    <section className={styles.uxFeedback}>
+      <p>{message.text}</p>
+    </section>
   );
 };
 

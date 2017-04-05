@@ -43,7 +43,7 @@ export default () => (
           <p>
             As algorithms increasingly influence more aspects of our lives,
             we need ways to keep coded systems accountable.
-            Please <a className={styles.homepageContactUs} href="https://goo.gl/forms/jBwH8fuMqZwLf6Mr2">be in touch</a> with 
+            Please <a className={styles.homepageContactUs} href="https://goo.gl/forms/jBwH8fuMqZwLf6Mr2">be in touch</a> with
             questions, comments, concerns, and experiences relating
             to algorithmic bias.
           </p>
