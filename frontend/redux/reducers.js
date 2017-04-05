@@ -6,6 +6,7 @@ import workload from './reducers/workload';
 import annotations from './reducers/annotations';
 import overallStats from './reducers/overall-stats';
 import errors from './reducers/errors';
+import ui from './reducers/ui';
 
 /*
  * Combine reducers to produce single reducer for state.
@@ -27,4 +28,7 @@ export default combineReducers({
   // The error reducer stores API errors and any viable actions
   // a user could take to resolve the error
   errors,
+  // The UI reducer manages flags governing non-route UI states like whether
+  // a user-triggered modal should be displayed
+  ui,
 });

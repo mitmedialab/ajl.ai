@@ -47,6 +47,11 @@ describe('rootReducer', () => {
       expect(state.errors).toBeDefined();
     });
 
+    it('returns a state object with a UI state property', () => {
+      const state = rootReducer(undefined, {});
+      expect(state.ui).toBeDefined();
+    });
+
   });
 
 });

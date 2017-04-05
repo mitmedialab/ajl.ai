@@ -271,4 +271,30 @@ describe('selector functions', () => {
 
   });
 
+  describe('showFeedbackModal', () => {
+    const { showFeedbackModal } = selectors;
+
+    it('is a function', () => {
+      expect(showFeedbackModal).toBeDefined();
+      expect(showFeedbackModal).toBeInstanceOf(Function);
+    });
+
+    it('returns true when the feedback modal flag is true', () => {
+      expect(showFeedbackModal({
+        ui: {
+          feedbackModal: true,
+        },
+      })).toBe(true);
+    });
+
+    it('returns false when the feedback modal flag is false', () => {
+      expect(showFeedbackModal({
+        ui: {
+          feedbackModal: false,
+        },
+      })).toBe(false);
+    });
+
+  });
+
 });
