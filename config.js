@@ -27,10 +27,9 @@ module.exports = {
     host: process.env.PGHOST,
     port: process.env.PGPORT,
     database: process.env.PGNAME || process.env.DB_NAME || NAME,
-    user: process.env.PGUSER,
-    password: process.env.PGPASS,
+    user: process.env.PGUSER || 'postgres',
+    password: process.env.PGPASSWORD,
     url: process.env.DATABASE_URL,
     ssl: process.env.PGSSLMODE || PROD,
   },
 };
-
