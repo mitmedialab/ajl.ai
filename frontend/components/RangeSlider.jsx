@@ -32,7 +32,12 @@ export default class RangeSlider extends Component {
     } = this;
     return (
       <div className={styles.rangeSlider}>
-        <div className={styles.rangeSliderValue}>{value} years old</div>
+        <div className={styles.rangeSliderValueLabels}>
+          <span className={styles.rangeSliderFirstValue}>10</span>
+          <span className={styles.rangeSliderMiddleValue}>55</span>
+          <span className={styles.rangeSliderLastValue}>100</span>
+        </div>
+        <div className={styles.rangeSliderLines}></div>
         <input
           type="range"
           min={min}
@@ -40,6 +45,9 @@ export default class RangeSlider extends Component {
           value={value}
           onChange={this.handleInputChange}
         />
+        <div className={styles.rangeSliderValue}>
+          <span className={styles.rangeSliderValueBold}>{value}</span> years old
+        </div>
         <button className={styles.nextButton} onClick={this.handleClick}>Next</button>
       </div>
     );
