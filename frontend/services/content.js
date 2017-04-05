@@ -45,7 +45,7 @@ export function errorProps(type) {
 
 export function workloadFeedback(count) {
   if (count === 0) {
-    return { cta: false, text: 'Welcome! Hear is your first batch of batch of 12 images. Once you complete all 12, they\'ll be sent to us and you\'ll be able to annotate in batches of 3.' };
+    return { cta: true, text: 'Welcome! Here is your first batch of batch of 12 images. Once you complete all 12, they\'ll be sent to us and you\'ll be able to annotate in batches of 3.' };
   }
   if (count === 1) {
     return { cta: true, text: 'You\'ve completed your first batch, great job! Please tell us about your experience:' };
