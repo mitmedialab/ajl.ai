@@ -18,10 +18,31 @@ import {
   RECEIVE_ATTRIBUTES,
  } from '../actions';
 
+// Helper functions
+
+function findFlagAttributeName(attributes) {
+  const flagAttr = attributes.find(attr => attr.flag);
+  return flagAttr ? flagAttr.name : null;
+}
+
+// Each of these methods reduces the state property that shares its name
+
 function order(state = [], action) {
   switch (action.type) {
   case RECEIVE_ATTRIBUTES:
-    return action.payload.map(question => question.name);
+    return action.payload
+      .filter(question => ! question.flag)
+      .map(question => question.name);
+
+  default:
+    return state;
+  }
+}
+
+function flagAttribute(state = '', action) {
+  switch (action.type) {
+  case RECEIVE_ATTRIBUTES:
+    return findFlagAttributeName(action.payload) || state;
 
   default:
     return state;
@@ -46,4 +67,7 @@ export default combineReducers({
   byName,
   // An ordered array of name keys
   order,
+  // The name of the attribute to be used for flagging an invalid or otherwise
+  // inappropriate image
+  flagAttribute,
 });

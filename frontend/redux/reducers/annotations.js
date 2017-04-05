@@ -9,6 +9,7 @@
 import { combineReducers } from 'redux';
 import {
   SAVE_DEMOGRAPHIC_ANNOTATIONS,
+  FLAG_IMAGE,
   RECEIVE_WORKLOAD,
 } from '../actions';
 
@@ -30,6 +31,7 @@ function images(state = [], action) {
     return [];
 
   case SAVE_DEMOGRAPHIC_ANNOTATIONS:
+  case FLAG_IMAGE:
     return state.concat({
       id: action.payload.id,
       annotations: action.payload.annotations,
