@@ -19,6 +19,7 @@ export default () => (
         </div>
         <section className={styles.homepageProgressBar}>
           <KnownOverallProgressContainer />
+          <a className={styles.homepageButton} href="annotate">Start Annotating</a>
         </section>
         <section>
           <h2>Make a Difference</h2>
@@ -41,11 +42,11 @@ export default () => (
           <h2>Be Heard</h2>
           <p>
             As algorithms increasingly influence more aspects of our lives,
-            we need ways to keep coded systems accountable. Please be in
-            touch with questions, comments, concerns, and experiences relating
+            we need ways to keep coded systems accountable.
+            Please <a className={styles.homepageContactUs} href="https://goo.gl/forms/jBwH8fuMqZwLf6Mr2">be in touch</a> with 
+            questions, comments, concerns, and experiences relating
             to algorithmic bias.
           </p>
-          <a className={styles.homepageContactUs} href="https://docs.google.com/a/bocoup.com/forms/d/1UsW1hGalLGVQ8xSdCpDp_tq2So24tdiq084n8wUiWic/edit">Contact Us</a>
         </section>
       </div>
     </div>

@@ -24,7 +24,7 @@ const App = () => (
 
       <footer>
         <h4>We welcome your comments</h4>
-        <a href="https://docs.google.com/forms/d/1UsW1hGalLGVQ8xSdCpDp_tq2So24tdiq084n8wUiWic/viewform?edit_requested=true">Submit Feedback</a>
+        <a href="https://goo.gl/forms/jBwH8fuMqZwLf6Mr2">Submit Feedback</a>
       </footer>
     </div>
 
