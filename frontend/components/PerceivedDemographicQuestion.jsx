@@ -16,7 +16,7 @@ const PerceivedDemographicQuestion = ({
   options,
   onChange,
   selected,
-  questionProgress,
+  children,
 }) => {
   let field = 'Unknown Attribute Type Error';
   if (annotationType === 'select-one') {
@@ -46,8 +46,7 @@ const PerceivedDemographicQuestion = ({
   }
   return (
     <fieldset className={classNames(className, styles.fieldset)}>
-      <h4 className={styles.PerceivedDemographicTitle}>{name}</h4>
-      {questionProgress}
+      {children}
       {field}
     </fieldset>
   );
@@ -60,7 +59,7 @@ PerceivedDemographicQuestion.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   selected: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  questionProgress: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 PerceivedDemographicQuestion.defaultProps = {

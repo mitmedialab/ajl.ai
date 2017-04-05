@@ -134,4 +134,61 @@ describe('image annotations reducer', () => {
 
   });
 
+  const { FLAG_IMAGE } = actions;
+  describe(`on ${FLAG_IMAGE}`, () => {
+
+    it('adds submitted annotations to the image annotations list', () => {
+      const initialState = annotations({
+        workloadId: 121,
+      }, {});
+      const nextState = annotations(initialState, {
+        type: FLAG_IMAGE,
+        payload: {
+          id: 1234,
+          annotations: [{
+            name: 'Report Image',
+            value: 'No Subject in Picture',
+          }],
+        },
+      });
+      expect(nextState).not.toBe(initialState);
+      expect(nextState.images).toBeDefined();
+      expect(nextState.images).not.toBe(initialState.images);
+      expect(nextState.images).toEqual([{
+        id: 1234,
+        annotations: [{
+          name: 'Report Image',
+          value: 'No Subject in Picture',
+        }],
+      }]);
+    });
+
+    it('appends subsequent flags to the image annotations list', () => {
+      const initialState = annotations({
+        workloadId: 121,
+        images: [
+          { id: 1234, annotations: [{ name: 'Report Image', value: 'No Subject in Picture' }] },
+        ],
+      }, {});
+      const nextState = annotations(initialState, {
+        type: FLAG_IMAGE,
+        payload: {
+          id: 5678,
+          annotations: [{
+            name: 'Report Image',
+            value: 'Inappropriate Content',
+          }],
+        },
+      });
+      expect(nextState).not.toBe(initialState);
+      expect(nextState.images).toBeDefined();
+      expect(nextState.images).not.toBe(initialState.images);
+      expect(nextState.images).toEqual([
+          { id: 1234, annotations: [{ name: 'Report Image', value: 'No Subject in Picture' }] },
+          { id: 5678, annotations: [{ name: 'Report Image', value: 'Inappropriate Content' }] },
+      ]);
+    });
+
+  });
+
 });
