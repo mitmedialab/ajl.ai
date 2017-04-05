@@ -21,11 +21,9 @@ const KnownOverallProgress = ({
   }
   return (<div>
     <p>
-      We have <b>{hasAnnontated ?
-        annotated : LOADING_ANNOTATED}</b> of {hasImages ?
-        images : LOADING_IMAGES} images
-      annotated, help us get to our goal so that we can create a face
-      recognition benchmark with diverse faces!
+      <b>Progress:</b> Volunteers have tagged <b>{hasAnnontated ?
+        annotated : LOADING_ANNOTATED}</b> out of {hasImages ?
+        images : LOADING_IMAGES} faces.
     </p>
     <progress className={styles.progress} value={progress} min="0" max="100" />
   </div>);
