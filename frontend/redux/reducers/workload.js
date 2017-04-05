@@ -8,6 +8,7 @@ import {
   REQUEST_WORKLOAD,
   RECEIVE_WORKLOAD,
   SAVE_DEMOGRAPHIC_ANNOTATIONS,
+  FLAG_IMAGE,
 } from '../actions';
 
 function id(state = null, action) {
@@ -26,6 +27,7 @@ function todo(state = [], action) {
     return [];
 
   case SAVE_DEMOGRAPHIC_ANNOTATIONS:
+  case FLAG_IMAGE:
     return state.slice(1);
 
   case RECEIVE_WORKLOAD:
@@ -52,6 +54,7 @@ function byId(state = {}, action) {
 function complete(state = [], action) {
   switch (action.type) {
   case SAVE_DEMOGRAPHIC_ANNOTATIONS:
+  case FLAG_IMAGE:
     return state.concat(action.payload.id);
 
   case RECEIVE_WORKLOAD:

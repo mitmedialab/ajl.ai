@@ -31,7 +31,7 @@ fieldset, .reviewAnnotations {
   border: 1px solid $gray-2;
   padding: 0 0 .25em;
   margin: 0;
-  
+
   .progressBarContainer {
     padding: 0 1em;
   }
@@ -43,12 +43,41 @@ fieldset, .reviewAnnotations {
 }
 
 .reviewAnnotations {
-  
+
   ul {
     list-style: none;
     padding: 0 1em 1em;
     margin: 0;
     line-height: 2em;
+  }
+}
+
+.toggleFlag {
+  position: absolute;
+  right: 2em;
+  background: transparent;
+  border: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.flagButton {
+  button-aqua();
+  margin: .75em;
+  display: block;
+}
+
+@media only screen and (min-width: 26em) {
+  .flagButton {
+    margin: 1.25em auto;
+  }
+}
+
+@media only screen and (min-width: 63em) {
+  .flagButton {
+    margin: 1.5em auto;
   }
 }
 
@@ -67,7 +96,7 @@ fieldset, .reviewAnnotations {
   margin: 0;
   height: 42px;
   padding: 0 1em;
-  
+
   &:hover {
     background-color: $medium-blue;
   }
@@ -82,52 +111,52 @@ fieldset, .reviewAnnotations {
   visually-hidden();
 }
 
-@media only screen and (min-width: 26em) { 
-   
+@media only screen and (min-width: 26em) {
+
   fieldset .progressBarContainer {
     padding: 0 1.5em;
   }
-  
+
   .reviewAnnotations ul {
     padding: .5em 1.5em 1em 1.5em;
   }
-  
+
   .save {
     margin: 0 1.5em 1.5em;
   }
 }
 
-@media only screen and (min-width: 45em) { 
-  
+@media only screen and (min-width: 45em) {
+
   .imageContainer{
     padding-bottom: .75em;
   }
-  
+
   .imageContainer, .questionsContainer {
     width: 50%;
     display: inline-block;
     vertical-align: top;
   }
-  
+
   .questionsContainer {
     margin-top: 0;
-    
+
     form {
       margin-top: 0;
     }
   }
 }
 
-@media only screen and (min-width: 63em) {  
-  
+@media only screen and (min-width: 63em) {
+
   fieldset .progressBarContainer {
     padding: 0 2.5em;
   }
-  
+
   .reviewAnnotations ul {
     padding: 1.5em 2.5em 1.5em 2.5em;
   }
-  
+
   .save {
     margin: 0 2.5em 2.5em;
   }
@@ -138,14 +167,14 @@ fieldset, .reviewAnnotations {
   margin-top: 1em;
   padding: 1em;
   text-align: center;
-  
+
   .rangeSliderValue {
     position: relative;
     padding: .5em;
     background-color: $gray-2;
     display: inline-block;
     margin-bottom: .5em;
-     
+
     &:after {
       content: '';
       position: absolute;
@@ -160,17 +189,17 @@ fieldset, .reviewAnnotations {
       bottom: -8px;
     }
   }
-  
+
   input[type=range] {
     -webkit-appearance: none;
     margin: 18px 0;
     width: 100%;
   }
-  
+
   input[type=range]:focus {
     outline: none;
   }
-  
+
   input[type=range]::-webkit-slider-runnable-track {
     very-rounded();
     height: .5em;
@@ -179,7 +208,7 @@ fieldset, .reviewAnnotations {
     animate: 0.2s;
     background: $gray-2;
   }
-  
+
   input[type=range]::-webkit-slider-thumb {
     height: 2em;
     width: 1em;
@@ -197,7 +226,7 @@ fieldset, .reviewAnnotations {
     color: white;
     font-size: 1em;
     margin-top: 1em;
-    
+
     &:hover {
       background: $aqua;
     }

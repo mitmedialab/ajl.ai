@@ -90,6 +90,15 @@ export const saveDemographicAnnotations = ({ id, annotations }) => ({
   },
 });
 
+export const FLAG_IMAGE = 'FLAG_IMAGE';
+export const flagImage = ({ id, annotations }) => ({
+  type: FLAG_IMAGE,
+  payload: {
+    id,
+    annotations,
+  },
+});
+
 export const COMPLETE_WORKLOAD = 'COMPLETE_WORKLOAD';
 export const completeWorkload = workload => ({
   type: COMPLETE_WORKLOAD,

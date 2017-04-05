@@ -189,6 +189,25 @@ describe('selector functions', () => {
 
   });
 
+  describe('flagAttribute', () => {
+    const { flagAttribute } = selectors;
+
+    it('is a function', () => {
+      expect(flagAttribute).toBeDefined();
+      expect(flagAttribute).toBeInstanceOf(Function);
+    });
+
+    it('returns the flag attribute key string', () => {
+      const result = flagAttribute({
+        demographicAttributes: {
+          flagAttribute: 'Report Image',
+        },
+      });
+      expect(result).toBe('Report Image');
+    });
+
+  });
+
   describe('imageAnnotations', () => {
     const { imageAnnotations } = selectors;
 

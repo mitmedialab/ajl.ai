@@ -21,6 +21,7 @@ export const isLoading = state => Object
 
 export const demographicAttributes = state => state.demographicAttributes.byName;
 export const demographicAttributesOrder = state => state.demographicAttributes.order;
+export const flagAttribute = state => state.demographicAttributes.flagAttribute;
 
 export const imageAnnotations = state => state.annotations;
 
