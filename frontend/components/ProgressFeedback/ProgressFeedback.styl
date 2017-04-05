@@ -1,20 +1,50 @@
 @import '../shared/mixins.styl';
 
+@keyframes pulse {
+  from {
+    background-color: $nav-footer;
+    color: $nav-footer;
+  }
+  to {
+    background-color: $font-dark-blue;
+    color: white;
+  }
+}
+
 .uxFeedback {
+  animation-name: pulse;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
   text-align: center;
   margin: 0;
   padding: 1em;
-  background: $subheader;
-  color: $light-blue;
+  background: $font-dark-blue;
+  color: white;
   font-size: 1.1em;
   font-weight: 300;
-  text-transform: uppercase;
   letter-spacing: 1px;
+  box-shadow: 0 0 9px #333;
 }
 
-@media only screen and (min-width: 33em) { 
+.feedbackButton {
+  button-aqua();
+  display: inline-block;
+  background: $light-blue;
+  font-size: .9em;
+}
+
+.uxFeedback a {
+  color: black;
+}
+
+@media only screen and (min-width: 33em) {
   .uxFeedback {
     font-size: 1.3em;
     padding: 1.5em;
+  }
+  .feedbackButton {
+    button-aqua();
+    display: inline-block;
+    font-size: .7em;
   }
 }
