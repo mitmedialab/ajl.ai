@@ -36,6 +36,10 @@ ProgressFeedback.propTypes = {
   show: PropTypes.bool.isRequired,
 };
 
+ProgressFeedback.defaultProps = {
+  message: {},
+};
+
 const mapStateToProps = (state, props) => ({
   message: workloadFeedback(completedWorkloadCount(state)),
   show: Boolean(props.show && onFirstImage(state)),
