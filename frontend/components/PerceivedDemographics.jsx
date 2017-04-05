@@ -103,6 +103,26 @@ class PerceivedDemographics extends Component {
     } = this.props;
     return (
       <div>
+        <div className={styles.modalFeedbackWrapper}>
+          <div className={styles.modalFeedback}>
+            <h2>Do you have Feedback?</h2>
+            <p>
+              AJL needs your help to tag images with demographics information.
+              Your tags will help us assess the diversity of data sets used to
+              train and test facial analysis algorithms. We acknowledge that
+              specific demographics categorizations are imprecise and reductive.
+              We choose to gather perceptions of identity because the social
+              constructors of ethnicity and gender have real-world impact.
+            </p>
+            <p>
+              Our goal in gathering these tags is ultimately to create systems
+              that work well for everybody and do not disproportionately harm a
+              specific group. We welcome your feedback on additional labels to
+              include or alternative ways to assess the diversity of these data sets.
+            </p>
+            <a className={styles.modalFeedbackButton} href="https://docs.google.com/a/bocoup.com/forms/d/1UsW1hGalLGVQ8xSdCpDp_tq2So24tdiq084n8wUiWic/edit">Contact Us</a>
+          </div>
+        </div>
         <ProgressFeedbackContainer show={currentStep === 0} />
         <div className={styles.wrapper}>
           <div className={styles.mainContainer}>
