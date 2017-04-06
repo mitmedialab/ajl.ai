@@ -45,19 +45,19 @@ export function errorProps(type) {
 
 export function workloadFeedback(count) {
   if (count === 0) {
-    return 'Welcome! This is your first batch of images.';
+    return { cta: false, text: 'Welcome! Here is your first batch of batch of 12 images. Once you complete all 12, they\'ll be sent to us and you\'ll be able to annotate in batches of 3.' };
   }
   if (count === 1) {
-    return 'You\'ve completed your first batch—great!';
+    return { cta: true, text: 'You\'ve completed your first batch, great job! Please tell us about your experience:' };
   }
   if (count === 2) {
-    return 'You\'re a champ!';
+    return { cta: true, text: 'You\'re a champ, keep going! Got any more feedback for us?:' };
   }
   if (count === 3) {
-    return 'You\'re on fire!';
+    return { cta: false, text: 'You\'re on fire!' };
   }
   if (count % 10) {
     return '';
   }
-  return `You've completed ${count} batches! Amazing!`;
+  return { cta: true, text: `You've completed ${count} batches! Amazing!` };
 }
