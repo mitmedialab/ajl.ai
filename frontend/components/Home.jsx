@@ -10,7 +10,7 @@ export default () => (
     <div className={styles.mainContainer}>
       <div className={styles.hompageContainer}>
         <div className={styles.homeSubHeader}>
-          <h1>The Computer Vision Benchmarking Project</h1>
+          <h1>Destiny Unveiled: Facial Data Transparency Project</h1>
           <h5>
             From the <a href="http://ajlunited.org">
               Algorithmic Justice League
@@ -18,8 +18,14 @@ export default () => (
           </h5>
         </div>
         <section className={styles.homepageProgressBar}>
+          <b>
+            If data is destiny, how inclusive is our future data-centric
+            technology?
+          </b>
+          How representative are the datasets being used to train machines to
+          analyze faces? Help us find out by tagging training images.
           <KnownOverallProgressContainer />
-          <a className={styles.homepageButton} href="annotate">Start Annotating</a>
+          <a className={styles.homepageButton} href="annotate">Start Tagging</a>
         </section>
         <section>
           <h2>Make a Difference</h2>
