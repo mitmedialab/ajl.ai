@@ -1,6 +1,6 @@
 SELECT
-  count(DISTINCT a.image_id) AS annotated_count,
-  count(DISTINCT i.id) AS total_count
+  COUNT(*) AS total_count,
+  COUNT(*) FILTER (WHERE started) AS annotated_count,
+  COUNT(*) FILTER (WHERE complete) AS complete_count
 FROM
-  image i
-  LEFT JOIN image_annotation a ON a.image_id = i.id
+  image_annotators_count;
