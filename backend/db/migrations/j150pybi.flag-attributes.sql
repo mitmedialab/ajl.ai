@@ -21,6 +21,16 @@ INSERT INTO annotation_option (annotation_attribute_id, name, sort_order)
 ALTER TABLE annotation_attribute
   DROP flag;
 
+DELETE FROM image_annotation
+  WHERE annotation_option_id = ANY(
+    SELECT id
+    FROM
+      annotation_option
+      LEFT JOIN annotation_attribtue ON
+        annotation_option.annotation_attribtue_id = annotation_attribute.id
+    WHERE name='Report Image'
+  );
+
 DELETE FROM annotation_option
   WHERE annotation_attribute_id = (SELECT id from annotation_attribute WHERE name='Report Image');
 
