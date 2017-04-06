@@ -1,75 +1,67 @@
--- OLD QUERY
--- SELECT
---   image.id,
---   image.url,
---   image.width,
---   image.height
--- FROM
---   image
--- ORDER BY RANDOM()
--- LIMIT ${limit}
+WITH
 
--- NEW QUERY:
--- First, select the total count of annotaiton attributes
-WITH attributes as (
-  SELECT
-    COUNT(*) as count
-  FROM
-    annotation_attribute
-),
--- How many known truths are present for each image
-known_count as (
+-- Get a count for how many annotations this annotator has put on each image
+annotator AS (
   SELECT
     image_id,
     COUNT(*) as count
-  FROM
-    known
-  GROUP BY image_id
-),
--- Each annotator should never see the same image twice
-annotator as (
-  SELECT
-    image_id,
-    count(*) as count
   FROM image_annotation
-  WHERE annotator_id = ${annotatorId}
+  WHERE
+    annotator_id = ${annotatorId}
   GROUP BY image_id
 ),
--- Look for images, calculate if we can use them as knowns
--- sort the images we've alread annotated to be last, and randomize order
-truth_table as (
+
+-- Get a list of all images, removing flagged images, ordering them in "rough priority order"
+all_images AS (
   SELECT
     image.id,
     image.url,
     image.width,
     image.height,
-    COALESCE(known.count = attributes.count, false) as is_known
+    image.seed as is_known,
+    annotator.count as self_count
   FROM
     image
-    LEFT JOIN known_count known on image.id = known.image_id
-    LEFT JOIN annotator on image.id = annotator.image_id,
-    attributes
+    LEFT JOIN annotator ON image.id = annotator.image_id
+    LEFT JOIN image_annotators_count crowd ON image.id = crowd.image_id
+  WHERE NOT crowd.flagged
+  -- Sort images this annotator hasn't annotated first
   ORDER BY annotator.count NULLS FIRST,
-    RANDOM()
+  -- Images that are not "complete" by the crowd source table
+    crowd.complete,
+  -- Images that have been "started" first
+    crowd.started DESC
 ),
--- Select the first "8" (2/3's of the limit) known images
-truths as (
-  SELECT * FROM truth_table WHERE is_known LIMIT ${numTruths}
-),
--- Select a whole "limit" bucket of unknown images
-news as (
-  SELECT * FROM truth_table WHERE NOT(is_known) LIMIT ${limit}
-),
--- Select the union of the known images, and unknown images, limiting to
--- the total limit (so because we "overfilled" the buffer for the unknowns)
--- it will always give us 12 images, with up to `numTruths` truths if we
--- had them...
 
-all_images as (
-  SELECT * FROM truths
-  UNION ALL
-  SELECT * FROM news
+-- Limit the previous select to a few thousand of the
+-- sorted images per known/unknown
+known_bucket AS (
+  SELECT * FROM all_images
+  WHERE is_known
+  LIMIT 1000
+),
+unknown_bucket AS (
+  SELECT * FROM all_images
+  WHERE NOT is_known
+  LIMIT 2000
+),
+
+-- Select the right number of known/unknowns at random from the buckets
+knowns AS (
+  SELECT * FROM known_bucket
+  ORDER BY self_count NULLS FIRST, RANDOM()
+  LIMIT ${numTruths}
+),
+news AS (
+  SELECT * FROM unknown_bucket
+  ORDER BY self_count NULLS FIRST, RANDOM()
   LIMIT ${limit}
+),
+final_workload AS (
+  SELECT * FROM knowns UNION SELECT * FROM news LIMIT ${limit}
 )
 
-SELECT * FROM all_images ORDER BY RANDOM();
+-- Randomize the final selection so all the known images don't show up first every time
+SELECT
+  id, url, width, height, is_known
+FROM final_workload ORDER BY RANDOM();
