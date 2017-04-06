@@ -111,109 +111,8 @@ fieldset, .reviewAnnotations {
   visually-hidden();
 }
 
-.rangeSlider {
-  position: relative;
-  margin-top: 1em;
-  padding: 1em;
-  text-align: center;
-  
-  .rangeSliderValueBold {
-    font-weight: 700;
-  }
-  
-  .rangeSliderValue {
-    margin-bottom: 1em;
-    text-transform: uppercase;
-  }
-  
-  .rangeSliderLines {
-    width: 105%;
-    margin: .5em 0 0 2.5%;
-    height: .5em;
-    background: repeating-linear-gradient(
-      to right,
-      #cacaca,
-      #cacaca 1px,
-      white 1px,
-      white 10%
-    );
-  }
-  
-  .rangeSliderValueLabels {
-    font-size: .9em;
-    font-weight: 400;
-    color: #989898;
-    
-    span {
-      display: inline-block;
-      width: 33.333333%;
-    }
-    .rangeSliderFirstValue {
-      text-align: left;
-    }
-    .rangeSliderMiddleValue {
-      text-align: center;
-    }
-    .rangeSliderLastValue {
-      text-align: right;
-    }
-  }
-  
-  input[type=range] {
-    -webkit-appearance: none;
-    margin: 1.5em 0 1em;
-    width: 100%;
-  }
-  
-  input[type=range]:focus {
-    outline: none;
-  }
-  
-  input[type=range]::-webkit-slider-runnable-track {
-    very-rounded();
-    height: .5em;
-    width: 100%;
-    cursor: pointer;
-    animate: 0.2s;
-    background: $gray-2;
-  }
-  
-  input[type=range]::-webkit-slider-thumb {
-    position: relative;
-    height: 2em;
-    width: 2em;
-    border-radius: 1em;
-    background: $aqua;
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: -.75em;
-    box-shadow: 0 1px 3px rgba(0,0,0,.5);
-    
-    &:after {
-      content: ' ';
-      position: absolute;
-      height: 1em;
-      width: 1em;
-      background-color: white;
-    }
-  }
+@media only screen and (min-width: 26em) {
 
-  .nextButton {
-    button();
-    background: $aqua;
-    border: 0;
-    width: 100%;
-    color: white;
-    font-size: 1em;
-    margin-top: 1em;
-    
-    &:hover {
-      background: $aqua;
-    }
-  }
-}
-
-@media only screen and (min-width: 26em) { 
   fieldset .progressBarContainer {
     padding: 0 1.5em;
   }
@@ -224,10 +123,6 @@ fieldset, .reviewAnnotations {
 
   .save {
     margin: 0 1.5em 1.5em;
-  }
-  
-  .rangeSlider {
-    padding: 1em 1.5em;
   }
 }
 
