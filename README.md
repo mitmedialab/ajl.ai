@@ -72,61 +72,76 @@ These commands are available after installation within the `image-annotator/` di
 - `npm run storybook`: launch [React Storybook](https://getstorybook.io) for component development (accessible at [localhost:6006](http://localhost:6006) by default)
 
 ### backend
-The backend is running node, Postgres and an express based set of middlewares for the REST API we expose.
+The backend is running node, PostgreSQL and an express based set of middlewares for the REST API we expose. In order to develop the application, you must have an installation of PostgreSQL.
 
-The app must be pointed at a running postgres server. Default config will use the db name `image-annotator`, and a set of sensible connection defaults, but if you need to, you can configure all the connection parameters in the `.gitignored` `.env` file. For example:
+#### Setting up Postgres
+There are numerous ways to run PostgreSQL. Choose the one that is most familiar
+to you!
 
+**If you have Docker on your machine, do the following:**
 ```
-PGHOST=localhost
-PGPORT=5432
-PGNAME=image-annotator
-PGUSER=postgres
-PGPASS=*****
-# if specified, DATABASE_URL overides all of the above
-DATABASE_URL=
-```
-
-#### Installing postgres
-##### Ubuntu 16 dev environment setup:
-$ sudo apt-get install postgresql
-
-$ sudo su postgres
-
-$ CREATE DATABASE image-annotator;
-
-$ sudo service postgresql stop
-
-$ sudo vim /etc/postgresql/9.5/main/pg_hba.conf
-
-```
-  # "local" is for Unix domain socket connections only
-  local   all             all                                     trust
-  # IPv4 local connections:
-  host    all             all             127.0.0.1/32            trust
-  # IPv6 local connections:
-  host    all             all             ::1/128                 trust
-```
-$ sudo service postgresql start
-
-create a .env file in the project root and add the following to it:
-```
-PGUSER=postgres
-```
-
+docker run --name ia-pg -d -p 5432:5432 -i postgres
+docker exec -it ia-pg su postgres -c 'CREATEDB image-annotator'
 npm run migrate:up
+npm start
 
-##### Instructions for Mac OS dev environment setup:
-_The postgres installation step assumes you are using the [Homebrew](https://brew.sh/) package manager_
+# stop postgres
+docker stop ia-pg
 
-$ brew install postgresql
+# start postgres
+docker start ia-pg
+```
 
-$ brew services start postgresql
+**If you have VirtualBox and Vagrant on your machine, do the following:**
+```
+printf "PGHOST=10.10.0.100\nPGUSER=image-annotator" > .env
+vagrant up
+npm run provision:vagrant
+npm run migrate:up
+npm start
 
-$ createdb image-annotator
+# stop postgres
+vagrant halt
 
-_(on subsequent runs PostgreSQL should now auto-start)_
+# start postgres
+vagrant up
+```
 
-$ npm run migrate:up
+**If you want to install PostgreSQL locally on Ubuntu, do the following:**
+```
+sudo apt-get install postgresql
+sudo service postgresql stop
+sudo sh -c "printf 'local all all trust\nhost all all 127.0.0.1/32 trust\nhost all all ::1/128 trust' > /etc/postgresql/9.5/main/pg_hba.conf"
+sudo service postgresql start
+createdb -U postgres image-annotator
+npm run migrate:up
+npm start
+
+# stop postgres
+sudo service postgresql stop
+
+# start postgres
+sudo service postgresql start
+```
+
+**If you want to install PostgreSQL locally on OSX, do the following:**
+
+Ensure you have [brew](https://brew.sh/) installed. Then, run this:
+
+```
+printf "PGUSER=$USER" > .env
+brew install postgresql
+brew services start postgresql
+createdb image-annotator
+npm run migrate:up
+npm start
+
+# stop postgres
+brew services stop postgresql
+
+# start postgres
+brew services start postgresql
+```
 
 ### Running the prototypes
 `cd` into the prototypes directory you want to look at and run `npm start` (Requires python, equivalent to running `python -m SimpleHTTPServer 8000`) or a comparable static web server.
