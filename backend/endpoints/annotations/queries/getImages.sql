@@ -18,7 +18,8 @@ all_images AS (
     image.url,
     image.width,
     image.height,
-    image.seed as is_known
+    image.seed as is_known,
+    annotator.count as self_count
   FROM
     image
     LEFT JOIN annotator ON image.id = annotator.image_id
@@ -48,12 +49,12 @@ unknown_bucket AS (
 -- Select the right number of known/unknowns at random from the buckets
 knowns AS (
   SELECT * FROM known_bucket
-  ORDER BY RANDOM()
+  ORDER BY self_count NULLS FIRST, RANDOM()
   LIMIT ${numTruths}
 ),
 news AS (
   SELECT * FROM unknown_bucket
-  ORDER BY RANDOM()
+  ORDER BY self_count NULLS FIRST, RANDOM()
   LIMIT ${limit}
 ),
 final_workload AS (
@@ -61,4 +62,6 @@ final_workload AS (
 )
 
 -- Randomize the final selection so all the known images don't show up first every time
-SELECT * FROM final_workload ORDER BY RANDOM();
+SELECT
+  id, url, width, height, is_known
+FROM final_workload ORDER BY RANDOM();
