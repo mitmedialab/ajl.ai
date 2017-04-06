@@ -99,6 +99,9 @@ class PerceivedDemographics extends Component {
         value,
       }],
     });
+    if (this.props.current >= this.props.total) {
+      this.props.onCompleteWorkload();
+    }
   }
 
   openFlagUI() {
