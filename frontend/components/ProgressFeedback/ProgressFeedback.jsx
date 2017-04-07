@@ -29,8 +29,15 @@ const ProgressFeedback = ({ message, show }) => {
 };
 
 ProgressFeedback.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.shape({
+    cta: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired,
+  }),
   show: PropTypes.bool.isRequired,
+};
+
+ProgressFeedback.defaultProps = {
+  message: {},
 };
 
 const mapStateToProps = (state, props) => ({

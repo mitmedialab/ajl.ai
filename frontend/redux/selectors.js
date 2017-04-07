@@ -34,3 +34,5 @@ export const onFirstImage = state =>
 
 export const overallAnnotated = state => Number(state.overallStats.annotated_count);
 export const overallImages = state => Number(state.overallStats.total_count);
+
+export const showFeedbackModal = state => state.ui.feedbackModal;
