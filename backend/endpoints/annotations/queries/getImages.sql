@@ -57,8 +57,11 @@ news AS (
   ORDER BY self_count NULLS FIRST, RANDOM()
   LIMIT ${limit}
 ),
+combined AS (
+  SELECT * FROM knowns UNION SELECT * FROM news
+),
 final_workload AS (
-  SELECT * FROM knowns UNION SELECT * FROM news LIMIT ${limit}
+  SELECT * FROM combined ORDER BY is_known DESC LIMIT ${limit}
 )
 
 -- Randomize the final selection so all the known images don't show up first every time
