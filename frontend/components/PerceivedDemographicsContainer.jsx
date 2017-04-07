@@ -4,6 +4,7 @@ import {
   saveDemographicAnnotations,
   flagImage,
   completeWorkload,
+  showAgeConsentModal,
 } from '../redux/actions';
 import {
   currentWorkloadItem,
@@ -26,7 +27,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onEnter: () => dispatch(requestWorkload()),
+  onEnter: () => {
+    dispatch(requestWorkload());
+    dispatch(showAgeConsentModal());
+  },
   onSubmit: annotations => dispatch(saveDemographicAnnotations(annotations)),
   onFlag: annotation => dispatch(flagImage(annotation)),
   onCompleteWorkload: () => dispatch(completeWorkload()),

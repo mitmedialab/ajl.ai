@@ -124,3 +124,13 @@ export const HIDE_FAQ_MODAL = 'HIDE_FAQ_MODAL';
 export const hideFAQModal = () => ({
   type: HIDE_FAQ_MODAL,
 });
+
+export const SHOW_AGE_CONSENT_MODAL = 'SHOW_AGE_CONSENT_MODAL';
+export const showAgeConsentModal = () => ({
+  type: SHOW_AGE_CONSENT_MODAL,
+});
+
+export const HIDE_AGE_CONSENT_MODAL = 'HIDE_AGE_CONSENT_MODAL';
+export const hideAgeConsentModal = () => ({
+  type: HIDE_AGE_CONSENT_MODAL,
+});

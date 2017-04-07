@@ -15,7 +15,7 @@
     margin: 0;
   }
 
-  h2 {
+  h1, h2 {
     padding: .7em 1em;
     border-bottom: 1px solid $gray-2;
   }
@@ -32,13 +32,16 @@
 
   .modalButtons {
     padding: 0 1em 1em;
+    display: flex;
   }
 }
 
 .button {
   button-aqua()
-  width: 100%;
   text-align: center;
+  flex: 1;
+  margin: 0 .4em;
+  display: inline-block;
 }
 
 .cancel {
