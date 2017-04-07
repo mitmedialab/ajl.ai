@@ -10,18 +10,26 @@
   background: white;
   margin: auto;
   overflow: auto;
-  
-  h2 {
+
+  h2, h3, h4 {
     margin: 0;
+  }
+
+  h2 {
     padding: .7em 1em;
     border-bottom: 1px solid $gray-2;
   }
-  
+
+  h4 {
+    padding: 1.2em 1.2em 0 1.2em;
+    border-top: 1px solid $gray-2;
+  }
+
   p {
     margin: 0;
     padding: 1em 1.2em;
   }
-  
+
   .modalButtons {
     padding: 0 1em 1em;
   }
@@ -29,6 +37,8 @@
 
 .button {
   button-aqua()
+  width: 100%;
+  text-align: center;
 }
 
 .cancel {

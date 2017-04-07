@@ -64,27 +64,8 @@ button:focus {
   padding: .75em;
 }
 
-footer {
-  padding: 2em 0;
-  
-  h4 {
-    color: $light-blue;
-    margin-top: 0;
-    font-weight: 100;
-    font-size: 1.2em;
-  }
-  
-  a {
-    button()
-    display: inline-block;
-    text-decoration: none;
-    padding: 0 2em;
-    color: $font-dark-blue;
-  }
-}
+@media only screen and (min-width: 33em) {
 
-@media only screen and (min-width: 33em) { 
-  
   .wrapper {
     padding: 3em;
   }
@@ -96,8 +77,8 @@ footer {
   margin: auto;
 }
 
-@media only screen and (min-width: 45em) { 
-  
+@media only screen and (min-width: 45em) {
+
   .mainContainer {
     max-width: 1000px;
     margin: auto;

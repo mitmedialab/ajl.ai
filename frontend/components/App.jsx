@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 
 import HeaderContainer from './HeaderContainer';
+import FooterContainer from './FooterContainer';
 import ModalContainer from './ModalContainer';
 
 import Home from './Home';
@@ -15,17 +16,12 @@ const App = () => (
   <Router>
     <div>
       <HeaderContainer />
-
-      {/* Overlays & Modal Dialogs */}
       <ModalContainer />
 
       <Route exact path="/" component={Home} />
       <Route path="/annotate" component={PerceivedDemographicsContainer} />
 
-      <footer>
-        <h4>We welcome your comments</h4>
-        <a href="https://goo.gl/forms/jBwH8fuMqZwLf6Mr2">Submit Feedback</a>
-      </footer>
+      <FooterContainer />
     </div>
 
   </Router>
