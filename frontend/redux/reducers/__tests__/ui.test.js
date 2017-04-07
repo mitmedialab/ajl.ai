@@ -13,7 +13,7 @@ describe('ui reducer', () => {
   it('initializes a default state object', () => {
     const initialState = uiReducer(undefined, {});
     expect(initialState).toEqual({
-      feedbackModal: false,
+      FAQModal: false,
     });
   });
 
@@ -23,36 +23,36 @@ describe('ui reducer', () => {
     expect(nextState).toBe(initialState);
   });
 
-  const { SHOW_FEEDBACK_MODAL } = actions;
-  describe(`on ${SHOW_FEEDBACK_MODAL}`, () => {
+  const { SHOW_FAQ_MODAL } = actions;
+  describe(`on ${SHOW_FAQ_MODAL}`, () => {
 
-    it('sets a state flag to display a feedback modal', () => {
+    it('sets a state flag to display a FAQ modal', () => {
       const initialState = uiReducer(undefined, {});
       const nextState = uiReducer(initialState, {
-        type: SHOW_FEEDBACK_MODAL,
+        type: SHOW_FAQ_MODAL,
       });
       expect(nextState).not.toBe(initialState);
-      expect(nextState.feedbackModal).toBeDefined();
-      expect(nextState.feedbackModal).not.toBe(initialState.feedbackModal);
-      expect(nextState.feedbackModal).toBe(true);
+      expect(nextState.FAQModal).toBeDefined();
+      expect(nextState.FAQModal).not.toBe(initialState.FAQModal);
+      expect(nextState.FAQModal).toBe(true);
     });
 
   });
 
-  const { HIDE_FEEDBACK_MODAL } = actions;
-  describe(`on ${HIDE_FEEDBACK_MODAL}`, () => {
+  const { HIDE_FAQ_MODAL } = actions;
+  describe(`on ${HIDE_FAQ_MODAL}`, () => {
 
-    it('sets a state flag to hide a feedback modal', () => {
+    it('sets a state flag to hide a FAQ modal', () => {
       const initialState = uiReducer({
-        feedbackModal: true,
+        FAQModal: true,
       }, {});
       const nextState = uiReducer(initialState, {
-        type: HIDE_FEEDBACK_MODAL,
+        type: HIDE_FAQ_MODAL,
       });
       expect(nextState).not.toBe(initialState);
-      expect(nextState.feedbackModal).toBeDefined();
-      expect(nextState.feedbackModal).not.toBe(initialState.feedbackModal);
-      expect(nextState.feedbackModal).toBe(false);
+      expect(nextState.FAQModal).toBeDefined();
+      expect(nextState.FAQModal).not.toBe(initialState.FAQModal);
+      expect(nextState.FAQModal).toBe(false);
     });
 
   });

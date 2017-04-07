@@ -115,12 +115,12 @@ export const completeWorkloadFailed = (error, retryAction) => ({
   error: true,
 });
 
-export const SHOW_FEEDBACK_MODAL = 'SHOW_FEEDBACK_MODAL';
-export const showFeedbackModal = () => ({
-  type: SHOW_FEEDBACK_MODAL,
+export const SHOW_FAQ_MODAL = 'SHOW_FAQ_MODAL';
+export const showFAQModal = () => ({
+  type: SHOW_FAQ_MODAL,
 });
 
-export const HIDE_FEEDBACK_MODAL = 'HIDE_FEEDBACK_MODAL';
-export const hideFeedbackModal = () => ({
-  type: HIDE_FEEDBACK_MODAL,
+export const HIDE_FAQ_MODAL = 'HIDE_FAQ_MODAL';
+export const hideFAQModal = () => ({
+  type: HIDE_FAQ_MODAL,
 });

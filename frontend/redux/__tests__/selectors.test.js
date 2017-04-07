@@ -290,26 +290,26 @@ describe('selector functions', () => {
 
   });
 
-  describe('showFeedbackModal', () => {
-    const { showFeedbackModal } = selectors;
+  describe('showFAQModal', () => {
+    const { showFAQModal } = selectors;
 
     it('is a function', () => {
-      expect(showFeedbackModal).toBeDefined();
-      expect(showFeedbackModal).toBeInstanceOf(Function);
+      expect(showFAQModal).toBeDefined();
+      expect(showFAQModal).toBeInstanceOf(Function);
     });
 
-    it('returns true when the feedback modal flag is true', () => {
-      expect(showFeedbackModal({
+    it('returns true when the FAQ modal flag is true', () => {
+      expect(showFAQModal({
         ui: {
-          feedbackModal: true,
+          FAQModal: true,
         },
       })).toBe(true);
     });
 
-    it('returns false when the feedback modal flag is false', () => {
-      expect(showFeedbackModal({
+    it('returns false when the FAQ modal flag is false', () => {
+      expect(showFAQModal({
         ui: {
-          feedbackModal: false,
+          FAQModal: false,
         },
       })).toBe(false);
     });

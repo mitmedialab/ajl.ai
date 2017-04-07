@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { isLoading, appErrors, showFeedbackModal } from '../redux/selectors';
-import { hideFeedbackModal } from '../redux/actions';
+import { isLoading, appErrors, showFAQModal } from '../redux/selectors';
+import { hideFAQModal } from '../redux/actions';
 import { errorProps } from '../services/content';
 
 import LoadingIndicator from './Overlays/Loading';
 import Modal from './Overlays/Modal';
-import FeedbackModal from './Overlays/FeedbackModal';
+import FAQModal from './Overlays/FAQModal';
 
 const getErrorProps = (errors) => {
   if (! errors.length) {
@@ -50,10 +50,10 @@ const ModalContainer = (props) => {
         </Modal>
       ) : null}
 
-      {/* Render Feedback modal if applicable */}
+      {/* Render FAQ modal if applicable */}
 
-      {props.feedbackModalVisible ? (
-        <FeedbackModal onCloseFeedback={props.onCloseFeedback} />
+      {props.FAQModalVisible ? (
+        <FAQModal onCloseFAQ={props.onCloseFAQ} />
       ) : null}
     </div>
   );
@@ -70,18 +70,18 @@ ModalContainer.propTypes = {
     }),
   })).isRequired,
   isLoading: PropTypes.bool.isRequired,
-  onCloseFeedback: PropTypes.func.isRequired,
-  feedbackModalVisible: PropTypes.bool.isRequired,
+  onCloseFAQ: PropTypes.func.isRequired,
+  FAQModalVisible: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   errors: appErrors(state),
   isLoading: isLoading(state),
-  feedbackModalVisible: showFeedbackModal(state),
+  FAQModalVisible: showFAQModal(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onCloseFeedback: () => dispatch(hideFeedbackModal()),
+  onCloseFAQ: () => dispatch(hideFAQModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalContainer);

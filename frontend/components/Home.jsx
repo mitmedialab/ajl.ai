@@ -21,9 +21,8 @@ export default () => (
           <b>
             If data is destiny, how inclusive is our future data-centric
             technology?
-          </b>
-          How representative are the datasets being used to train machines to
-          analyze faces? Help us find out by tagging training images.
+          </b> How representative are the datasets being used to train machines
+          to analyze faces? Help us find out by tagging training images.
           <KnownOverallProgressContainer />
           <a className={styles.homepageButton} href="annotate">Start Tagging</a>
         </section>
