@@ -51,10 +51,10 @@ export function workloadFeedback(count) {
     return { cta: true, text: 'You\'ve completed your first batch, great job! Please tell us about your experience:' };
   }
   if (count === 2) {
-    return { cta: true, text: 'You\'re a champ, keep going! Got any more feedback for us?:' };
+    return { cta: true, text: 'You\'re a champ, that\'s 2 batches, keep going!' };
   }
   if (count === 3) {
-    return { cta: false, text: 'You\'re on fire!' };
+    return { cta: false, text: 'You\'re on a roll, with three batches. Thank you for all your help. Keep it up!' };
   }
   if (count % 10) {
     return '';
