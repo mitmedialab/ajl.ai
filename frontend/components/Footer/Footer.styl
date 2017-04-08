@@ -1,7 +1,20 @@
 @import '../shared/mixins.styl';
 
+body {
+  margin: 0;
+  padding-bottom: 6em;
+}
+
 footer {
   padding: 2em 0;
+  height: 7em;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: $nav-footer;
+  text-align: center;
 
   h4 {
     color: $light-blue;
@@ -21,12 +34,6 @@ footer {
     font-size: 1em;
     margin: 0 .2em;
   }
-}
-
-footer {
-  width: 100%;
-  background: $nav-footer;
-  text-align: center;
 }
 
 @media only screen and (min-width: 33em) {
