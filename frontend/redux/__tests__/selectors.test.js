@@ -290,16 +290,16 @@ describe('selector functions', () => {
 
   });
 
-  describe('showFAQModal', () => {
-    const { showFAQModal } = selectors;
+  describe('makeFAQModalVisible', () => {
+    const { makeFAQModalVisible } = selectors;
 
     it('is a function', () => {
-      expect(showFAQModal).toBeDefined();
-      expect(showFAQModal).toBeInstanceOf(Function);
+      expect(makeFAQModalVisible).toBeDefined();
+      expect(makeFAQModalVisible).toBeInstanceOf(Function);
     });
 
     it('returns true when the FAQ modal flag is true', () => {
-      expect(showFAQModal({
+      expect(makeFAQModalVisible({
         ui: {
           FAQModal: true,
         },
@@ -307,7 +307,7 @@ describe('selector functions', () => {
     });
 
     it('returns false when the FAQ modal flag is false', () => {
-      expect(showFAQModal({
+      expect(makeFAQModalVisible({
         ui: {
           FAQModal: false,
         },
