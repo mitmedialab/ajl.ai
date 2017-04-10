@@ -6,6 +6,7 @@ import {
   appErrors,
   makeFAQModalVisible,
   makeAgeConsentModalVisible,
+  completedWorkloadCount,
 } from '../redux/selectors';
 import { hideFAQModal, hideAgeConsentModal, showFAQModal } from '../redux/actions';
 import { errorProps } from '../services/content';
@@ -63,8 +64,7 @@ const ModalContainer = (props) => {
       ) : null}
 
       {/* Render Age Consent modal if applicable */}
-
-      {props.AgeConsentModalVisible ? (
+      {props.AgeConsentModalVisible && props.completeCount < 1 ? (
         <AgeConsentModal
           onConfirmAgeConsent={props.onConfirmAgeConsent}
           onRejectAgeConsent={props.onRejectAgeConsent}
@@ -90,6 +90,8 @@ ModalContainer.propTypes = {
   onRejectAgeConsent: PropTypes.func.isRequired,
   FAQModalVisible: PropTypes.bool.isRequired,
   AgeConsentModalVisible: PropTypes.bool.isRequired,
+  completeCount: PropTypes.number.isRequired,
+
 };
 
 const mapStateToProps = state => ({
@@ -97,6 +99,7 @@ const mapStateToProps = state => ({
   isLoading: isLoading(state),
   FAQModalVisible: makeFAQModalVisible(state),
   AgeConsentModalVisible: makeAgeConsentModalVisible(state),
+  completeCount: completedWorkloadCount(state),
 });
 
 const mapDispatchToProps = dispatch => ({
