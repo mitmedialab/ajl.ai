@@ -1,29 +1,31 @@
 @import '../shared/mixins.styl';
 
-body {
-  margin: 0;
-  padding-bottom: 6em;
+html, body {
+  height: 100%;
+}
+
+#root {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -9em;
+}
+
+#root:after {
+  content: "";
+  display: block;
+}
+
+footer, #root:after {
+  height: 7em;
 }
 
 footer {
   padding: 2em 0;
-  height: 7em;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
   width: 100%;
   background: $nav-footer;
   text-align: center;
 
-  h4 {
-    color: $light-blue;
-    margin-top: 0;
-    font-weight: 100;
-    font-size: 1.2em;
-  }
-
- button, a {
+  button, a {
     button()
     display: inline-block;
     text-decoration: none;
