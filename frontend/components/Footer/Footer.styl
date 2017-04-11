@@ -7,7 +7,7 @@ html, body {
 #root {
   min-height: 100%;
   /* equal to footer height */
-  margin-bottom: -9em;
+  margin-bottom: -11em;
 }
 
 #root:after {
@@ -16,7 +16,7 @@ html, body {
 }
 
 footer, #root:after {
-  height: 7em;
+  height: 9em;
 }
 
 footer {
@@ -25,8 +25,12 @@ footer {
   background: $nav-footer;
   text-align: center;
 
-  button, a {
-    button()
+  p, a {
+    color: #fff;
+  }
+
+  button, .button {
+    button();
     display: inline-block;
     text-decoration: none;
     padding: 0 2em;
