@@ -1,4 +1,11 @@
 # Image Annotator
+This tool is a work in progress collaboration between Bocoup Research and MIT Civic Media to build an open source tool for crowd sourcing image annotation. Our first campaign with the tool is an annotation project for the [IMDB-Wiki](https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/), the popular computer vision face research data set.
+
+You can read more about that campaign at [ajl.ai](https://ajl.ai).
+
+This repo is currently structured as a base open source annotator, and the IMDB-wiki annotation campaign together.
+
+Moving forward, we'll be working to publish reusable image annotation tools, along with our data and findings. In the meantime, this is a pretty good starting point if you're looking to run a large scale crowd image annotation campaign.  
 
 ## Repository Structure
 
