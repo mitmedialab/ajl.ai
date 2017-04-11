@@ -35,4 +35,5 @@ export const onFirstImage = state =>
 export const overallAnnotated = state => Number(state.overallStats.annotated_count);
 export const overallImages = state => Number(state.overallStats.total_count);
 
-export const showFAQModal = state => state.ui.FAQModal;
+export const makeFAQModalVisible = state => state.ui.FAQModal;
+export const makeAgeConsentModalVisible = state => state.ui.AgeConsentModal;

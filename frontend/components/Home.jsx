@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import KnownOverallProgressContainer from './KnownOverallProgressContainer';
 
@@ -24,7 +24,7 @@ export default () => (
           </b> How representative are the datasets being used to train machines
           to analyze faces? Help us find out by tagging training images.
           <KnownOverallProgressContainer />
-          <a className={styles.homepageButton} href="annotate">Start Tagging</a>
+          <Link className={styles.homepageButton} to="annotate">Start Tagging</Link>
         </section>
         <section>
           <h2>Make a Difference</h2>

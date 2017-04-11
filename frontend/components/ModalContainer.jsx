@@ -1,13 +1,20 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { isLoading, appErrors, showFAQModal } from '../redux/selectors';
-import { hideFAQModal } from '../redux/actions';
+import {
+  isLoading,
+  appErrors,
+  makeFAQModalVisible,
+  makeAgeConsentModalVisible,
+  completedWorkloadCount,
+} from '../redux/selectors';
+import { hideFAQModal, hideAgeConsentModal, showFAQModal } from '../redux/actions';
 import { errorProps } from '../services/content';
 
 import LoadingIndicator from './Overlays/Loading';
 import Modal from './Overlays/Modal';
 import FAQModal from './Overlays/FAQModal';
+import AgeConsentModal from './Overlays/AgeConsentModal';
 
 const getErrorProps = (errors) => {
   if (! errors.length) {
@@ -55,6 +62,14 @@ const ModalContainer = (props) => {
       {props.FAQModalVisible ? (
         <FAQModal onCloseFAQ={props.onCloseFAQ} />
       ) : null}
+
+      {/* Render Age Consent modal if applicable */}
+      {props.AgeConsentModalVisible && props.completeCount < 1 ? (
+        <AgeConsentModal
+          onConfirmAgeConsent={props.onConfirmAgeConsent}
+          onRejectAgeConsent={props.onRejectAgeConsent}
+        />
+      ) : null}
     </div>
   );
 };
@@ -71,17 +86,32 @@ ModalContainer.propTypes = {
   })).isRequired,
   isLoading: PropTypes.bool.isRequired,
   onCloseFAQ: PropTypes.func.isRequired,
+  onConfirmAgeConsent: PropTypes.func.isRequired,
+  onRejectAgeConsent: PropTypes.func.isRequired,
   FAQModalVisible: PropTypes.bool.isRequired,
+  AgeConsentModalVisible: PropTypes.bool.isRequired,
+  completeCount: PropTypes.number.isRequired,
+
 };
 
 const mapStateToProps = state => ({
   errors: appErrors(state),
   isLoading: isLoading(state),
-  FAQModalVisible: showFAQModal(state),
+  FAQModalVisible: makeFAQModalVisible(state),
+  AgeConsentModalVisible: makeAgeConsentModalVisible(state),
+  completeCount: completedWorkloadCount(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   onCloseFAQ: () => dispatch(hideFAQModal()),
+  onConfirmAgeConsent: () => {
+    dispatch(hideAgeConsentModal());
+    dispatch(showFAQModal());
+  },
+  onRejectAgeConsent: () => {
+    dispatch(hideAgeConsentModal());
+    window.location = '/';
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalContainer);
