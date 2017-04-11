@@ -5,6 +5,7 @@ commit: master
 git_repo: https://github.com/bocoup/image-annotator.git
 
 # Get secrets from vault, or an empty dictonary if we don't need them.
+# Note that the `vault` variable is typically populated by secrets.yml
 secrets: "{{vault | default({})}}"
 
 # Control environment variables for each supported environment.
