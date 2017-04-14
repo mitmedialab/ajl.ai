@@ -4,10 +4,6 @@ node_js:
   - "7"
   - "6"
 
-before_install:
-  - npm prune
-  - npm update
-
 cache:
   directories:
     - node_modules
