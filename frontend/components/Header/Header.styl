@@ -20,6 +20,10 @@
   text-align: center;
 }
 
+.nav a:nth-child(2) {
+  display: none;
+}
+
 .nav img {
   width: 40px;
   vertical-align: middle;
@@ -34,6 +38,9 @@
 }
 
 @media only screen and (min-width: 33em) {
+  .nav a:nth-child(2) {
+    display: inline-block;
+  }
   .nav {
     text-align: left;
     background-position: 10px 5px;
