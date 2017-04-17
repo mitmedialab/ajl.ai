@@ -71,7 +71,7 @@ backup_bucket: image-annotator-backup
 # Manage authentication.
 basic_auth: "{{env != 'development'}}"
 basic_auth_users: "{{secrets.users | default([])}}"
-basic_auth_password: kp7NlHvLFraLQ
+basic_auth_password: "{{secrets.default_password | default('extra-secret')}}"
 
 # These variables control which domains nginx responds to.
 # If a domain list is provided in an inventory file, nginx will
