@@ -43,3 +43,4 @@ dist
 **.retry
 
 responses.csv
+annotations.csv

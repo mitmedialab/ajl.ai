@@ -1,0 +1,15 @@
+- hosts: all
+  vars_files:
+    - vars/main.yml
+    - vars/secrets.yml
+  tasks:
+    - name: export annotations
+      shell: psql -c "COPY (SELECT * FROM image_annotation_report) TO STDOUT WITH CSV HEADER"
+      environment: "{{env_vars[env]}}"
+      register: annotations
+
+    - name: write annotations to current directory
+      copy:
+        dest: "{{lookup('env','PWD')}}/annotations.csv"
+        content: "{{annotations.stdout}}"
+      delegate_to: localhost
