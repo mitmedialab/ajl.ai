@@ -41,6 +41,16 @@
         get_md5: no
       register: sha_dir
 
+    # if a commit is specified that has already been checked out,
+    # make sure it is symlinked before aborting the deploy process.
+    - name: rolling back to previously deployed commit {{commit}}
+      file:
+        path: "{{site_path}}"
+        state: link
+        src: "{{base_path}}/{{sha.stdout | default(commit)}}"
+        force: yes
+      when: "{{sha_dir.stat.exists}}"
+
     - name: refuse to continue if commit is already deployed
       fail:
         msg: "{{sha.stdout}} has been deployed already, aborting."
