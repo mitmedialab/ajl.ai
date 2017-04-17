@@ -1,4 +1,4 @@
-DROP VIEW image_annotation_report;
+DROP VIEW IF EXISTS image_annotation_report;
 CREATE OR REPLACE VIEW image_annotation_report AS
   SELECT
     ia.id,
@@ -16,4 +16,4 @@ CREATE OR REPLACE VIEW image_annotation_report AS
     LEFT JOIN workload w ON ia.workload_id = w.id
   ORDER BY ia.id;
 ---
-DROP VIEW image_annotation_report;
+DROP VIEW IF EXISTS image_annotation_report;

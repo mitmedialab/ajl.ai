@@ -12,4 +12,4 @@ CREATE OR REPLACE VIEW image_annotation_report AS
     LEFT JOIN annotation_option ao ON ia.annotation_option_id = ao.id
     LEFT JOIN annotation_attribute aa ON ao.annotation_attribute_id = aa.id;
 ---
-DROP VIEW image_annotation_report;
+DROP VIEW IF EXISTS image_annotation_report;
