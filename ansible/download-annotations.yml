@@ -4,7 +4,7 @@
     - vars/secrets.yml
   tasks:
     - name: export annotations
-      shell: psql -c "COPY (SELECT * FROM image_annotation_report) TO STDOUT WITH CSV"
+      shell: psql -c "COPY (SELECT * FROM image_annotation_report) TO STDOUT WITH CSV HEADER"
       environment: "{{env_vars[env]}}"
       register: annotations
 
