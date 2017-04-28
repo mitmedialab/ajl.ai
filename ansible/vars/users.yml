@@ -45,7 +45,7 @@ users:
   - name: joyab
     real_name: Joy Buolamwini
     state: present
-    shadow_pass: $1$EQg34K1b$AczNn2Sm/lnmCQBxrJzeB1
+    shadow_pass: $1$8CuyDwBe$6Uw/LLnZOKOnDt6Dflddy1
     groups: sudo,{{group}}
     public_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDPLN2fcH4zxEM3ncwCZyxwycUY1VfdfPFXSAstihnDhbAUyPEkx/3LyRrv2mseFujbN3pwpSlrgl0fQ4HdKAmKDB2pwjriWE9oOG5opE51BoHwrkGC43P2P7xjaoV6MDNQCo9aLnYeIV+JW6FEP6jmW0hTRQSUk/X0PA+hIkqmP9zgivpOV0fApIIhDfMxlkrccIi119Ax1raKCrZXqGRyE8keJIa5OsrVTZV/glM6D9C5vh707lvEkJk72WCifW/LVZQi2W7RuGv9BH9ko/zyDaJMeZirD1L3/8bLwMPvr7fOfnh9jtxSXvx17EgcUbJfQIvKqx43mJzncvjszWdj c4rworkshop@github.com
