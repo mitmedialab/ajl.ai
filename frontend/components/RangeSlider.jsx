@@ -7,13 +7,17 @@ export default class RangeSlider extends Component {
     super(props);
     this.state = {
       value: Math.floor((props.min + props.max) / 2),
+      userHasInteracted: false,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleInputChange(event) {
-    this.setState({ value: event.target.value });
+    this.setState({
+      value: event.target.value,
+      userHasInteracted: true,
+    });
   }
 
   handleClick(event) {
@@ -23,6 +27,10 @@ export default class RangeSlider extends Component {
     const { value } = this.state;
 
     this.props.onChange({ target: { name, value: String(value) } });
+    this.setState({
+      value: Math.floor((this.props.min + this.props.max) / 2),
+      userHasInteracted: false,
+    });
   }
 
   render() {
@@ -30,8 +38,23 @@ export default class RangeSlider extends Component {
       props: { min, max },
       state: { value },
     } = this;
+
+    let rangeValue = '';
+
+    if (this.state.userHasInteracted) {
+      rangeValue = (
+        <div>
+          <span className={styles.rangeSliderValueBold}>{value}</span> years old
+        </div>
+      );
+    }
+
+
     return (
       <div className={styles.rangeSlider}>
+        <div className={styles.rangeSliderValue}>
+          {rangeValue}
+        </div>
         <div className={styles.rangeSliderValueLabels}>
           <span className={styles.rangeSliderFirstValue}>10</span>
           <span className={styles.rangeSliderMiddleValue}>55</span>
@@ -43,11 +66,10 @@ export default class RangeSlider extends Component {
           min={min}
           max={max}
           value={value}
+          step="5"
           onChange={this.handleInputChange}
         />
-        <div className={styles.rangeSliderValue}>
-          <span className={styles.rangeSliderValueBold}>{value}</span> years old
-        </div>
+
         <button className={styles.nextButton} onClick={this.handleClick}>Next</button>
       </div>
     );
