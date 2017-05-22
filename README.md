@@ -21,16 +21,14 @@ This project exposes a REST API with the following endpoints:
 
 More information available in [api.md](blob/master/api.md).
 
-## Deployment
+## Deployment & Reporting
 Image Annotator is configured to be deployable on any Ubuntu 16 server. All
 you need is Ansible 2.2x and root access to your desired target machine.
 
-When orchestrating the official production or staging environments you will need
-to submit a PR adding configuration for yourself to `ansible/vars/users.yml`.
-Someone who already has access can provision your account and supply you with
-the needed "Vault password" to enable deployment.
-
-The following commands are available:
+In order to deploy the site or download reports, you will need to submit a PR
+adding configuration for yourself to `ansible/vars/users.yml`. Once this has
+been done, one of our contributors can provision your account and give you the
+"Vault password" needed to run the following commands:
 
 ### npm run edit-secrets
 This will open the secrets file in your default editor. Secret data is managed
@@ -53,6 +51,19 @@ The database residing on the production server is backed up to S3 hourly.
 Running this for any target server will completely replace the database
 with the most recent backup. Take care not to do this for production
 unless you know what you are doing!
+
+#### Reporting
+Running the following commands from the root directory of this repository will
+dump a CSV from our production database to your local machine.
+
+### npm run download-annotations
+This will export all annotation data to `annotations.csv`. You'll be prompted
+for a "Vault password" when running this.
+
+### npm run download-feedback
+This will export all feedback form data to `feedback.csv`. You'll be prompted
+for a "Vault password" when running this. **TODO:** implement a feedback form
+in the UI. At the time of this writing we are using google forms for feedback.
 
 ## Installation
 ### Frontend
