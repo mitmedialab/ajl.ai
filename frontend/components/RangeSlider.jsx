@@ -6,7 +6,7 @@ export default class RangeSlider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: Math.floor((props.min + props.max) / 2),
+      value: props.min,
       userHasInteracted: false,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -28,7 +28,7 @@ export default class RangeSlider extends Component {
 
     this.props.onChange({ target: { name, value: String(value) } });
     this.setState({
-      value: Math.floor((this.props.min + this.props.max) / 2),
+      value: this.props.min,
       userHasInteracted: false,
     });
   }
