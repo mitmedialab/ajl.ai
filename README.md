@@ -1,7 +1,24 @@
 # Image Annotator
+This tool is a work in progress collaboration between [MIT Civic Media](https://civic.mit.edu) and [Bocoup](http://bocoup.com/about) to build an
+open source tool for crowd sourcing image annotation. Our first campaign with the
+
+tool is focused on annotating demographics in [IMDB-Wiki](https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/),
+the largest academic face data set used by computer vision researchers, in order
+to measure bias in that data set.
+
+You can checkout that campaign at [ajl.ai](https://ajl.ai).
+
+This repo is currently structured as a base open source annotator, and the
+IMDB-wiki annotation campaign together.
+
+In the future, we'll be working to publish reusable image annotation tools,
+along with our data and findings. In the meantime, this is a pretty good
+starting point if you're looking to run a large scale crowd image annotation
+campaign.  
 
 ## Repository Structure
 
+- `ansible` - deployment scripts for running the application on Ubuntu 16 server
 - `backend` - back-end api written in node/express/postgress
 - `frontend` - front-end client written in react/redux/webpack
 - `jest` - unit and integration tests
@@ -25,14 +42,15 @@ More information available in [api.md](blob/master/api.md).
 Image Annotator is configured to be deployable on any Ubuntu 16 server. All
 you need is Ansible 2.2x and root access to your desired target machine.
 
-In order to deploy the site or download reports, you will need to submit a PR
-adding configuration for yourself to `ansible/vars/users.yml`. Once this has
-been done, one of our contributors can provision your account and give you the
+The current IMDB-wiki campaign is deployed to Bocoup's infrastructure which is orchastrated from [bocoup/infrastructure-foundation](https://github.com/bocoup/infrastructure-foundation).
+
+In order to deploy to, or download reports from, this server, you will need to submit a PR to this (bocoup/image-annotator) repo adding configuration for yourself to `ansible/vars/users.yml`. Once this has been done, ask one the
+project contributors can provision your account and give you the
 "Vault password" needed to run the following commands:
 
 ### npm run edit-secrets
 This will open the secrets file in your default editor. Secret data is managed
-by Ansible Vault. All secrets are stored in `ansible/vars/secrets.yml`.
+by Ansible Vault. All secrets are stored in [`ansible/vars/secrets.yml`]().
 
 ### npm run provision:[production|staging|vagrant]
 This will prepare a target machine with all system dependencies needed to
