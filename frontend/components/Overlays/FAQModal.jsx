@@ -6,12 +6,16 @@ const FAQModal = ({ onCloseFAQ }) => (
     onConfirm={onCloseFAQ}
     confirmText="Close"
   >
-    <h4>What are we doing?</h4>
+    <h4>Who are you?</h4>
+    <p>
+      We are researchers and engineers from <a href="https://civic.mit.edu">MIT Civic Media</a> and <a href="http://bocoup.com/about">Bocoup</a>.
+    </p>
+    <h4>What are you doing?</h4>
     <p>
       We are annotating IMDB-Wiki, the largest publicly available face-data set
       for researchers, in order to increase data transparency.
     </p>
-    <h4>Why are we doing this?</h4>
+    <h4>Why are you doing this?</h4>
     <p>
       Algorithms used to recognize faces are trained and tested with data sets.
       A lack of diversity in these data sets can lead to biased systems. We
