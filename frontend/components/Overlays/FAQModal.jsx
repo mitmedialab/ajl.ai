@@ -41,7 +41,7 @@ const FAQModal = ({ onCloseFAQ }) => (
       Our data set is based on images from IMDB, and have been auto-cropped.
       During the course of annotating you may come across images with an
       unclear subject, no subject at all, or inappropriate content. We ask you
-      to &lquo;flag&rquo; these images using the flag button underneath each
+      to &quot;flag&quot; these images using the flag button underneath each
       image to help us refine our data set. Thank you!
     </p>
     <h4>How long will this take me?</h4>
