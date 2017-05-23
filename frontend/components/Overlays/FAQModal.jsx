@@ -59,7 +59,7 @@ const FAQModal = ({ onCloseFAQ }) => (
     <p>
       We welcome your feedback on the goals of this project, on the labels we
       are using, and on usability of this app. Please submit your feedback
-      using our project&apos;s feedback from.
+      using our project&apos;s <a href="https://goo.gl/forms/jBwH8fuMqZwLf6Mr2">feedback from</a>.
     </p>
   </Modal>
 );
