@@ -8,7 +8,7 @@ const AgeConsentModal = ({ onConfirmAgeConsent, onRejectAgeConsent }) => (
     onCancel={onRejectAgeConsent}
     cancelText="I Disagree"
   >
-    <h1>Consent Form</h1>
+    <h4>Consent Form</h4>
     <p>
       AJL.AI is part of an ongoing MIT scientific research project. Your
       decision to participate in annotating images is voluntary. We do not
