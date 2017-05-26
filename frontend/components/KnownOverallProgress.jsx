@@ -20,8 +20,9 @@ const KnownOverallProgress = ({
     progress = annotated / images;
   }
   return (<div>
+    <h2>Progress</h2>
     <p>
-      <b>Progress:</b> Volunteers have tagged <b>{hasAnnontated ?
+      Volunteers have tagged <b>{hasAnnontated ?
         annotated : LOADING_ANNOTATED}</b> out of {hasImages ?
         images : LOADING_IMAGES} faces.
     </p>
