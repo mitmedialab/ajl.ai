@@ -230,7 +230,10 @@ class PerceivedDemographics extends Component {
                     })}</ul>
                     <p>
                       You have annotated {currentImage}/{totalImages} images
-                      in this batch! {currentImage < totalImages ? `Complete
+                      in this batch!
+                    </p>
+                    <p>
+                      {currentImage < totalImages ? `Complete
                         this batch to submit your work.` : ''}
                     </p>
                     <button
