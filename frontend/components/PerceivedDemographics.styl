@@ -31,15 +31,6 @@ fieldset, .reviewAnnotations {
   border: 1px solid $gray-2;
   padding: 0 0 .25em;
   margin: 0;
-
-  .progressBarContainer {
-    padding: 0 1em;
-  }
-  .demographicLabels span {
-    width: 33.33%;
-    text-align: center;
-    display: inline-block;
-  }
 }
 
 .reviewAnnotations {
@@ -63,21 +54,37 @@ fieldset, .reviewAnnotations {
   }
 }
 
-.flagButton {
+.skipFlagButton, .flagButton {
   button-aqua();
-  margin: .75em;
+  margin: 1.25em auto;
   display: block;
+  width: 75%;
 }
 
-@media only screen and (min-width: 26em) {
-  .flagButton {
-    margin: 1.25em auto;
+.flagButton {
+  background-color: #db706b;
+}
+
+.flagButton:hover {
+  background-color: #db706b;
+}
+
+
+@media only screen and (max-width: 955px) {
+  .skipFlagButton, .flagButton {
+    width: 90%;
   }
 }
 
-@media only screen and (min-width: 63em) {
-  .flagButton {
-    margin: 1.5em auto;
+@media only screen and (max-width: 780px) {
+  .skipFlagButton, .flagButton {
+    font-size: .9em;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .skipFlagButton, .flagButton {
+    font-size: 1em;
   }
 }
 

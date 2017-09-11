@@ -31,6 +31,7 @@ function order(state = [], action) {
   switch (action.type) {
   case RECEIVE_ATTRIBUTES:
     return action.payload
+      .sort((a, b) => a.sort_order - b.sort_order)
       .filter(question => ! question.flag)
       .map(question => question.name);
 

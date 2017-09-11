@@ -2,6 +2,7 @@ SELECT
   attr.id,
   attr.name,
   attr.type,
+  attr.sort_order,
   jsonb_agg(option.name ORDER BY option.sort_order) as options,
   attr.flag
 

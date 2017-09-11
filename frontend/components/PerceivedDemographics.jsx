@@ -45,7 +45,7 @@ class PerceivedDemographics extends Component {
         [question]: '',
       }), {
         currentStep: 0,
-        showFlagUI: false,
+        showFlagUI: true,
       }));
     }
   }
@@ -163,10 +163,14 @@ class PerceivedDemographics extends Component {
                 <fieldset role="alert" className={styles.fieldset}>
                   <h4 className={styles.PerceivedDemographicTitle}>
                     {flagAttribute.name}
-                    <button type="button" onClick={this.closeFlagUI} className={styles.toggleFlag}>
-                      X <span className={styles.hidden}>Close Flagging Dialog</span>
-                    </button>
                   </h4>
+                  <button
+                    type="button"
+                    onClick={this.closeFlagUI}
+                    className={styles.skipFlagButton}
+                  >
+                    Good Image
+                  </button>
                   {flagAttribute.options.map(option => (
                     <button
                       key={`flag-${option}`}
@@ -180,7 +184,6 @@ class PerceivedDemographics extends Component {
                   ))}
                 </fieldset>
               ) : null}
-
               <form
                 onSubmit={this.handleSubmit}
                 className={classNames({
@@ -208,26 +211,8 @@ class PerceivedDemographics extends Component {
                     >
                       <h4 className={styles.PerceivedDemographicTitle}>
                         {name}
-                        <button
-                          className={styles.toggleFlag}
-                          type="button"
-                          onClick={this.openFlagUI}
-                        >
-                          Flag <span className={styles.hidden}> image as inappropriate</span>
-                        </button>
                       </h4>
 
-                      <div className={styles.progressBarContainer}>
-                        <div className={styles.demographicLabels}>
-                          <span>Age</span><span>Gender</span><span>Ethnicity</span>
-                        </div>
-                        <ProgressBar
-                          className={styles.progressBar}
-                          incrementName="Step"
-                          current={currentStep + 1}
-                          total={questionOrder.length}
-                        />
-                      </div>
                     </PerceivedDemographicQuestion>
                   );
                 })}
