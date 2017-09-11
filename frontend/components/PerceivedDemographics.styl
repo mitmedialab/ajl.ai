@@ -111,7 +111,9 @@ fieldset, .reviewAnnotations {
 
 .save {
   button-aqua()
-  margin: 0 1em 1em;
+  margin: 1em auto;
+  width: 90%;
+  display: block;
 }
 
 .hidden {
@@ -222,18 +224,18 @@ fieldset, .reviewAnnotations {
   }
 }
 
+.reviewAnnotations p {
+  padding: .5em;
+  text-align: center;
+}
+
 @media only screen and (min-width: 26em) {
 
   fieldset .progressBarContainer {
     padding: 0 1.5em;
   }
-
   .reviewAnnotations ul {
     padding: .5em 1.5em 1em 1.5em;
-  }
-
-  .save {
-    margin: 0 1.5em 1.5em;
   }
 
   .rangeSlider {
@@ -270,10 +272,6 @@ fieldset, .reviewAnnotations {
 
   .reviewAnnotations ul {
     padding: 1.5em 2.5em 1.5em 2.5em;
-  }
-
-  .save {
-    margin: 0 2.5em 2.5em;
   }
 
   .rangeSlider {

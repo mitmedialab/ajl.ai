@@ -228,6 +228,11 @@ class PerceivedDemographics extends Component {
                         </li>
                       );
                     })}</ul>
+                    <p>
+                      You have annotated {currentImage}/{totalImages} images
+                      in this batch! {currentImage < totalImages ? `Complete
+                        this batch to submit your work.` : ''}
+                    </p>
                     <button
                       className={classNames(styles.save, {
                         [styles.hidden]: currentStep < questionOrder.length,
