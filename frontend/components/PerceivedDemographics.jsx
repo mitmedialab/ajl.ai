@@ -237,7 +237,7 @@ class PerceivedDemographics extends Component {
                       <p>
 
                         <strong>
-                          {this.props.workloadCount - 1}
+                          {this.props.workloadCount}
                         </strong> sets completed!
 
                       </p>
