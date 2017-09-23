@@ -13,6 +13,7 @@ import {
   demographicAttributes,
   flagAttribute,
   demographicAttributesOrder,
+  completedWorkloadCount,
 } from '../redux/selectors';
 
 import PerceivedDemographics from './PerceivedDemographics';
@@ -24,6 +25,7 @@ const mapStateToProps = state => ({
   questionOrder: demographicAttributesOrder(state),
   current: selectedWorkloadItemIndex(state),
   total: totalWorkloadItemCount(state),
+  workloadCount: completedWorkloadCount(state),
 });
 
 const mapDispatchToProps = dispatch => ({

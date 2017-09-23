@@ -46,8 +46,8 @@ ul, li {
 }
 
 hr {
-  border: 0; 
-  height: 1px; 
+  border: 0;
+  height: 1px;
   background-color: #f0f0f1;
   margin-bottom: 5em;
 }
@@ -97,6 +97,12 @@ button:focus {
   background-color: $gray-1;
   overflow: auto;
   padding: .75em;
+}
+
+@media only screen and (max-width: 30em) {
+  .wrapper {
+    padding: 0em;
+  }
 }
 
 @media only screen and (min-width: 33em) {

@@ -7,6 +7,7 @@ import RadioButtonOption from './RadioButtonOption';
 import RangeSlider from './RangeSlider';
 
 import styles from './PerceivedDemographics.styl';
+import radioStyles from './RadioButtonOption.styl';
 
 // ESLint didn't detect all props as being used without this destructuring...
 const PerceivedDemographicQuestion = ({
@@ -47,7 +48,9 @@ const PerceivedDemographicQuestion = ({
   return (
     <fieldset className={classNames(className, styles.fieldset)}>
       {children}
-      {field}
+      <div className={radioStyles.flexContainer}>
+        {field}
+      </div>
     </fieldset>
   );
 };

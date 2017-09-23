@@ -6,10 +6,6 @@
   padding: 0.75em 0.75em 3.6em;
   border: 1px solid $gray-2;
   background-color: white;
-
-  .progressBarContainer {
-    margin-bottom: .75em;
-  }
 }
 
 .questionsContainer {
@@ -69,6 +65,13 @@ fieldset, .reviewAnnotations {
   background-color: #db706b;
 }
 
+.summaryContainer {
+  background: #d5e1e8;
+  width: 90%;
+  margin: 0 auto 15px auto;
+  padding: 5px;
+  font-style: italic;
+}
 
 @media only screen and (max-width: 955px) {
   .skipFlagButton, .flagButton {
@@ -82,11 +85,41 @@ fieldset, .reviewAnnotations {
   }
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 30em) {
+  button.save {
+  }
+
   .skipFlagButton, .flagButton {
-    font-size: 1em;
+    font-size: .8em;
+  }
+  .progressBarContainer {
+    top: 5px;
+    .progressBar {
+      height: 6px;
+    }
+  }
+  .imageContainer {
+    width: 65%;
+    margin: 0 auto;
+    padding: 0px .5em;
+
+    h4.PerceivedDemographicTitle {
+      font-size: .8em;
+    }
+  }
+  .questionsContainer {
+    margin-top: -22px;
+    margin-bottom: 32px;
+
+    form {
+      margin: 0px;
+    }
+  }
+  .rangeSlider {
+    margin-top: 0px;
   }
 }
+
 
 .prev,
 .save {
@@ -125,6 +158,7 @@ fieldset, .reviewAnnotations {
   margin-top: 1em;
   padding: 1em;
   text-align: center;
+  width: 100%;
 
   .rangeSliderValueBold {
     font-weight: 700;
@@ -236,7 +270,7 @@ fieldset, .reviewAnnotations {
     padding: 0 1.5em;
   }
   .reviewAnnotations ul {
-    padding: .5em 1.5em 1em 1.5em;
+    padding: .5em 1.5em .2em 1.5em;
   }
 
   .rangeSlider {
@@ -272,7 +306,7 @@ fieldset, .reviewAnnotations {
   }
 
   .reviewAnnotations ul {
-    padding: 1.5em 2.5em 1.5em 2.5em;
+    padding: 1.5em 2.5em .2em 2.5em;
   }
 
   .rangeSlider {
