@@ -1,7 +1,7 @@
-/**
+/*
  * A reducer to manage global "overall" statistic on the site so users can see
  * the global contribution to the project.
- **/
+ */
 
 import { RECEIVE_OVERALL_STATS } from '../actions';
 

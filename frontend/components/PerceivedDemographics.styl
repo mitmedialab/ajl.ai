@@ -31,15 +31,6 @@ fieldset, .reviewAnnotations {
   border: 1px solid $gray-2;
   padding: 0 0 .25em;
   margin: 0;
-
-  .progressBarContainer {
-    padding: 0 1em;
-  }
-  .demographicLabels span {
-    width: 33.33%;
-    text-align: center;
-    display: inline-block;
-  }
 }
 
 .reviewAnnotations {
@@ -63,21 +54,37 @@ fieldset, .reviewAnnotations {
   }
 }
 
-.flagButton {
+.skipFlagButton, .flagButton {
   button-aqua();
-  margin: .75em;
+  margin: 1.25em auto;
   display: block;
+  width: 75%;
 }
 
-@media only screen and (min-width: 26em) {
-  .flagButton {
-    margin: 1.25em auto;
+.flagButton {
+  background-color: #db706b;
+}
+
+.flagButton:hover, .flagButton:focus {
+  background-color: #db706b;
+}
+
+
+@media only screen and (max-width: 955px) {
+  .skipFlagButton, .flagButton {
+    width: 90%;
   }
 }
 
-@media only screen and (min-width: 63em) {
-  .flagButton {
-    margin: 1.5em auto;
+@media only screen and (max-width: 780px) {
+  .skipFlagButton, .flagButton {
+    font-size: .9em;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .skipFlagButton, .flagButton {
+    font-size: 1em;
   }
 }
 
@@ -104,7 +111,9 @@ fieldset, .reviewAnnotations {
 
 .save {
   button-aqua()
-  margin: 0 1em 1em;
+  margin: 1em auto;
+  width: 90%;
+  display: block;
 }
 
 .hidden {
@@ -215,18 +224,19 @@ fieldset, .reviewAnnotations {
   }
 }
 
+.reviewAnnotations p {
+  padding: .3em;
+  margin: 0px;
+  text-align: center;
+}
+
 @media only screen and (min-width: 26em) {
 
   fieldset .progressBarContainer {
     padding: 0 1.5em;
   }
-
   .reviewAnnotations ul {
     padding: .5em 1.5em 1em 1.5em;
-  }
-
-  .save {
-    margin: 0 1.5em 1.5em;
   }
 
   .rangeSlider {
@@ -263,10 +273,6 @@ fieldset, .reviewAnnotations {
 
   .reviewAnnotations ul {
     padding: 1.5em 2.5em 1.5em 2.5em;
-  }
-
-  .save {
-    margin: 0 2.5em 2.5em;
   }
 
   .rangeSlider {
