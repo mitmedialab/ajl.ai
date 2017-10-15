@@ -12,7 +12,7 @@
     # Start decrypting secrets (if we need them).
     - include_vars:
         file: vars/secrets.yml
-      when: "{{env != 'development'}}"
+      when: env != 'development'
     # End decrypting secrets.
 
     # Start cloning desired commit.
@@ -49,12 +49,12 @@
         state: link
         src: "{{base_path}}/{{sha.stdout | default(commit)}}"
         force: yes
-      when: "{{sha_dir.stat.exists}}"
+      when: sha_dir.stat.exists
 
     - name: refuse to continue if commit is already deployed
       fail:
         msg: "{{sha.stdout}} has been deployed already, aborting."
-      when: "{{sha_dir.stat.exists}}"
+      when: sha_dir.stat.exists
     # End cloning desired commit.
 
     # Start build tasks.
@@ -117,7 +117,7 @@
         # can display whether or not changes were made).
         xargs -I % sh -c 'rm -rf "$1"; echo "$1"' -- %
       register: remove_result
-      changed_when: "{{remove_result.stdout != ''}}"
+      changed_when: remove_result.stdout != ''
       args:
         chdir: "{{base_path}}"
 
