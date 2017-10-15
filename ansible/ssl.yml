@@ -35,7 +35,8 @@
 
 - name: ensure dehydrated cron job is configured
   cron:
-    name: renew changed or expiring letsencrypt certificates
+    cron_file: ssl
     minute: 0
     hour: 0
+    user: root
     job: "dehydrated --cron | grep 'Done!' >/dev/null && systemctl reload nginx"
