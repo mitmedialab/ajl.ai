@@ -10,14 +10,39 @@
   visually-hidden();
 }
 
-@media only screen and (min-width: 26em) {  
+@media only screen and (min-width: 26em) {
   .radioButton {
     margin: 1.25em 1.5em;
   }
 }
 
-@media only screen and (min-width: 63em) {  
+@media only screen and (min-width: 63em) {
   .radioButton {
     margin: 1.5em 2.5em;
+  }
+}
+
+@media only screen and (max-width: 30em) {
+
+  .flexContainer {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .radioButton {
+    width: 46%;
+    margin: .3em;
+    padding: .4em .3em;
+
+  }
+
+  .radioButton:last-child {
+    width: 98%;
+    background: #db706b;
+    color: #fff;
   }
 }
