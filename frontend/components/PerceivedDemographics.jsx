@@ -228,20 +228,32 @@ class PerceivedDemographics extends Component {
                         </li>
                       );
                     })}</ul>
-                    <p>
-                      You have annotated {currentImage}/{totalImages} images
-                      in this batch!
-                    </p>
-                    <p>
-                      {currentImage < totalImages ? `Complete
-                        this batch to submit your work.` : ''}
-                    </p>
+
+                    <div className={styles.summaryContainer}>
+                      <p>
+                        <strong>{currentImage}/
+                        {totalImages} images</strong> labeled in set!
+                      </p>
+                      <p>
+
+                        <strong>
+                          {this.props.workloadCount}
+                        </strong> {this.props.workloadCount === 1 ?
+                           'set' : 'sets' } completed!
+
+                      </p>
+                      <p>
+                        {currentImage < totalImages ? `Finish
+                          this set to submit these tags.` : ''}
+                      </p>
+                    </div>
                     <button
                       className={classNames(styles.save, {
                         [styles.hidden]: currentStep < questionOrder.length,
                       })}
                       type="submit"
-                    >Next Face</button>
+                    >{currentImage < totalImages ?
+                       'Next Face' : 'Submit Tags'}</button>
                   </div>
                 ) : null}
               </form>
@@ -264,6 +276,8 @@ PerceivedDemographics.propTypes = {
   image: propShapes.workloadItem,
   current: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
+  workloadCount: PropTypes.number.isRequired,
+
 };
 
 PerceivedDemographics.defaultProps = {
