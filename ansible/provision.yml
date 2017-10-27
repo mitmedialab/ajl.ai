@@ -27,7 +27,7 @@
     # Start decrypting secrets (if we need them).
     - include_vars:
         file: vars/secrets.yml
-      when: "{{env != 'development'}}"
+      when: env != 'development'
     # End decrypting secrets.
 
     # Start managing system packages and updates.
@@ -123,7 +123,7 @@
         state: present
         exclusive: yes
       with_items: "{{users}}"
-      when: "{{item.public_keys is defined and item.public_keys | length > 0}}"
+      when: item.public_keys is defined and item.public_keys | length > 0
     # End managing users and permissions.
 
     # Start managing networking.
@@ -172,11 +172,11 @@
       template:
         src: htpasswd.j2
         dest: /etc/nginx/htpasswd
-      when: "{{basic_auth}}"
+      when: basic_auth
       notify: reload nginx
 
     - include: ssl.yml
-      when: "{{env == 'production'}}"
+      when: env == 'production'
     # End managing nginx.
 
     # Start managing PostgreSQL.
@@ -191,7 +191,7 @@
           host all all ::1/128 trust
         force: yes
       notify: restart postgresql
-      when: "{{env == 'development'}}"
+      when: env == 'development'
 
     - name: ensure postgresql is listening on all interfaces in development
       lineinfile:
@@ -199,7 +199,7 @@
         regexp: ^listen_addresses
         line: listen_addresses = '*'
       notify: restart postgresql
-      when: "{{env == 'development'}}"
+      when: env == 'development'
 
     # todo: move to systemd module when this is fixed:
     # https://github.com/ansible/ansible-modules-core/issues/3764
@@ -229,14 +229,14 @@
         src: .pgpass.j2
         dest: /root/.pgpass
         mode: 0600
-      when: "{{env == 'production'}}"
+      when: env == 'production'
 
     - name: ensure database backup script is in place
       template:
         src: backup.sh.j2
         dest: /root/backup.sh
         mode: 0700
-      when: "{{env == 'production'}}"
+      when: env == 'production'
 
     - name: ensure database is backed up hourly
       cron:
@@ -245,7 +245,7 @@
         job: /root/backup.sh
         cron_file: backup
         user: root
-      when: "{{env == 'production'}}"
+      when: env == 'production'
     # End managing PostgreSQL.
 
     # Start managing API service.
