@@ -39,4 +39,4 @@
     minute: 0
     hour: 0
     user: root
-    job: "dehydrated --cron | grep 'Done!' >/dev/null && systemctl reload nginx"
+    job: "/usr/local/bin/dehydrated --cron | grep 'Done!' >/dev/null && systemctl reload nginx"
