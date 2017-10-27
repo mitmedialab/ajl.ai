@@ -110,7 +110,7 @@ to you!
 **If you have Docker on your machine, do the following:**
 ```
 docker run --name ia-pg -d -p 5432:5432 -i postgres
-docker exec -it ia-pg su postgres -c 'CREATEDB image-annotator'
+docker exec -it ia-pg su postgres -c 'createdb image-annotator'
 npm run migrate:up
 npm start
 
