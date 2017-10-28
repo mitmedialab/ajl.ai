@@ -126,6 +126,11 @@ class PerceivedDemographics extends Component {
       }],
     });
     if (this.props.current >= this.props.total) {
+      if (this.props.workloadCount < 1) {
+        this.setState({
+          collectDemographics: true,
+        });
+      }
       this.props.onCompleteWorkload();
     }
   }
