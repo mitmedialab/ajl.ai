@@ -31,7 +31,7 @@ export default () => (
               Help us check for bias by tagging pictures of celebrities with demographic labels.
             </li>
             <li>
-              <Link className={styles.homepageButton} to="annotate">Start Tagging</Link>
+              <Link className={styles.homepageButton} to="annotate">Accept Mission</Link>
             </li>
           </ul>
         </div>

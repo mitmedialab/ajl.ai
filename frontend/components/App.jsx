@@ -9,6 +9,7 @@ import FooterContainer from './FooterContainer';
 import ModalContainer from './ModalContainer';
 
 import Home from './Home';
+import About from './About';
 import PerceivedDemographicsContainer from './PerceivedDemographicsContainer';
 import './App.styl';
 
@@ -20,6 +21,7 @@ const App = () => (
 
       <Route exact path="/" component={Home} />
       <Route path="/annotate" component={PerceivedDemographicsContainer} />
+      <Route path="/about" component={About} />
 
       <FooterContainer />
     </div>

@@ -4,9 +4,9 @@ import Modal from './Modal';
 const AgeConsentModal = ({ onConfirmAgeConsent, onRejectAgeConsent }) => (
   <Modal
     onConfirm={onConfirmAgeConsent}
-    confirmText="I Agree"
+    confirmText="Agree"
     onCancel={onRejectAgeConsent}
-    cancelText="I Disagree"
+    cancelText="Disagree"
   >
     <h4>Consent Form</h4>
     <p>
