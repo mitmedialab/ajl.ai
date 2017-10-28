@@ -12,14 +12,14 @@
   position: relative;
   margin-top: -52px;
 
-  h4.PerceivedDemographicTitle {
-    text-transform: uppercase;
-    font-weight: 700;
-    padding: .75em 0;
-    margin: 0 0 1em;
-    text-align: center;
-    border-bottom: 1px solid $gray-2;
-  }
+}
+h4.PerceivedDemographicTitle {
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: .75em 0;
+  margin: 0 0 1em;
+  text-align: center;
+  border-bottom: 1px solid $gray-2;
 }
 
 fieldset, .reviewAnnotations {
@@ -29,6 +29,13 @@ fieldset, .reviewAnnotations {
   margin: 0;
 }
 
+.button {
+  button-aqua();
+  margin: 1.25em auto;
+  display: block;
+  width: 75%;
+}
+
 .reviewAnnotations {
 
   ul {
@@ -36,6 +43,13 @@ fieldset, .reviewAnnotations {
     padding: 0 1em 1em;
     margin: 0;
     line-height: 2em;
+  }
+
+  input[type=text] {
+    width: 75%;
+    margin: 5% auto;
+    display: block;
+    padding: 2%;
   }
 }
 
@@ -50,14 +64,14 @@ fieldset, .reviewAnnotations {
   }
 }
 
-.skipFlagButton, .flagButton {
+.skipFlagButton, .flagButton, .optOut, .contribute {
   button-aqua();
   margin: 1.25em auto;
   display: block;
   width: 75%;
 }
 
-.flagButton {
+.flagButton, .optOut {
   background-color: #db706b;
 }
 

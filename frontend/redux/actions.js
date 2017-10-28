@@ -115,6 +115,22 @@ export const completeWorkloadFailed = (error, retryAction) => ({
   error: true,
 });
 
+export const POST_DEMOGRAPHICS = 'POST_DEMOGRAPHICS';
+export const postDemographics = workload => ({
+  type: POST_DEMOGRAPHICS,
+  payload: workload,
+});
+
+export const POST_DEMOGRAPHICS_FAILED = 'POST_DEMOGRAPHICS_FAILED';
+export const postDemographicsFailed = (error, retryAction) => ({
+  type: POST_DEMOGRAPHICS_FAILED,
+  payload: {
+    error,
+    retryAction,
+  },
+  error: true,
+});
+
 export const SHOW_FAQ_MODAL = 'SHOW_FAQ_MODAL';
 export const showFAQModal = () => ({
   type: SHOW_FAQ_MODAL,
