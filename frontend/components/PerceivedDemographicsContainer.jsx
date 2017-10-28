@@ -5,6 +5,7 @@ import {
   flagImage,
   completeWorkload,
   showAgeConsentModal,
+  postDemographics,
 } from '../redux/actions';
 import {
   currentWorkloadItem,
@@ -36,6 +37,7 @@ const mapDispatchToProps = dispatch => ({
   onSubmit: annotations => dispatch(saveDemographicAnnotations(annotations)),
   onFlag: annotation => dispatch(flagImage(annotation)),
   onCompleteWorkload: () => dispatch(completeWorkload()),
+  onAnnotatorDemographics: data => dispatch(postDemographics(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PerceivedDemographics);

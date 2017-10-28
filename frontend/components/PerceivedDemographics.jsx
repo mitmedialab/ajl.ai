@@ -21,6 +21,7 @@ class PerceivedDemographics extends Component {
     this.state = {
       currentStep: 0,
       showFlagUI: false,
+      collectDemographics: false,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -29,6 +30,7 @@ class PerceivedDemographics extends Component {
     this.prevStep = this.prevStep.bind(this);
     this.openFlagUI = this.openFlagUI.bind(this);
     this.closeFlagUI = this.closeFlagUI.bind(this);
+    this.handleSelfDescription = this.handleSelfDescription.bind(this);
   }
 
   componentDidMount() {
@@ -82,10 +84,34 @@ class PerceivedDemographics extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.onSubmit(this.prepareAnnotationsObject());
+
     if (this.props.current >= this.props.total) {
+      if (this.props.workloadCount < 1) {
+        this.setState({
+          collectDemographics: true,
+        });
+      }
       this.props.onCompleteWorkload();
     }
   }
+
+  handleSelfDescription(event) {
+    event.preventDefault();
+    const contribute = event.target.className.indexOf('contribute');
+    if (contribute) {
+      const demographics = {
+        age: document.querySelector('.annotatorAge').value,
+        gender: document.querySelector('.annotatorGender').value,
+        ethnicity: document.querySelector('.annotatorEthnicity').value,
+      };
+      this.props.onAnnotatorDemographics(demographics);
+    }
+
+    this.setState({
+      collectDemographics: false,
+    });
+  }
+
 
   handleFlag(event) {
     event.preventDefault();
@@ -128,7 +154,7 @@ class PerceivedDemographics extends Component {
   }
 
   render() {
-    const { currentStep, showFlagUI } = this.state;
+    const { currentStep, showFlagUI, collectDemographics } = this.state;
     const {
       demographicAttributes,
       questionOrder,
@@ -140,125 +166,153 @@ class PerceivedDemographics extends Component {
       <div>
         <ProgressFeedbackContainer show={currentStep === 0} />
         <div className={styles.wrapper}>
-          <div className={styles.mainContainer}>
-            <div className={styles.imageContainer}>
-              <div className={styles.progressBarContainer}>
-                <ProgressBar
-                  className={styles.progressBar}
-                  incrementName="Image"
-                  current={currentImage}
-                  total={totalImages}
-                />
+          {! collectDemographics ? (
+            <div className={styles.mainContainer}>
+              <div className={styles.imageContainer}>
+                <div className={styles.progressBarContainer}>
+                  <ProgressBar
+                    className={styles.progressBar}
+                    incrementName="Image"
+                    current={currentImage}
+                    total={totalImages}
+                  />
+                </div>
+                <ProportionalContainer maxWidth="500px" widthHeightRatio={1}>
+                  <img
+                    src={this.props.image && this.props.image.url}
+                    alt="A face to label with perceived demographic information"
+                  />
+                </ProportionalContainer>
               </div>
-              <ProportionalContainer maxWidth="500px" widthHeightRatio={1}>
-                <img
-                  src={this.props.image && this.props.image.url}
-                  alt="A face to label with perceived demographic information"
-                />
-              </ProportionalContainer>
-            </div>
 
-            <div className={styles.questionsContainer}>
-              {flagAttribute && showFlagUI ? (
-                <fieldset role="alert" className={styles.fieldset}>
-                  <h4 className={styles.PerceivedDemographicTitle}>
-                    {flagAttribute.name}
-                  </h4>
-                  <button
-                    type="button"
-                    onClick={this.closeFlagUI}
-                    className={styles.skipFlagButton}
-                  >
-                    Good Image
-                  </button>
-                  {flagAttribute.options.map(option => (
+              <div className={styles.questionsContainer}>
+                {flagAttribute && showFlagUI ? (
+                  <fieldset role="alert" className={styles.fieldset}>
+                    <h4 className={styles.PerceivedDemographicTitle}>
+                      {flagAttribute.name}
+                    </h4>
                     <button
-                      key={`flag-${option}`}
-                      className={styles.flagButton}
                       type="button"
-                      value={option}
-                      onClick={this.handleFlag}
+                      onClick={this.closeFlagUI}
+                      className={styles.skipFlagButton}
                     >
-                      {option}
+                      Good Image
                     </button>
-                  ))}
-                </fieldset>
-              ) : null}
-              <form
-                onSubmit={this.handleSubmit}
-                className={classNames({
-                  [styles.hidden]: showFlagUI,
-                })}
-              >
-                {currentStep !== 0 ? (
-                  <button
-                    className={styles.prev}
-                    type="button"
-                    onClick={this.prevStep}
-                  >◀</button>
+                    {flagAttribute.options.map(option => (
+                      <button
+                        key={`flag-${option}`}
+                        className={styles.flagButton}
+                        type="button"
+                        value={option}
+                        onClick={this.handleFlag}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </fieldset>
                 ) : null}
-                {questionOrder.map((questionName, idx) => {
-                  const { id, name, type, options } = demographicAttributes[questionName];
-                  return (
-                    <PerceivedDemographicQuestion
-                      key={`question_${strToId(name)}_${id}`}
-                      className={currentStep !== idx ? styles.hidden : ''}
-                      name={name}
-                      annotationType={type}
-                      options={options}
-                      selected={this.state[name]}
-                      onChange={this.handleInputChange}
-                    >
-                      <h4 className={styles.PerceivedDemographicTitle}>
-                        {name}
-                      </h4>
-
-                    </PerceivedDemographicQuestion>
-                  );
-                })}
-                {currentStep >= questionOrder.length ? (
-                  <div className={styles.reviewAnnotations} role="alert">
-                    <h4 className={styles.PerceivedDemographicTitle}>Review Your Tags</h4>
-                    <ul>{questionOrder.map((questionName) => {
-                      const { name } = demographicAttributes[questionName];
-                      const value = this.state[name];
-                      return (
-                        <li key={`confirmation_${name}`}>
-                          {name}: <strong>{value}</strong>
-                        </li>
-                      );
-                    })}</ul>
-
-                    <div className={styles.summaryContainer}>
-                      <p>
-                        <strong>{currentImage}/
-                        {totalImages} images</strong> labeled in set!
-                      </p>
-                      <p>
-
-                        <strong>
-                          {this.props.workloadCount}
-                        </strong> {this.props.workloadCount === 1 ?
-                           'set' : 'sets' } completed!
-
-                      </p>
-                      <p>
-                        {currentImage < totalImages ? `Finish
-                          this set to submit these tags.` : ''}
-                      </p>
-                    </div>
+                <form
+                  onSubmit={this.handleSubmit}
+                  className={classNames({
+                    [styles.hidden]: showFlagUI,
+                  })}
+                >
+                  {currentStep !== 0 ? (
                     <button
-                      className={classNames(styles.save, {
-                        [styles.hidden]: currentStep < questionOrder.length,
-                      })}
-                      type="submit"
-                    >{currentImage < totalImages ?
-                       'Next Face' : 'Submit Tags'}</button>
-                  </div>
-                ) : null}
-              </form>
+                      className={styles.prev}
+                      type="button"
+                      onClick={this.prevStep}
+                    >◀</button>
+                  ) : null}
+                  {questionOrder.map((questionName, idx) => {
+                    const { id, name, type, options } = demographicAttributes[questionName];
+                    return (
+                      <PerceivedDemographicQuestion
+                        key={`question_${strToId(name)}_${id}`}
+                        className={currentStep !== idx ? styles.hidden : ''}
+                        name={name}
+                        annotationType={type}
+                        options={options}
+                        selected={this.state[name]}
+                        onChange={this.handleInputChange}
+                      >
+                        <h4 className={styles.PerceivedDemographicTitle}>
+                          {name}
+                        </h4>
+
+                      </PerceivedDemographicQuestion>
+                    );
+                  })}
+                  {currentStep >= questionOrder.length ? (
+                    <div className={styles.reviewAnnotations} role="alert">
+                      <h4 className={styles.PerceivedDemographicTitle}>Review Your Tags</h4>
+                      <ul>{questionOrder.map((questionName) => {
+                        const { name } = demographicAttributes[questionName];
+                        const value = this.state[name];
+                        return (
+                          <li key={`confirmation_${name}`}>
+                            {name}: <strong>{value}</strong>
+                          </li>
+                        );
+                      })}</ul>
+
+                      <div className={styles.summaryContainer}>
+                        <p>
+                          <strong>{currentImage}/
+                          {totalImages} images</strong> labeled in set!
+                        </p>
+                        <p>
+
+                          <strong>
+                            {this.props.workloadCount}
+                          </strong> {this.props.workloadCount === 1 ?
+                             'set' : 'sets' } completed!
+
+                        </p>
+                        <p>
+                          {currentImage < totalImages ? `Finish
+                            this set to submit these tags.` : ''}
+                        </p>
+                      </div>
+                      <button
+                        className={classNames(styles.save, {
+                          [styles.hidden]: currentStep < questionOrder.length,
+                        })}
+                        type="submit"
+                      >{currentImage < totalImages ?
+                         'Next Face' : 'Submit Tags'}</button>
+                    </div>
+                  ) : null}
+                </form>
+              </div>
             </div>
-          </div>
+          ) :
+            <form
+              className={styles.reviewAnnotations}
+              onSubmit={this.handleSelfDescription}
+            >
+              <h4 className={styles.PerceivedDemographicTitle}>
+                Share Your Demographics
+              </h4>
+              <input placeholder="age" className="annotatorAge" type="text" />
+              <input placeholder="gender" className="annotatorGender" type="text" />
+              <input placeholder="ethnicity" className="annotatorEthnicity" type="text" />
+              <button
+                type="button"
+                onClick={this.handleSelfDescription}
+                className={styles.contribute}
+              >
+                Contribute
+              </button>
+              <button
+                type="button"
+                onClick={this.handleSelfDescription}
+                className={styles.optOut}
+              >
+                Opt Out
+              </button>
+            </form>
+         }
         </div>
       </div>
     );
@@ -270,6 +324,7 @@ PerceivedDemographics.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onFlag: PropTypes.func.isRequired,
   onCompleteWorkload: PropTypes.func.isRequired,
+  onAnnotatorDemographics: PropTypes.func.isRequired,
   demographicAttributes: PropTypes.objectOf(propShapes.demographicQuestion).isRequired,
   flagAttribute: PropTypes.string.isRequired,
   questionOrder: propShapes.demographicsQuestionList.isRequired,

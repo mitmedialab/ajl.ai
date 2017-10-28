@@ -4,12 +4,15 @@ import {
   getOverallStats,
   getWorkload,
   postWorkload,
+  postAnnotatorDemographics,
 } from '../services/api';
 import {
   REQUEST_ATTRIBUTES, receiveAttributes, requestAttributesFailed,
   REQUEST_OVERALL_STATS, receiveOverallStats, requestOverallStatsFailed,
   REQUEST_WORKLOAD, receiveWorkload, requestWorkloadFailed,
   COMPLETE_WORKLOAD, completeWorkloadFailed,
+  POST_DEMOGRAPHICS,
+  POST_DEMOGRAPHICS_FAILED, postDemographicsFailed,
 } from './actions';
 import { imageAnnotations } from './selectors';
 
@@ -53,6 +56,14 @@ export function* completeWorkload(action) {
   }
 }
 
+export function* postDemographicsSaga(action) {
+  try {
+    yield call(postAnnotatorDemographics, action.payload);
+  } catch (e) {
+    yield put(postDemographicsFailed(e, action));
+  }
+}
+
 // Export a single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield [
@@ -60,5 +71,7 @@ export default function* rootSaga() {
     fork(takeLatest, REQUEST_OVERALL_STATS, requestOverallStats),
     fork(takeLatest, REQUEST_WORKLOAD, requestWorkload),
     fork(takeLatest, COMPLETE_WORKLOAD, completeWorkload),
+    fork(takeLatest, POST_DEMOGRAPHICS, postDemographicsSaga),
+    fork(takeLatest, POST_DEMOGRAPHICS_FAILED, postDemographicsFailed),
   ];
 }
