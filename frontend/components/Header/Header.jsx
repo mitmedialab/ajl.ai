@@ -8,6 +8,7 @@ const Header = () => (
     <nav className={styles.nav}>
       <Link to="/">Home</Link>
       <Link to="/annotate">Annotate</Link>
+      <Link to="/about">About</Link>
     </nav>
   </header>
 );
