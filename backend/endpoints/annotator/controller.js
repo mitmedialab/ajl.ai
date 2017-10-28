@@ -12,6 +12,7 @@ export function postAnnotatorDemographics(req, res) {
     age: annotatorDemographics.age,
     gender: annotatorDemographics.gender,
     ethnicity: annotatorDemographics.ethnicity,
+    country: annotatorDemographics.country,
   });
 
   res.send(204, '');

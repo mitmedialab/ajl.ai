@@ -1,5 +1,6 @@
 UPDATE annotator set
   age = ${age},
   gender = ${gender},
-  ethnicity = ${ethnicity}
+  ethnicity = ${ethnicity},
+  country = ${country}
 WHERE id = ${id};
