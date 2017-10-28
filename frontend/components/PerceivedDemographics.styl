@@ -45,11 +45,20 @@ fieldset, .reviewAnnotations {
     line-height: 2em;
   }
 
+  label {
+    vertical-align: middle;
+    width: 75%;
+    display: block;
+    margin: 5px auto 2px auto;
+    font-size: .8em;
+  }
+
   input[type=text] {
     width: 75%;
-    margin: 5% auto;
     display: block;
-    padding: 2%;
+    margin: 2px auto 10px auto;
+    padding: 3px;
+    border: 1px solid $gray-2;
   }
 }
 
@@ -69,6 +78,10 @@ fieldset, .reviewAnnotations {
   margin: 1.25em auto;
   display: block;
   width: 75%;
+}
+
+.optOut {
+  margin-bottom: 40px;
 }
 
 .flagButton, .optOut {
@@ -100,9 +113,6 @@ fieldset, .reviewAnnotations {
 }
 
 @media only screen and (max-width: 30em) {
-  button.save {
-  }
-
   .skipFlagButton, .flagButton {
     font-size: .8em;
   }
@@ -279,6 +289,14 @@ fieldset, .reviewAnnotations {
 }
 
 @media only screen and (min-width: 26em) {
+  .reviewAnnotations {
+    label {
+      font-size: 1em;
+    }
+    input[type=text] {
+      padding: 10px;
+    }
+  }
 
   fieldset .progressBarContainer {
     padding: 0 1.5em;
@@ -293,6 +311,11 @@ fieldset, .reviewAnnotations {
 }
 
 @media only screen and (min-width: 45em) {
+  .reviewAnnotations {
+    label, input[type=text], .optOut, .contribute {
+      width: 40%;
+    }
+  }
 
   .imageContainer{
     padding-bottom: .75em;
