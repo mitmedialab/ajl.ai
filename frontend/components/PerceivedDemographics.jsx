@@ -103,6 +103,7 @@ class PerceivedDemographics extends Component {
         age: document.querySelector('.annotatorAge').value,
         gender: document.querySelector('.annotatorGender').value,
         ethnicity: document.querySelector('.annotatorEthnicity').value,
+        country: document.querySelector('.annotatorCountry').value,
       };
       this.props.onAnnotatorDemographics(demographics);
     }
@@ -299,9 +300,18 @@ class PerceivedDemographics extends Component {
               <h4 className={styles.PerceivedDemographicTitle}>
                 Share Your Demographics
               </h4>
-              <input placeholder="age" className="annotatorAge" type="text" />
-              <input placeholder="gender" className="annotatorGender" type="text" />
-              <input placeholder="ethnicity" className="annotatorEthnicity" type="text" />
+
+              <label htmlFor="age">Age</label>
+              <input id="age" className="annotatorAge" type="text" />
+
+              <label htmlFor="gender">Gender</label>
+              <input id="gender" className="annotatorGender" type="text" />
+
+              <label htmlFor="ethnicity">Ethnicity</label>
+              <input id="ethnicity" className="annotatorEthnicity" type="text" />
+
+              <label htmlFor="country">Country of Residence</label>
+              <input id="country" className="annotatorCountry" type="text" />
               <button
                 type="button"
                 onClick={this.handleSelfDescription}
