@@ -1,12 +1,11 @@
 # Image Annotator
-This tool is a work in progress collaboration between [MIT Civic Media](https://civic.mit.edu) and [Bocoup](http://bocoup.com/about) to build an open source tool for crowd sourcing image annotation. Our first campaign with the tool is focused on annotating demographics in [IMDB-Wiki](https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/),
-the largest academic face data set used by computer vision researchers, in order to measure bias in that data set.
+This tool is a work in progress collaboration between [MIT Civic Media](https://civic.mit.edu) and [Bocoup](http://bocoup.com/about) to build an open source tool for crowd sourcing image annotation. Our first campaign with the tool is focused on annotating demographics in [VGG Faces](http://www.robots.ox.ac.uk/~vgg/data/vgg_face/).
 
 You can checkout that campaign at [ajl.ai](https://ajl.ai).
 
-This repo is currently structured as a base open source annotator, and the  IMDB-wiki annotation campaign together.
+This repo is currently structured as a base open source annotator, and the  VGG Faces annotation campaign together.
 
-In the future, we'll be working to publish reusable image annotation tools, along with our data and findings. In the meantime, this is a pretty good starting point if you're looking to run a large scale crowd image annotation campaign.  
+In the future, we'll be working to publish reusable image annotation tools, along with our data and findings. In the meantime, this is a good starting point if you're looking to run a large scale crowd image annotation campaign.  
 
 ## Repository Structure
 
@@ -34,9 +33,9 @@ More information available in [api.md](blob/master/api.md).
 Image Annotator is configured to be deployable on any Ubuntu 16 server. All
 you need is Ansible 2.2x and root access to your desired target machine.
 
-The current IMDB-wiki campaign is deployed to Bocoup's infrastructure which is orchastrated from [bocoup/infrastructure-foundation](https://github.com/bocoup/infrastructure-foundation).
+The current VGG Faces campaign is deployed to Bocoup's infrastructure which is orchastrated from [bocoup/infrastructure-foundation](https://github.com/bocoup/infrastructure-foundation).
 
-In order to deploy to, or download reports from, this server, you will need to submit a PR to this (bocoup/image-annotator) repo adding configuration for yourself to `ansible/vars/users.yml`. Once this has been done, ask one the
+In order to deploy to, or download reports from, this server, you will need to submit a PR to this (mitmedialab/ajl.ai) repo adding configuration for yourself to `ansible/vars/users.yml`. Once this has been done, ask one the
 project contributors can provision your account and give you the
 "Vault password" needed to run the following commands:
 
@@ -85,11 +84,11 @@ The front end currently needs the local node/postgres backend running (installat
 
 #### Other commands
 
-These commands are available after installation within the `image-annotator/` directory:
+These commands are available after installation within the `ajl.ai/` directory:
 
 - `npm test`: run unit tests with Jest, then lint on exit
 - `npm run lint`: run ESLint to identify syntax & style issues in the code
-- `npm run build`: generate a static build into `image-annotator/dist`
+- `npm run build`: generate a static build into `ajl.ai/dist`
 - `npm run storybook`: launch [React Storybook](https://getstorybook.io) for component development (accessible at [localhost:6006](http://localhost:6006) by default)
 
 ### backend
