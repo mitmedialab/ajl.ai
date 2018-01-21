@@ -1,6 +1,8 @@
 WITH
 
 -- Get a count for how many annotations this annotator has put on each image
+-- This will be used to make sure that we don't give the same image to an
+-- annotator more than once.
 annotator AS (
   SELECT
     image_id,
@@ -38,12 +40,12 @@ all_images AS (
 known_bucket AS (
   SELECT * FROM all_images
   WHERE is_known
-  LIMIT 1000
+  LIMIT 2500
 ),
 unknown_bucket AS (
   SELECT * FROM all_images
   WHERE NOT is_known
-  LIMIT 2000
+  LIMIT 200
 ),
 
 -- Select the right number of known/unknowns at random from the buckets
